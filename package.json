@@ -1,0 +1,35 @@
+{
+  "name": "gender-gap-clock",
+  "version": "0.1.0",
+  "devDependencies": {
+    "babel-core": "6.24.0",
+    "babel-preset-es2015-rollup": "3.0.0",
+    "browser-sync": "2.18.8",
+    "del": "2.2.2",
+    "gulp": "3.9.1",
+    "gulp-add-src": "0.2.0",
+    "gulp-autoprefixer": "3.1.1",
+    "gulp-changed-in-place": "2.2.0",
+    "gulp-clean-css": "3.0.4",
+    "gulp-concat": "2.6.1",
+    "gulp-htmlmin": "3.0.0",
+    "gulp-jshint": "2.0.4",
+    "gulp-load-plugins": "1.5.0",
+    "gulp-sass": "3.1.0",
+    "gulp-stylelint": "3.9.0",
+    "gulp-uglify": "2.1.2",
+    "jshint": "2.9.4",
+    "rollup-plugin-babel": "2.7.1",
+    "rollup-plugin-commonjs": "8.0.2",
+    "rollup-plugin-node-resolve": "3.0.0",
+    "rollup-stream": "1.19.0",
+    "stylelint-csstree-validator": "1.1.1",
+    "stylelint-order": "0.4.3",
+    "stylelint-suitcss": "1.0.0",
+    "vinyl-buffer": "1.0.0",
+    "vinyl-source-stream": "1.1.0"
+  },
+  "dependencies": {
+    "normalize.css": "6.0.0"
+  }
+}

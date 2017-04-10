@@ -9,7 +9,6 @@
     "gulp": "3.9.1",
     "gulp-add-src": "0.2.0",
     "gulp-autoprefixer": "3.1.1",
-    "gulp-changed-in-place": "2.2.0",
     "gulp-clean-css": "3.0.4",
     "gulp-concat": "2.6.1",
     "gulp-htmlmin": "3.0.0",
@@ -23,9 +22,8 @@
     "rollup-plugin-commonjs": "8.0.2",
     "rollup-plugin-node-resolve": "3.0.0",
     "rollup-stream": "1.19.0",
-    "stylelint-csstree-validator": "1.1.1",
     "stylelint-order": "0.4.3",
-    "stylelint-suitcss": "1.0.0",
+    "stylelint-selector-bem-pattern": "1.0.0",
     "vinyl-buffer": "1.0.0",
     "vinyl-source-stream": "1.1.0"
   },

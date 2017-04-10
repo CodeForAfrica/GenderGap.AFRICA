@@ -1,0 +1,24 @@
+/** @define section; weak */
+
+.section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.section__header {
+  height: 70vh;
+}
+
+.section__body {
+  height: 30vh;
+}
+
+.section--homepage .button {
+  margin-bottom: 16px;
+  padding: 15px 80px;
+  font-size: 26px;
+  letter-spacing: 4px;
+}

@@ -1,3 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+/*
+ * 1. Consistent font weights between OSX and other platforms.
+ * 2. html is set to 62.5% so that all the REM measurements
+ *    are based on 10px sizing. So basically 1.5rem = 15px.
+ */
+html {
+  -moz-osx-font-smoothing: grayscale;     /* 1. */
+  -webkit-font-smoothing: antialiased;    /* 1. */
+  font-size: 62.5%;  /* 2. */
+}
+
 body {
   margin: 0;
+  font-family: "proxima-nova", "Arial", sans-serif;
 }

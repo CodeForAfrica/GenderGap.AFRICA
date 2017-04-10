@@ -1,0 +1,15 @@
+/** @define utilities */
+
+.u-background-dark {
+  background-color: $background-color-dark !important;
+}
+
+.u-text-center {
+  text-align: center !important;
+}
+
+.u-vertical-and-horizontal-centering {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

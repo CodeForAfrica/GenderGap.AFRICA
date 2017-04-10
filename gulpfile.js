@@ -17,8 +17,7 @@ gulp.task('default', ['lint', 'build']);
 gulp.task('lint', ['lint:styles', 'lint:scripts']);
 
 gulp.task('lint:styles', () => {
-  return gulp.src('css/styles.scss')
-    .pipe(plugins.changedInPlace())
+  return gulp.src('css/**/*.scss')
     .pipe(plugins.stylelint({
       reporters: [
         { formatter: 'string', console: true }
@@ -28,7 +27,6 @@ gulp.task('lint:styles', () => {
 
 gulp.task('lint:scripts', () => {
   return gulp.src('js/scripts.js')
-    .pipe(plugins.changedInPlace())
     .pipe(plugins.jshint({
       esversion: 6
     }))
@@ -36,11 +34,10 @@ gulp.task('lint:scripts', () => {
     .pipe(plugins.jshint.reporter('fail'));
 });
 
-gulp.task('build', ['build:markup', 'build:styles', 'build:scripts']);
+gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'build:images']);
 
 gulp.task('build:markup', () => {
   return gulp.src('*.html')
-    .pipe(plugins.changedInPlace())
     .pipe(plugins.htmlmin({
       collapseWhitespace: true
     }))
@@ -89,6 +86,11 @@ gulp.task('build:scripts', () => {
   .pipe(browserSync.stream());
 });
 
+gulp.task('build:images', () => {
+  return gulp.src('images/**/*')
+    .pipe(gulp.dest('dist/images/'));
+});
+
 gulp.task('clean', () => del('dist/'));
 
 gulp.task('serve', () =>  {
@@ -106,4 +108,7 @@ gulp.task('serve', () =>  {
 
   // Watch scripts.
   gulp.watch('js/**/*.js', ['lint:scripts', 'build:scripts']);
+
+  // Watch images.
+  gulp.watch('images/**/*', ['build:images']);
 });

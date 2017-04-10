@@ -18,7 +18,6 @@ gulp.task('lint', ['lint:styles', 'lint:scripts']);
 
 gulp.task('lint:styles', () => {
   return gulp.src('css/styles.scss')
-    .pipe(plugins.changedInPlace())
     .pipe(plugins.stylelint({
       reporters: [
         { formatter: 'string', console: true }
@@ -28,7 +27,6 @@ gulp.task('lint:styles', () => {
 
 gulp.task('lint:scripts', () => {
   return gulp.src('js/scripts.js')
-    .pipe(plugins.changedInPlace())
     .pipe(plugins.jshint({
       esversion: 6
     }))
@@ -40,7 +38,6 @@ gulp.task('build', ['build:markup', 'build:styles', 'build:scripts']);
 
 gulp.task('build:markup', () => {
   return gulp.src('*.html')
-    .pipe(plugins.changedInPlace())
     .pipe(plugins.htmlmin({
       collapseWhitespace: true
     }))

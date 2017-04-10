@@ -1,8 +1,7 @@
 {
     "plugins": [
-        "stylelint-csstree-validator",
         "stylelint-order",
-        "stylelint-suitcss"
+        "stylelint-selector-bem-pattern",
     ],
     "rules": {
         "color-hex-case": "lower",
@@ -132,7 +131,6 @@
         "selector-attribute-operator-space-before": "never",
         "selector-attribute-operator-whitelist": null,
         "selector-attribute-quotes": "always",
-        "selector-class-pattern": "^(?:(?:o|c|u|t|s|is|has|_|js|qa)-)?[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*(?:__[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:--[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)?(?:\\[.+\\])?$",
         "selector-combinator-space-after": "always",
         "selector-combinator-space-before": "always",
         "selector-descendant-combinator-no-non-space": true,
@@ -196,15 +194,16 @@
 
         "at-rule-blacklist": null,
         "at-rule-empty-line-before": ["always", {
-            "ignore": "after-comment"
+            "ignore": ["after-comment", "inside-block", "blockless-after-same-name-blockless"]
         }],
         "at-rule-name-case": "lower",
         "at-rule-name-newline-after": null,
         "at-rule-name-space-after": "always",
-        "at-rule-no-unknown": true,
+        "at-rule-no-unknown": [true, {
+            "ignoreAtRules": ["content", "else", "extend", "function", "if", "import", "include", "mixin", "warn"]
+        }],
         "at-rule-no-vendor-prefix": true,
         "at-rule-semicolon-newline-after": "always",
-        "at-rule-semicolon-space-before": "never",
         "at-rule-whitelist": null,
 
 
@@ -217,7 +216,7 @@
         "comment-word-blacklist": null,
 
 
-        "indentation": [4, {
+        "indentation": [2, {
             "ignore": ["value"]
         }],
         "max-empty-lines": 2,
@@ -235,14 +234,22 @@
         "no-unknown-animations": true,
         "no-unsupported-browser-features": null,
 
-        "csstree/validator": true,
         "order/properties-order": ["content",
             "position", "top", "right", "bottom", "left", "float", "clear", "box-sizing", "display", "z-index",
             "width", "max-width", "min-width", "height", "max-height", "min-height", "margin", "padding",
             "color", "background", "border", "border-top", "border-right", "border-bottom", "border-left", "border-radius", "box-shadow",
             "font-style", "font-variant", "font-weight", "font-size", "line-height", "font-family", "text-align", "text-transform", "text-decoration", "letter-spacing", "white-space", "vertical-align",
             "cursor", "overflow"],
-        "suitcss/custom-property-no-outside-root": true,
-        "suitcss/selector-root-no-composition": true
+        "plugin/selector-bem-pattern": {
+            "componentName": "(([a-z0-9]+(?!-$)-?)+)",
+            "componentSelectors": {
+                "initial": "\\.{componentName}(((__|--)(([a-z0-9\\[\\]'=]+(?!-$)-?)+))+)?$"
+            },
+            "ignoreSelectors": [
+                "\\.touch",
+                "\\.no-touch"
+            ],
+            "utilitySelectors": "^\\.u-[a-z-]+$"
+        }
     }
 }

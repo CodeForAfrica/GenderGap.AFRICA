@@ -17,7 +17,7 @@ gulp.task('default', ['lint', 'build']);
 gulp.task('lint', ['lint:styles', 'lint:scripts']);
 
 gulp.task('lint:styles', () => {
-  return gulp.src('css/styles.scss')
+  return gulp.src('css/**/*.scss')
     .pipe(plugins.stylelint({
       reporters: [
         { formatter: 'string', console: true }

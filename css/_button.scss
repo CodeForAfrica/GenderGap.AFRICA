@@ -1,0 +1,24 @@
+/** @define button; weak */
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  transition: background-color 0.1s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.button--red {
+  color: white;
+  background-color: $accent-color;
+
+  &:hover {
+    background-color: lighten($accent-color, 4);
+  }
+
+  &:active {
+    background-color: darken($accent-color, 4);
+  }
+}

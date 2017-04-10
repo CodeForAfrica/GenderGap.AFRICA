@@ -1,0 +1,32 @@
+/** @define hero; weak */
+
+.hero {
+  max-width: 100%;
+  margin-bottom: 54px;
+  padding: 0 20px;
+  color: white;
+}
+
+.hero__logo {
+  width: 312px;
+  margin-bottom: 38px;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 45%;
+    height: 7px;
+    margin-top: 46px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: white;
+  }
+}
+
+.hero__title {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: 400;
+  font-size: 26px;
+  letter-spacing: 2px;
+}

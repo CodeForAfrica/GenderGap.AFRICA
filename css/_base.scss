@@ -17,3 +17,10 @@ body {
   margin: 0;
   font-family: "proxima-nova", "Arial", sans-serif;
 }
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}

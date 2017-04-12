@@ -6,8 +6,17 @@
   background: none;
   border: none;
   transition: background-color 0.1s ease;
+  white-space: nowrap;
   cursor: pointer;
   outline: none;
+}
+
+.button__text {}
+
+.button__icon {
+  width: 0.7em;
+  height: 0.7em;
+  margin-left: 1em;
 }
 
 .button--red {

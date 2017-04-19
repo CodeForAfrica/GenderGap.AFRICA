@@ -5,19 +5,19 @@
   padding: 10px 20px;
   background: none;
   border: none;
-  transition: background-color 0.1s ease;
+  transition: background-color $transition-duration-fast;
   white-space: nowrap;
   cursor: pointer;
   outline: none;
 }
 
-.button__text {}
+  .button__text {}
 
-.button__icon {
-  width: 0.7em;
-  height: 0.7em;
-  margin-left: 1em;
-}
+  .button__icon {
+    width: 0.7em;
+    height: 0.7em;
+    margin-left: 1em;
+  }
 
 .button--red {
   color: white;

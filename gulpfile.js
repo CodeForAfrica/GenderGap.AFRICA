@@ -34,7 +34,7 @@ gulp.task('lint:scripts', () => {
     .pipe(plugins.jshint.reporter('fail'));
 });
 
-gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'build:images']);
+gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'copy:images', 'copy:data']);
 
 gulp.task('build:markup', () => {
   return gulp.src('*.html')
@@ -86,9 +86,14 @@ gulp.task('build:scripts', () => {
   .pipe(browserSync.stream());
 });
 
-gulp.task('build:images', () => {
+gulp.task('copy:images', () => {
   return gulp.src('images/**/*')
     .pipe(gulp.dest('dist/images/'));
+});
+
+gulp.task('copy:data', () => {
+  return gulp.src('data/**/*')
+    .pipe(gulp.dest('dist/data/'));
 });
 
 gulp.task('clean', () => del('dist/'));
@@ -110,5 +115,8 @@ gulp.task('serve', () =>  {
   gulp.watch('js/**/*.js', ['lint:scripts', 'build:scripts']);
 
   // Watch images.
-  gulp.watch('images/**/*', ['build:images']);
+  gulp.watch('images/**/*', ['copy:images']);
+
+  // Watch data.
+  gulp.watch('data/**/*', ['copy:data']);
 });

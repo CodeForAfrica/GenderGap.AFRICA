@@ -13,3 +13,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.u-suffix-space::after {
+  content: "\0020";
+}

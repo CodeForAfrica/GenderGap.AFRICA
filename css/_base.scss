@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+html,
+body,
+main {
+  height: 100%;
+}
+
 /*
  * 1. Consistent font weights between OSX and other platforms.
  * 2. html is set to 62.5% so that all the REM measurements
@@ -15,6 +21,7 @@ html {
 
 body {
   margin: 0;
+  font-size: 1.6rem;
   font-family: "proxima-nova", "Arial", sans-serif;
 }
 
@@ -22,5 +29,12 @@ button,
 input,
 select,
 textarea {
+  color: inherit;
+  background: transparent;
+  border: none;
+  font-weight: inherit;
+  font-size: inherit;
+  line-height: inherit;
   font-family: inherit;
+  appearance: none;
 }

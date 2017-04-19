@@ -1,0 +1,201 @@
+/** @define field; weak */
+
+.field {
+  position: relative;
+  display: inline-block;
+}
+
+  .field__toggle {
+    display: inline-block;
+    color: #a5a5a5;
+    border-bottom: 3px solid #a5a5a5;
+    line-height: inherit;
+    transition: color $transition-duration-fast,
+                border-bottom-color $transition-duration-fast;
+    cursor: pointer;
+  }
+
+  .no-touch .field__toggle {
+    &:hover {
+      color: $accent-color;
+      border-bottom-color: $accent-color;
+    }
+
+    &:hover:active {
+      color: darken($accent-color, 25%);
+      border-bottom-color: darken($accent-color, 25%);
+    }
+  }
+
+  .field__modal {
+    position: absolute;
+    top: 50%;
+    visibility: hidden;
+    width: 90vw;
+    max-height: 432px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    color: white;
+    background-color: $accent-color;
+    font-size: 80%;
+    line-height: 1.5;
+    overflow-y: auto;
+    list-style: none;
+    opacity: 0;
+    transform: translateY(-40%) scale(0.9);
+    transition: visibility 0s 0.3s,
+                opacity $transition-duration-normal,
+                transform $transition-duration-normal;
+
+    @media (min-width: 550px) {
+      left: 0 !important;
+      width: auto;
+    }
+  }
+
+
+.field--open {
+  z-index: 10000;
+
+  .field__modal {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+    transition: visibility 0s 0s, opacity 0.3s, transform 0.3s;
+  }
+}
+
+
+.field--dropdown {}
+
+  .field--dropdown__list {
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    &::-webkit-scrollbar-track,
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-track {}
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #555;
+    }
+  }
+
+  .field--dropdown__list-item {
+    position: relative;
+    padding: 0 1.5em 0 0.5em;
+    color: white;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .no-touch .field--dropdown__list-item {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+
+    &:hover:active {
+      color: darken($accent-color, 25%);
+    }
+  }
+
+  .field--dropdown__list-item--checked {
+    color: darken($accent-color, 25%);
+
+    &::before {
+      content: "\2714";
+      position: absolute;
+      right: 1em;
+      font-size: 50%;
+      line-height: 3;
+    }
+  }
+
+
+.field--text {
+  .field__modal {
+    min-width: 8em;
+  }
+}
+
+  .field--text__input-wrapper {
+    position: relative;
+  }
+
+  .field--text__input {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0.2em 2em 0.2em 0.5em;
+    color: white;
+    cursor: pointer;
+    outline: none;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    &:active::placeholder,
+    &:focus::placeholder {
+      color: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  .field--text__go {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1.8em;
+    height: 100%;
+    color: transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+
+    img {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 40%;
+      margin: auto;
+    }
+  }
+
+  .field--text__example {
+    padding: 0.4em 1em;
+    color: rgba(0, 0, 0, 0.2);
+    border-top: 1px dashed rgba(255, 255, 255, 0.7);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 40%;
+
+    em {
+      color: white;
+    }
+  }
+
+
+.field--dropdown--checked::before,
+.field__go::before {
+  speak: none;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  font-family: "nlicons";
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+}

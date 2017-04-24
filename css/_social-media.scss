@@ -1,0 +1,48 @@
+/** @define social-media; weak */
+
+.social-media {}
+
+  .social-media__title {
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+
+  .social-media__buttons {
+    display: flex;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style-type: none;
+  }
+
+  .social-media__button {
+    flex: 1 1 auto;
+    border-width: 1px;
+    border-color: white;
+    border-top-style: solid;
+    border-right-style: solid;
+    border-bottom-style: solid;
+
+    &:first-of-type {
+      border-left-style: solid;
+    }
+  }
+
+  .social-media__link {
+    display: block;
+    padding: 20px;
+    transition: background-color $transition-duration-fast;
+
+    &:hover {
+      background-color: #303030;
+    }
+  }
+
+  .social-media__icon {
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-right: auto;
+    margin-left: auto;
+  }

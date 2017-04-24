@@ -1,3 +1,5 @@
+import * as d3 from "d3-dsv";
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /************************************************************************************************
@@ -24,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     activeSection.nextElementSibling.classList.add("section--active");
   };
 
+
   /************************************************************************************************
    * Homepage
    ************************************************************************************************/
@@ -49,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(user.profession.value);
     console.log(user.country.value);
     console.log(user.salary.value);
-    //jumpToNextSection(sections.form);
+    jumpToNextSection(sections.form);
   });
 
   let overlay = document.querySelector(".overlay"),
@@ -238,4 +241,75 @@ document.addEventListener("DOMContentLoaded", () => {
       window.addEventListener("resize", setFieldLeftPosition);
     })
     .catch(err => console.error(err));
+
+
+  /************************************************************************************************
+   * Visualizations page
+   ************************************************************************************************/
+
+    let buttons = {
+      calendarView: document.querySelector("#calendar-view-button"),
+      clockView: document.querySelector("#clock-view-button"),
+      yourGap: document.querySelector("#your-gap-button")
+    };
+
+    let goToVisualization = (i) => {
+      let active = document.querySelector(".slider__item--active");
+      active.classList.remove("slider__item--active");
+
+      let allSliderItems = document.querySelectorAll(".slider__item");
+      allSliderItems[i].classList.add("slider__item--active");
+    };
+
+    let allSidebarNavigationButtons = document.querySelectorAll(".sidebar__navigation-button");
+    [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
+      sidebarNavigationButton.addEventListener("click", () => {
+        let active = document.querySelector(".sidebar__navigation-button--active");
+        active.classList.remove("sidebar__navigation-button--active");
+
+        allSidebarNavigationButtons[i].classList.add("sidebar__navigation-button--active");
+
+        document.querySelectorAll(".slider__navigation-dot")[i].click();
+
+        goToVisualization(i);
+      });
+    });
+
+    let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
+    allSliderNavigationDots.forEach((sliderNavigationDot, i) => {
+      sliderNavigationDot.addEventListener("click", () => {
+        let active = document.querySelector(".slider__navigation-dot--active");
+        active.classList.remove("slider__navigation-dot--active");
+
+        allSliderNavigationDots[i].classList.add("slider__navigation-dot--active");
+
+        document.querySelectorAll(".sidebar__navigation-button")[i].click();
+
+        goToVisualization(i);
+      });
+    });
+
+    let visualizations = {
+      calendarGap: document.querySelector("#calendar-gap-visualization"),
+      clockGap: document.querySelector("#clock-gap-visualization"),
+      yourGap: document.querySelector("#your-gap-visualization")
+    };
+
+    let menuButton = document.querySelector("#menu-button");
+
+    var layout = {
+      sidebar: document.querySelector(".layout__sidebar")
+    };
+
+    let sidebar = {
+      closeButton: document.querySelector(".sidebar__close-button")
+    };
+
+    menuButton.addEventListener("click", () => {
+      layout.sidebar.classList.add("layout__sidebar--active");
+    });
+
+    sidebar.closeButton.addEventListener("click", () => {
+      layout.sidebar.classList.remove("layout__sidebar--active");
+    });
 });

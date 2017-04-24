@@ -23,7 +23,7 @@
   .button {
     margin-bottom: 16px;
     padding: 15px 80px;
-    font-size: 26px;
+    font-size: 2.6rem;
     letter-spacing: 4px;
   }
 
@@ -38,7 +38,6 @@
 
 .section--form {
   padding-top: 30px;
-  background-color: $primary-background-color;
 
   @media (min-width: 550px) {
     padding-top: 70px;
@@ -71,3 +70,35 @@
   }
 
 .section--visualizations {}
+
+.section--visualizations__wrapper {
+  max-width: 480px;
+  height: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 100px;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.section--visualizations__header {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.section--visualizations__title {
+  margin-top: 0;
+  font-weight: 300;
+  font-size: 2.6rem;
+}
+
+.section--visualizations__description {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: $color-font-secondary;
+  font-size: 1.6rem;
+  line-height: 1.5em;
+}
+
+.section--visualizations__visualization {}

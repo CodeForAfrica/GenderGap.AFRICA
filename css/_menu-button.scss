@@ -1,0 +1,58 @@
+/** @define menu-button; weak */
+
+.menu-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  visibility: visible;
+  opacity: 1;
+  padding: 16px 22px;
+  transition: color $transition-duration-fast,
+              opacity $transition-duration-normal,
+              visibility $transition-duration-normal 0s;
+
+  &:hover {
+    color: $color-font-secondary;
+
+    .menu-button__icon {
+      opacity: 0;
+    }
+
+    .menu-button__icon--highlighted {
+      opacity: 1;
+    }
+  }
+}
+
+  .menu-button__text {
+    margin-right: 24px;
+    font-weight: 300;
+    font-size: 1.2rem;
+  }
+
+  .menu-button__icon-wrapper {
+    position: relative;
+    width: 34px;
+    height: 26px;
+  }
+
+  .menu-button__icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    transition: opacity $transition-duration-fast;
+  }
+
+  .menu-button__icon--highlighted {
+    opacity: 0;
+  }
+
+@media (min-width: 550px) {
+  .menu-button {
+    visibility: hidden;
+    opacity: 0;
+  }
+}

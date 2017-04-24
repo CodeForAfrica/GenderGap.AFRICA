@@ -17,13 +17,13 @@
 
   .no-touch .field__toggle {
     &:hover {
-      color: $accent-color;
-      border-bottom-color: $accent-color;
+      color: $color-accent;
+      border-bottom-color: $color-accent;
     }
 
     &:hover:active {
-      color: darken($accent-color, 25%);
-      border-bottom-color: darken($accent-color, 25%);
+      color: $color-accent-dark;
+      border-bottom-color: $color-accent-dark;
     }
   }
 
@@ -37,7 +37,7 @@
     margin-bottom: 0;
     padding-left: 0;
     color: white;
-    background-color: $accent-color;
+    background-color: $color-accent;
     font-size: 80%;
     line-height: 1.5;
     overflow-y: auto;
@@ -106,12 +106,12 @@
     }
 
     &:hover:active {
-      color: darken($accent-color, 25%);
+      color: $color-accent-dark;
     }
   }
 
   .field--dropdown__list-item--checked {
-    color: darken($accent-color, 25%);
+    color: $color-accent-dark;
 
     &::before {
       content: "\2714";

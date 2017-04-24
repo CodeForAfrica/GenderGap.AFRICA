@@ -1,7 +1,11 @@
 /** @define utilities */
 
+.u-background-white {
+  background-color: white !important;
+}
+
 .u-background-dark {
-  background-color: $background-color-dark !important;
+  background-color: $color-background-dark !important;
 }
 
 .u-text-center {
@@ -9,11 +13,15 @@
 }
 
 .u-vertical-and-horizontal-centering {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 .u-suffix-space::after {
   content: "\0020";
+}
+
+.u-no-select {
+  user-select: none !important;
 }

@@ -21,6 +21,8 @@ html {
 
 body {
   margin: 0;
+  color: $color-font-primary;
+  background-color: $color-background-primary;
   font-size: 1.6rem;
   font-family: "proxima-nova", "Arial", sans-serif;
 }
@@ -37,4 +39,13 @@ textarea {
   line-height: inherit;
   font-family: inherit;
   appearance: none;
+}
+
+button {
+  padding: 0;
+  cursor: pointer;
+
+  &:focus {
+    outline: 0;
+  }
 }

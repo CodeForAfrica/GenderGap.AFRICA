@@ -21,13 +21,13 @@
 
 .button--red {
   color: white;
-  background-color: $accent-color;
+  background-color: $color-accent;
 
   &:hover {
-    background-color: lighten($accent-color, 4);
+    background-color: $color-accent-light;
   }
 
   &:active {
-    background-color: darken($accent-color, 4);
+    background-color: $color-accent-dark;
   }
 }

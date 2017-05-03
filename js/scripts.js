@@ -1,4 +1,4 @@
-import * as d3 from "d3-dsv";
+import * as d3 from "d3";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -42,16 +42,36 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let user = {
     gender:     document.querySelector("#user-gender"),
-    profession: document.querySelector("#user-profession"),
+    occupation: document.querySelector("#user-occupation"),
     country:    document.querySelector("#user-country"),
     salary:     document.querySelector("#user-salary")
   };
 
   document.querySelector("#form-button").addEventListener("click", () => {
-    console.log(user.gender.options[user.gender.selectedIndex].value);
-    console.log(user.profession.value);
-    console.log(user.country.value);
-    console.log(user.salary.value);
+    let gender = user.gender.options[user.gender.selectedIndex].value;
+    if (gender === "my gender") {
+      alert("Please enter gender");
+      return;
+    }
+
+    let occupation = user.occupation.value;
+    if (occupation === "") {
+      alert("Please enter occupation");
+      return;
+    }
+
+    let country = user.country.value;
+    if (country === "my country") {
+      alert("Please enter country");
+      return;
+    }
+
+    let salary = user.salary.value;
+    if (salary === "") {
+      alert("Please enter salary");
+      return;
+    }
+
     jumpToNextSection(sections.form);
   });
 
@@ -207,6 +227,211 @@ document.addEventListener("DOMContentLoaded", () => {
     field.go.addEventListener("touchstart", submit);
   };
 
+  let createFormPage = (data) => {
+    // Populate dropdown with countries listed in the data file.
+    let countries = data.map(d => d.country);
+    for (let i = 0; i < countries.length / 2; i++) {
+      user.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
+    }
+
+    let allSelectElements  = document.querySelectorAll("select"),
+        allInputElements   = document.querySelectorAll("input");
+
+    // Replace default <select> and <input> elements with custom elements.
+    [...allSelectElements].forEach(selectElement => createCustomDropdown(selectElement));
+    [...allInputElements].forEach(inputElement => createCustomInput(inputElement));
+
+    let formParagraph = sections.form.querySelector(".form__paragraph");
+    let fields = formParagraph.querySelectorAll(".field");
+
+    let setFieldLeftPosition = () => {
+      [...fields].forEach((field) => {
+        let fieldModal = field.querySelector(".field__modal");
+        fieldModal.style.left = -(field.offsetLeft - formParagraph.offsetLeft) + "px";
+      });
+    };
+
+    setFieldLeftPosition();
+    window.addEventListener("resize", setFieldLeftPosition);
+  };
+
+  /************************************************************************************************
+   * Visualizations page
+   ************************************************************************************************/
+
+  let buttons = {
+    calendarView: document.querySelector("#calendar-view-button"),
+    clockView: document.querySelector("#clock-view-button"),
+    yourGap: document.querySelector("#your-gap-button")
+  };
+
+  let goToVisualization = (i) => {
+    let active = document.querySelector(".slider__item--active");
+    active.classList.remove("slider__item--active");
+
+    let allSliderItems = document.querySelectorAll(".slider__item");
+    allSliderItems[i].classList.add("slider__item--active");
+  };
+
+  let allSidebarNavigationButtons = document.querySelectorAll(".sidebar__navigation-button");
+  [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
+    sidebarNavigationButton.addEventListener("click", () => {
+      let active = document.querySelector(".sidebar__navigation-button--active");
+      active.classList.remove("sidebar__navigation-button--active");
+
+      allSidebarNavigationButtons[i].classList.add("sidebar__navigation-button--active");
+
+      document.querySelectorAll(".slider__navigation-dot")[i].click();
+
+      goToVisualization(i);
+    });
+  });
+
+  let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
+  allSliderNavigationDots.forEach((sliderNavigationDot, i) => {
+    sliderNavigationDot.addEventListener("click", () => {
+      let active = document.querySelector(".slider__navigation-dot--active");
+      active.classList.remove("slider__navigation-dot--active");
+
+      allSliderNavigationDots[i].classList.add("slider__navigation-dot--active");
+
+      document.querySelectorAll(".sidebar__navigation-button")[i].click();
+
+      goToVisualization(i);
+    });
+  });
+
+  let menuButton = document.querySelector("#menu-button");
+
+  var layout = {
+    sidebar: document.querySelector(".layout__sidebar")
+  };
+
+  let sidebar = {
+    closeButton: document.querySelector(".sidebar__close-button")
+  };
+
+  menuButton.addEventListener("click", () => {
+    layout.sidebar.classList.add("layout__sidebar--active");
+  });
+
+  sidebar.closeButton.addEventListener("click", () => {
+    layout.sidebar.classList.remove("layout__sidebar--active");
+  });
+
+  /**
+   * @param {int} The month number, 0 based
+   * @param {int} The year, not zero based, required to account for leap years
+   * @return {Date[]} List with date objects for each day of the month
+   * Reference: http://stackoverflow.com/a/13146828/1300992
+   */
+  let getDaysInMonth = (month, year) => {
+    let date = new Date(year, month, 1);
+    let days = [];
+    while (date.getMonth() === month) {
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
+    }
+    return days;
+  };
+
+  let createCalendarGapVisualization = (data) => {
+    let now = new Date();
+    let days = getDaysInMonth(now.getMonth(), now.getFullYear());
+    days = days.filter((day) => day.getDay() >= 1 && day.getDay() <= 5);
+
+    let TEST = 9;
+
+    let grid = document.querySelector(".grid");
+    days.forEach((day, i) => {
+      let gridItem = document.createElement("div");
+      gridItem.className = "grid__item";
+
+      if (i < TEST) {
+        gridItem.classList.add("grid__item--red-square");
+      } else {
+        gridItem.classList.add("grid__item--gray-square");
+      }
+
+      if (day.toDateString() === now.toDateString()) {
+        gridItem.classList.add("grid__item--black-frame");
+      }
+
+      grid.appendChild(gridItem);
+    });
+  };
+
+  let createClockGapVisualization = (data) => {
+    let svg = d3.select("#clock-gap-visualization")
+      .append("svg")
+      .style("width", "100%");
+
+    let width = parseInt(window.getComputedStyle(svg.node()).width, 10);
+    let height = parseInt(window.getComputedStyle(svg.node()).height, 10);
+    let radius = Math.min(width, height) / 2;
+
+    let g = svg.append("g")
+      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    window.addEventListener("resize", () => {
+      width = parseInt(window.getComputedStyle(svg.node()).width, 10);
+      height = parseInt(window.getComputedStyle(svg.node()).height, 10);
+
+      g.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+    });
+
+    let pie = d3.pie()
+      .sort(null)
+      .value((d) => d)
+      .startAngle(-90 * (Math.PI/180))
+      .endAngle(90 * (Math.PI/180))
+      .padAngle(0.005);
+
+    let path = d3.arc()
+      .outerRadius(radius - 10)
+      .innerRadius(radius - 25);
+
+    let arc = g.selectAll(".arc")
+      .data(pie([1, 1, 1, 1, 1, 1, 1, 1]))
+      .enter().append("g")
+        .attr("class", "arc");
+
+    arc.append("path")
+      .attr("d", path)
+      .attr("fill", (d, i) => i < 5 ? "#e74c3c" : "#969696");
+
+    let pad = value => (value < 10) ? "0" + value : value;
+
+    let now = new Date();
+    let currentTime = now.getHours() % 13 + ":" + pad(now.getMinutes()) + " " + ((now.getHours() < 12) ? "AM" : "PM");
+
+    let text = g.append("text")
+      .attr("text-anchor", "middle")
+      .attr("class", "text");
+
+    text.append("tspan")
+      .attr("fill", "#e74c3c")
+      .attr("font-weight", "600")
+      .text(currentTime);
+
+    text.append("tspan")
+      .attr("fill", "#282828")
+      .attr("font-weight", "300")
+      .text(" / one hour ago");
+
+    g.append("text")
+      .attr("x", "-180")
+      .attr("fill", "#282828")
+      .attr("text-anchor", "start")
+      .text("9 AM");
+
+    g.append("text")
+      .attr("x", "180")
+      .attr("fill", "#282828")
+      .attr("text-anchor", "end")
+      .text("6 AM");
+  };
+
   fetch("data/data.csv")
     .then(response => response.text())
     .then((text) => {
@@ -214,102 +439,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Convert CSV data to JSON.
       let data = d3.csvParse(text);
 
-      // Populate dropdown with countries listed in the data file.
-      let countries = data.map(d => d.country);
-      for (let i = 0; i < countries.length / 2; i++) {
-        user.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
-      }
+      createFormPage(data);
 
-      let allSelectElements  = document.querySelectorAll("select"),
-          allInputElements   = document.querySelectorAll("input");
-
-      // Replace default <select> and <input> elements with custom elements.
-      [...allSelectElements].forEach(selectElement => createCustomDropdown(selectElement));
-      [...allInputElements].forEach(inputElement => createCustomInput(inputElement));
-
-      let formParagraph = sections.form.querySelector(".form__paragraph");
-      let fields = formParagraph.querySelectorAll(".field");
-
-      let setFieldLeftPosition = () => {
-        [...fields].forEach((field) => {
-          let fieldModal = field.querySelector(".field__modal");
-          fieldModal.style.left = -(field.offsetLeft - formParagraph.offsetLeft) + "px";
-        });
-      };
-
-      setFieldLeftPosition();
-      window.addEventListener("resize", setFieldLeftPosition);
+      createCalendarGapVisualization(data);
+      createClockGapVisualization(data);
     })
     .catch(err => console.error(err));
-
-
-  /************************************************************************************************
-   * Visualizations page
-   ************************************************************************************************/
-
-    let buttons = {
-      calendarView: document.querySelector("#calendar-view-button"),
-      clockView: document.querySelector("#clock-view-button"),
-      yourGap: document.querySelector("#your-gap-button")
-    };
-
-    let goToVisualization = (i) => {
-      let active = document.querySelector(".slider__item--active");
-      active.classList.remove("slider__item--active");
-
-      let allSliderItems = document.querySelectorAll(".slider__item");
-      allSliderItems[i].classList.add("slider__item--active");
-    };
-
-    let allSidebarNavigationButtons = document.querySelectorAll(".sidebar__navigation-button");
-    [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
-      sidebarNavigationButton.addEventListener("click", () => {
-        let active = document.querySelector(".sidebar__navigation-button--active");
-        active.classList.remove("sidebar__navigation-button--active");
-
-        allSidebarNavigationButtons[i].classList.add("sidebar__navigation-button--active");
-
-        document.querySelectorAll(".slider__navigation-dot")[i].click();
-
-        goToVisualization(i);
-      });
-    });
-
-    let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
-    allSliderNavigationDots.forEach((sliderNavigationDot, i) => {
-      sliderNavigationDot.addEventListener("click", () => {
-        let active = document.querySelector(".slider__navigation-dot--active");
-        active.classList.remove("slider__navigation-dot--active");
-
-        allSliderNavigationDots[i].classList.add("slider__navigation-dot--active");
-
-        document.querySelectorAll(".sidebar__navigation-button")[i].click();
-
-        goToVisualization(i);
-      });
-    });
-
-    let visualizations = {
-      calendarGap: document.querySelector("#calendar-gap-visualization"),
-      clockGap: document.querySelector("#clock-gap-visualization"),
-      yourGap: document.querySelector("#your-gap-visualization")
-    };
-
-    let menuButton = document.querySelector("#menu-button");
-
-    var layout = {
-      sidebar: document.querySelector(".layout__sidebar")
-    };
-
-    let sidebar = {
-      closeButton: document.querySelector(".sidebar__close-button")
-    };
-
-    menuButton.addEventListener("click", () => {
-      layout.sidebar.classList.add("layout__sidebar--active");
-    });
-
-    sidebar.closeButton.addEventListener("click", () => {
-      layout.sidebar.classList.remove("layout__sidebar--active");
-    });
 });

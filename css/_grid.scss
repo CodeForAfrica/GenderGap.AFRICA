@@ -1,0 +1,30 @@
+/** @define grid; weak */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 25px auto;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+}
+
+  .grid__item {}
+
+  .grid__item--header {
+    justify-self: center;
+    align-self: center;
+    height: auto;
+    font-weight: 300;
+  }
+
+  .grid__item--red-square {
+    background-color: $color-accent;
+  }
+
+  .grid__item--gray-square {
+    background-color: #969696;
+  }
+
+  .grid__item--black-frame {
+    border: 3px solid black;
+  }

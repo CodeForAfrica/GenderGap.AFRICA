@@ -48,7 +48,7 @@
             </span>
             <span class="form__line">
               working as
-              <input id="user-profession" type="text" value="" placeholder="my occupation" data-subline="For example: <em>engineer</em> or <em>nurse</em>"/>
+              <input id="user-occupation" type="text" value="" placeholder="my occupation" data-subline="For example: <em>engineer</em> or <em>nurse</em>"/>
             </span>
             <span class="form__line">
               in
@@ -150,32 +150,67 @@
         </button>
         <div class="slider section--visualizations__wrapper">
           <div class="slider__items">
-            <div class="slider__item slider__item--active">
-              <div class="section--visualizations__header">
-                <h2 class="section--visualizations__title">CALENDAR GAP</h2>
-                <p class="section--visualizations__description">
+            <div class="slider__item slider__item--visualization slider__item--active">
+              <div class="slider__item--visualization__header">
+                <h2 class="slider__item--visualization__title">CALENDAR GAP</h2>
+                <p class="slider__item--visualization__description">
                   If you were a man to make the same amount of money you would need to work 11 days less.
                 </p>
               </div>
-              <div class="section--visualizations__visualization" id="calendar-gap-visualization"></div>
+              <div class="slider__item--visualization__visualization" id="calendar-gap-visualization">
+                <div class="grid slider__item--visualization__visualization-grid">
+                  <div class="grid__item grid__item--header">Mon.</div>
+                  <div class="grid__item grid__item--header">Tue.</div>
+                  <div class="grid__item grid__item--header">Wed.</div>
+                  <div class="grid__item grid__item--header">Thu.</div>
+                  <div class="grid__item grid__item--header">Fri.</div>
+                </div>
+              </div>
             </div>
-            <div class="slider__item">
-              <div class="section--visualizations__header">
-                <h2 class="section--visualizations__title">CLOCK GAP</h2>
-                <p class="section--visualizations__description">
+            <div class="slider__item slider__item--visualization">
+              <div class="slider__item--visualization__header">
+                <h2 class="slider__item--visualization__title">CLOCK GAP</h2>
+                <p class="slider__item--visualization__description">
                   If you were a man to make the same amount of money your day would finish at...
                 </p>
               </div>
-              <div class="section--visualizations__visualization" id="clock-gap-visualization"></div>
+              <div class="slider__item--visualization__visualization" id="clock-gap-visualization"></div>
             </div>
-            <div class="slider__item">
-              <div class="section--visualizations__header">
-                <h2 class="section--visualizations__title">YOUR GAP COMPARED</h2>
-                <p class="section--visualizations__description">
+            <div class="slider__item slider__item--visualization">
+              <div class="slider__item--visualization__header">
+                <h2 class="slider__item--visualization__title">YOUR GAP COMPARED</h2>
+                <p class="slider__item--visualization__description">
                   How your income compare with the Kenya average?
                 </p>
               </div>
-              <div class="section--visualizations__visualization" id="your-gap-visualization"></div>
+              <div class="slider__item--visualization__visualization" id="your-gap-visualization">
+                <svg version="1.1"
+                     baseProfile="full"
+                     width="100"
+                     height="100"
+                     viewbox="0 0 100 100"
+                     xmlns="http://www.w3.org/2000/svg"
+                     style="width: 100%; height: 100%;">
+                  <g transform="translate(0,50)">
+                    <line x1="6" y1="0" x2="94" y2="0" stroke-width="0.7" stroke="#282828"/>
+                    <g>
+                      <text y="-10" font-size="4" font-weight="300" fill="#282828" text-anchor="start">WOMEN</text>
+                      <text y="-5" font-size="4" font-weight="300" fill="#282828" text-anchor="start"><tspan font-weight="600">64 $</tspan> / hour</text>
+                      <circle cx="3" cy="0" r="3" fill="#282828"/>
+                    </g>
+                    <g transform="translate(97,0)">
+                      <text y="-10" font-size="4" font-weight="300" fill="#282828" text-anchor="end">MEN</text>
+                      <text y="-5" font-size="4" font-weight="300" fill="#282828" text-anchor="end"><tspan font-weight="600">75 $</tspan> / hour</text>
+                      <circle cx="0" cy="0" r="3" fill="#282828"/>
+                    </g>
+                    <g transform="translate(50,0)">
+                      <text y="10" font-size="4" font-weight="600" fill="#e74c3c" text-anchor="middle">50 $</text>
+                      <text y="15" font-size="4" fill="#282828" text-anchor="middle">YOU</text>
+                      <circle cx="0" cy="0" r="3" fill="#e74c3c"/>
+                    </g>
+                  </g>
+                </svg>
+              </div>
             </div>
           </div>
           <div class="slider__navigation u-no-select">

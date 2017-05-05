@@ -27,13 +27,13 @@
 
 @media (min-width: 550px) {
   .layout__main {
-    width: calc(100% - 256px);
+    width: calc(100% - #{$sidebar-width});
   }
 
   .layout__sidebar {
     position: static;
     float: left;
-    width: 256px;
+    width: $sidebar-width;
     margin-left: 0;
   }
 }

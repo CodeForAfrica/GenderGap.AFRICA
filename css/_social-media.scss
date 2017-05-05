@@ -1,5 +1,7 @@
 /** @define social-media; weak */
 
+$number-of-links: 4;
+
 .social-media {}
 
   .social-media__title {
@@ -10,10 +12,15 @@
 
   .social-media__buttons {
     display: flex;
+    height: calc((100vw - #{$sidebar-padding-side} * 2) / #{$number-of-links});
     margin-top: 0;
     margin-bottom: 0;
     padding-left: 0;
     list-style-type: none;
+
+    @media (min-width: 550px) {
+      height: calc((#{$sidebar-width} - #{$sidebar-padding-side} * 2) / #{$number-of-links});
+    }
   }
 
   .social-media__button {
@@ -30,8 +37,9 @@
   }
 
   .social-media__link {
-    display: block;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    height: 100%;
     transition: background-color $transition-duration-fast;
 
     &:hover {

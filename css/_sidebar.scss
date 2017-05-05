@@ -96,8 +96,8 @@
   }
 
   .sidebar__social-media {
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: $sidebar-padding-side;
+    padding-left: $sidebar-padding-side;
   }
 
 @media (min-width: 550px) {

@@ -245,7 +245,8 @@
             },
             "ignoreSelectors": [
                 "\\.touch",
-                "\\.no-touch"
+                "\\.no-touch",
+                "\\.is-mobile"
             ],
             "utilitySelectors": "^\\.u-[a-z-]+$"
         }

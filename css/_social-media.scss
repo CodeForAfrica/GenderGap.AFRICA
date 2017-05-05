@@ -1,6 +1,7 @@
 /** @define social-media; weak */
 
-$number-of-links: 4;
+$number-of-links: 3;
+$number-of-links-mobile: 4;
 
 .social-media {}
 
@@ -20,6 +21,14 @@ $number-of-links: 4;
 
     @media (min-width: 550px) {
       height: calc((#{$sidebar-width} - #{$sidebar-padding-side} * 2) / #{$number-of-links});
+    }
+  }
+
+  .is-mobile .social-media__buttons {
+    height: calc((100vw - #{$sidebar-padding-side} * 2) / #{$number-of-links-mobile});
+
+    @media (min-width: 550px) {
+      height: calc((#{$sidebar-width} - #{$sidebar-padding-side} * 2) / #{$number-of-links-mobile});
     }
   }
 

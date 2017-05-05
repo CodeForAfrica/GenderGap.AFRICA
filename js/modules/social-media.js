@@ -1,7 +1,8 @@
 export default () => {
   let buttons = {
     twitter: document.querySelector("#twitter-button"),
-    facebook: document.querySelector("#facebook-button")
+    facebook: document.querySelector("#facebook-button"),
+    whatsapp: document.querySelector("#whatsapp-button")
   };
 
   buttons.twitter.addEventListener("click", (event) => {
@@ -23,4 +24,8 @@ export default () => {
 
     window.open(url, name, options);
   });
+
+  if (!document.documentElement.classList.contains("is-mobile")) {
+    buttons.whatsapp.parentNode.style.display = "none";
+  }
 };

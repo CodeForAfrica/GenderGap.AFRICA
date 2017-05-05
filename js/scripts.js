@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import MobileDetect from "mobile-detect";
 import socialMedia from "./modules/social-media";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -11,6 +12,14 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTouch = !!("ontouchstart" in window) || window.navigator.msMaxTouchPoints > 0;
   document.documentElement.classList.add((isTouch) ? "touch" : "no-touch");
 
+  /************************************************************************************************
+   * Identify whether the user's device is a mobile device.
+   ************************************************************************************************/
+
+  var md = new MobileDetect(window.navigator.userAgent);
+  if (md.mobile()) {
+    document.documentElement.classList.add("is-mobile");
+  }
 
   /************************************************************************************************
    * All pages

@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import socialMedia from "./modules/social-media";
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -258,6 +259,8 @@ document.addEventListener("DOMContentLoaded", () => {
   /************************************************************************************************
    * Visualizations page
    ************************************************************************************************/
+
+  socialMedia();
 
   let buttons = {
     calendarView: document.querySelector("#calendar-view-button"),

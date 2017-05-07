@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let user = {
     gender:     document.querySelector("#user-gender"),
-    occupation: document.querySelector("#user-occupation"),
     country:    document.querySelector("#user-country"),
     salary:     document.querySelector("#user-salary")
   };
@@ -61,12 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let gender = user.gender.options[user.gender.selectedIndex].value;
     if (gender === "my gender") {
       alert("Please enter gender");
-      return;
-    }
-
-    let occupation = user.occupation.value;
-    if (occupation === "") {
-      alert("Please enter occupation");
       return;
     }
 

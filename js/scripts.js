@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let user = {
     gender:     document.querySelector("#user-gender"),
     country:    document.querySelector("#user-country"),
-    salary:     document.querySelector("#user-salary")
+    salary:     document.querySelector("#user-salary"),
+    currency:   document.querySelector("#user-currency")
   };
 
   document.querySelector("#form-button").addEventListener("click", () => {
@@ -72,6 +73,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let salary = user.salary.value;
     if (salary === "") {
       alert("Please enter salary");
+      return;
+    }
+
+    let currency = user.currency.value;
+    if (currency === "currency") {
+      alert("Please enter currency");
       return;
     }
 
@@ -235,6 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let countries = data.map(d => d.country);
     for (let i = 0; i < countries.length / 2; i++) {
       user.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
+    }
+
+    // Populate dropdown with currencies listed in the data file.
+    let currencies = data.map(d => d.currency);
+    for (let i = 0; i < currencies.length / 2; i++) {
+      user.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
     }
 
     let allSelectElements  = document.querySelectorAll("select"),

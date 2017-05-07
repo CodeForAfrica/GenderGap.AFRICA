@@ -183,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     field.modal.className = "field__modal";
 
     field.input = document.createElement("input");
-    field.input.setAttribute("type", "text");
+    field.input.setAttribute("type", inputElement.getAttribute("type"));
     field.input.placeholder = inputElement.placeholder;
     field.input.className = "field--text__input";
 

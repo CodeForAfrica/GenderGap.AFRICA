@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
    * Identify whether the user's device is a mobile device.
    ************************************************************************************************/
 
-  var md = new MobileDetect(window.navigator.userAgent);
+  let md = new MobileDetect(window.navigator.userAgent);
   if (md.mobile()) {
     document.documentElement.classList.add("is-mobile");
   }
@@ -159,7 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
         selectElement.options[index].setAttribute("selected", "selected");
         field.toggle.innerHTML = selectedListItem.innerHTML;
 
-        closeFieldModal();
+        if (document.querySelector(".field--open") !== null) {
+          closeFieldModal();
+        }
     };
 
     let listItems = field.modal.querySelectorAll(".field--dropdown__list-item");
@@ -257,6 +259,22 @@ document.addEventListener("DOMContentLoaded", () => {
     [...allSelectElements].forEach(selectElement => createCustomDropdown(selectElement));
     [...allInputElements].forEach(inputElement => createCustomInput(inputElement));
 
+    // Automatically set the currency based on the country the user picks.
+    let allCurrencyListItems = user.currency.previousElementSibling.querySelectorAll(".field--dropdown__list-item");
+    [...user.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item")].forEach((listItem) => {
+      listItem.addEventListener("click", () => {
+        let currencyToSelect = null;
+        if (listItem.textContent !== "my country") {
+          currencyToSelect = data.find(d => d.country === listItem.textContent).currency;
+        } else {
+          currencyToSelect = "currency";
+        }
+
+        let listItemCurrency = [...allCurrencyListItems].find(d => d.textContent === currencyToSelect);
+        listItemCurrency.click();
+      });
+    });
+
     let formParagraph = sections.form.querySelector(".form__paragraph");
     let fields = formParagraph.querySelectorAll(".field");
 
@@ -321,7 +339,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let menuButton = document.querySelector("#menu-button");
 
-  var layout = {
+  let layout = {
     sidebar: document.querySelector(".layout__sidebar")
   };
 

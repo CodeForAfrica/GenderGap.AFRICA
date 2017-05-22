@@ -1,6 +1,44 @@
 import * as d3 from "d3";
 import MobileDetect from "mobile-detect";
+
+import utils from "./utilities";
 import socialMedia from "./modules/social-media";
+import calendarGapVisualization from "./modules/calendar-gap-visualization";
+import yourGapVisualization from "./modules/your-gap-visualization";
+import clockGapVisualization from "./modules/clock-gap-visualization";
+
+// From https://github.com/jonathantneal/closest/blob/master/element-closest.js
+(function (ElementProto) {
+  if (typeof ElementProto.matches !== 'function') {
+    ElementProto.matches = ElementProto.msMatchesSelector || ElementProto.mozMatchesSelector || ElementProto.webkitMatchesSelector || function matches(selector) {
+      var element = this;
+      var elements = (element.document || element.ownerDocument).querySelectorAll(selector);
+      var index = 0;
+
+      while (elements[index] && elements[index] !== element) {
+        ++index;
+      }
+
+      return Boolean(elements[index]);
+    };
+  }
+
+  if (typeof ElementProto.closest !== 'function') {
+    ElementProto.closest = function closest(selector) {
+      var element = this;
+
+      while (element && element.nodeType === 1) {
+        if (element.matches(selector)) {
+          return element;
+        }
+
+        element = element.parentNode;
+      }
+
+      return null;
+    };
+  }
+})(window.Element.prototype);
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -22,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /************************************************************************************************
-   * All pages
+   * All sections
    ************************************************************************************************/
 
   let sections = {
@@ -31,59 +69,80 @@ document.addEventListener("DOMContentLoaded", () => {
     visualizations: document.querySelector(".section--visualizations")
   };
 
-  let jumpToNextSection = (activeSection) => {
-    activeSection.classList.remove("section--active");
-    activeSection.nextElementSibling.classList.add("section--active");
+  let goToNextSection = (nextSection) => {
+    document.querySelector(".section--active").classList.remove("section--active");
+    nextSection.classList.add("section--active");
   };
 
+  fetch("data/data.csv")
+    .then(response => response.text())
+    .then((text) => {
+
+      // Convert CSV data to JSON.
+      let data = d3.csvParse(text);
+
+      data.forEach((d) => {
+        d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["AVERAGE ANNUAL SALARY (MEN)"];
+        d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["AVERAGE ANNUAL SALARY (WOMEN)"];
+        d["EXCHANGE RATE (USD)"]           = +d["EXCHANGE RATE (USD)"];
+      });
+
+      createFormPage(data);
+
+      document.querySelector("#homepage-button").addEventListener("click", () => {
+        goToNextSection(sections.form);
+      });
+
+      document.querySelector("#form-button").addEventListener("click", () => {
+        let user = {};
+
+        user.gender = fields.gender.options[fields.gender.selectedIndex].value;
+        if (user.gender === "my gender") {
+          alert("Please enter gender");
+          return;
+        }
+
+        user.country = fields.country.value;
+        if (user.country === "my country") {
+          alert("Please enter country");
+          return;
+        }
+
+        user.salary = +fields.salary.value;
+        if (user.salary === "") {
+          alert("Please enter salary");
+          return;
+        }
+
+        user.currency = fields.currency.value;
+        if (user.currency === "currency") {
+          alert("Please enter currency");
+          return;
+        }
+
+        goToNextSection(sections.visualizations);
+
+        calendarGapVisualization.initialize(data, user);
+        clockGapVisualization.initialize(data, user);
+        yourGapVisualization.initialize(data, user);
+      });
+    })
+    .catch(err => console.error(err));
 
   /************************************************************************************************
    * Homepage
    ************************************************************************************************/
 
-  document.querySelector("#homepage-button").addEventListener("click", () => {
-    jumpToNextSection(sections.homepage);
-  });
-
-
   /************************************************************************************************
    * Form page
    ************************************************************************************************/
 
-  let user = {
-    gender:     document.querySelector("#user-gender"),
-    country:    document.querySelector("#user-country"),
-    salary:     document.querySelector("#user-salary"),
-    currency:   document.querySelector("#user-currency")
+  let fields = {
+    gender:     document.querySelector("#field-gender"),
+    country:    document.querySelector("#field-country"),
+    salary:     document.querySelector("#field-salary"),
+    currency:   document.querySelector("#field-currency")
   };
-
-  document.querySelector("#form-button").addEventListener("click", () => {
-    let gender = user.gender.options[user.gender.selectedIndex].value;
-    if (gender === "my gender") {
-      alert("Please enter gender");
-      return;
-    }
-
-    let country = user.country.value;
-    if (country === "my country") {
-      alert("Please enter country");
-      return;
-    }
-
-    let salary = user.salary.value;
-    if (salary === "") {
-      alert("Please enter salary");
-      return;
-    }
-
-    let currency = user.currency.value;
-    if (currency === "currency") {
-      alert("Please enter currency");
-      return;
-    }
-
-    jumpToNextSection(sections.form);
-  });
 
   let overlay = document.querySelector(".overlay"),
       showOverlay = () => { overlay.classList.add("overlay--open"); },
@@ -225,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ev.preventDefault();
 
       field.input.blur();
-      field.toggle.innerHTML = field.input.value.trim() !== '' ? field.input.value : field.input.placeholder;
+      field.toggle.innerHTML = field.input.value.trim() !== "" ? field.input.value : field.input.placeholder;
       inputElement.value = field.toggle.innerHTML;
 
       closeFieldModal();
@@ -241,15 +300,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let createFormPage = (data) => {
     // Populate dropdown with countries listed in the data file.
-    let countries = data.map(d => d.country);
-    for (let i = 0; i < countries.length / 2; i++) {
-      user.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
+    let countries = data.map(d => d.COUNTRY);
+    for (let i = 0; i < countries.length; i++) {
+      fields.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
     }
 
     // Populate dropdown with currencies listed in the data file.
-    let currencies = data.map(d => d.currency);
-    for (let i = 0; i < currencies.length / 2; i++) {
-      user.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
+    let currencies = data.map(d => d["CURRENCY CODE"]);
+    for (let i = 0; i < currencies.length; i++) {
+      fields.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
     }
 
     let allSelectElements  = document.querySelectorAll("select"),
@@ -260,26 +319,29 @@ document.addEventListener("DOMContentLoaded", () => {
     [...allInputElements].forEach(inputElement => createCustomInput(inputElement));
 
     // Automatically set the currency based on the country the user picks.
-    let allCurrencyListItems = user.currency.previousElementSibling.querySelectorAll(".field--dropdown__list-item");
-    [...user.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item")].forEach((listItem) => {
-      listItem.addEventListener("click", () => {
+    let allCurrencyListItems = fields.currency.previousElementSibling.querySelectorAll(".field--dropdown__list-item");
+    [...fields.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item")].forEach((listItem) => {
+      let selectCurrency = () => {
         let currencyToSelect = null;
         if (listItem.textContent !== "my country") {
-          currencyToSelect = data.find(d => d.country === listItem.textContent).currency;
+          currencyToSelect = data.find(d => d.COUNTRY === listItem.textContent)["CURRENCY CODE"];
         } else {
           currencyToSelect = "currency";
         }
 
         let listItemCurrency = [...allCurrencyListItems].find(d => d.textContent === currencyToSelect);
         listItemCurrency.click();
-      });
+      };
+
+      listItem.addEventListener("click", selectCurrency);
+      listItem.addEventListener("touchstart", selectCurrency);
     });
 
     let formParagraph = sections.form.querySelector(".form__paragraph");
-    let fields = formParagraph.querySelectorAll(".field");
+    let allFields = formParagraph.querySelectorAll(".field");
 
     let setFieldLeftPosition = () => {
-      [...fields].forEach((field) => {
+      [...allFields].forEach((field) => {
         let fieldModal = field.querySelector(".field__modal");
         fieldModal.style.left = -(field.offsetLeft - formParagraph.offsetLeft) + "px";
       });
@@ -310,31 +372,35 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   let allSidebarNavigationButtons = document.querySelectorAll(".sidebar__navigation-button");
-  [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
-    sidebarNavigationButton.addEventListener("click", () => {
+  let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
+
+  let selectSidebarNavigationButton = (i) => {
       let active = document.querySelector(".sidebar__navigation-button--active");
       active.classList.remove("sidebar__navigation-button--active");
-
       allSidebarNavigationButtons[i].classList.add("sidebar__navigation-button--active");
+      if (layout.sidebar.classList.contains("layout__sidebar--active")) {
+        layout.sidebar.classList.remove("layout__sidebar--active");
+      }
+  };
 
-      document.querySelectorAll(".slider__navigation-dot")[i].click();
-
-      goToVisualization(i);
-    });
-  });
-
-  let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
-  allSliderNavigationDots.forEach((sliderNavigationDot, i) => {
-    sliderNavigationDot.addEventListener("click", () => {
+  let selectSliderNaviagationDot = (i) => {
       let active = document.querySelector(".slider__navigation-dot--active");
       active.classList.remove("slider__navigation-dot--active");
-
       allSliderNavigationDots[i].classList.add("slider__navigation-dot--active");
+  };
 
-      document.querySelectorAll(".sidebar__navigation-button")[i].click();
+  let selectVisualization = (i) => {
+    selectSidebarNavigationButton(i);
+    selectSliderNaviagationDot(i);
+    goToVisualization(i);
+  };
 
-      goToVisualization(i);
-    });
+  [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
+    sidebarNavigationButton.addEventListener("click", () => { selectVisualization(i); });
+  });
+
+  [...allSliderNavigationDots].forEach((sliderNavigationDot, i) => {
+    sliderNavigationDot.addEventListener("click", () => { selectVisualization(i); });
   });
 
   let menuButton = document.querySelector("#menu-button");
@@ -354,131 +420,4 @@ document.addEventListener("DOMContentLoaded", () => {
   sidebar.closeButton.addEventListener("click", () => {
     layout.sidebar.classList.remove("layout__sidebar--active");
   });
-
-  /**
-   * @param {int} The month number, 0 based
-   * @param {int} The year, not zero based, required to account for leap years
-   * @return {Date[]} List with date objects for each day of the month
-   * Reference: http://stackoverflow.com/a/13146828/1300992
-   */
-  let getDaysInMonth = (month, year) => {
-    let date = new Date(year, month, 1);
-    let days = [];
-    while (date.getMonth() === month) {
-      days.push(new Date(date));
-      date.setDate(date.getDate() + 1);
-    }
-    return days;
-  };
-
-  let createCalendarGapVisualization = (data) => {
-    let now = new Date();
-    let days = getDaysInMonth(now.getMonth(), now.getFullYear());
-    days = days.filter((day) => day.getDay() >= 1 && day.getDay() <= 5);
-
-    let TEST = 9;
-
-    let grid = document.querySelector(".grid");
-    days.forEach((day, i) => {
-      let gridItem = document.createElement("div");
-      gridItem.className = "grid__item";
-
-      if (i < TEST) {
-        gridItem.classList.add("grid__item--red-square");
-      } else {
-        gridItem.classList.add("grid__item--gray-square");
-      }
-
-      if (day.toDateString() === now.toDateString()) {
-        gridItem.classList.add("grid__item--black-frame");
-      }
-
-      grid.appendChild(gridItem);
-    });
-  };
-
-  let createClockGapVisualization = (data) => {
-    let svg = d3.select("#clock-gap-visualization")
-      .append("svg")
-      .style("width", "100%");
-
-    let width = parseInt(window.getComputedStyle(svg.node()).width, 10);
-    let height = parseInt(window.getComputedStyle(svg.node()).height, 10);
-    let radius = Math.min(width, height) / 2;
-
-    let g = svg.append("g")
-      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-
-    window.addEventListener("resize", () => {
-      width = parseInt(window.getComputedStyle(svg.node()).width, 10);
-      height = parseInt(window.getComputedStyle(svg.node()).height, 10);
-
-      g.attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
-    });
-
-    let pie = d3.pie()
-      .sort(null)
-      .value((d) => d)
-      .startAngle(-90 * (Math.PI/180))
-      .endAngle(90 * (Math.PI/180))
-      .padAngle(0.005);
-
-    let path = d3.arc()
-      .outerRadius(radius - 10)
-      .innerRadius(radius - 25);
-
-    let arc = g.selectAll(".arc")
-      .data(pie([1, 1, 1, 1, 1, 1, 1, 1]))
-      .enter().append("g")
-        .attr("class", "arc");
-
-    arc.append("path")
-      .attr("d", path)
-      .attr("fill", (d, i) => i < 5 ? "#e74c3c" : "#969696");
-
-    let pad = value => (value < 10) ? "0" + value : value;
-
-    let now = new Date();
-    let currentTime = now.getHours() % 13 + ":" + pad(now.getMinutes()) + " " + ((now.getHours() < 12) ? "AM" : "PM");
-
-    let text = g.append("text")
-      .attr("text-anchor", "middle")
-      .attr("class", "text");
-
-    text.append("tspan")
-      .attr("fill", "#e74c3c")
-      .attr("font-weight", "600")
-      .text(currentTime);
-
-    text.append("tspan")
-      .attr("fill", "#282828")
-      .attr("font-weight", "300")
-      .text(" / one hour ago");
-
-    g.append("text")
-      .attr("x", "-180")
-      .attr("fill", "#282828")
-      .attr("text-anchor", "start")
-      .text("9 AM");
-
-    g.append("text")
-      .attr("x", "180")
-      .attr("fill", "#282828")
-      .attr("text-anchor", "end")
-      .text("6 AM");
-  };
-
-  fetch("data/data.csv")
-    .then(response => response.text())
-    .then((text) => {
-
-      // Convert CSV data to JSON.
-      let data = d3.csvParse(text);
-
-      createFormPage(data);
-
-      createCalendarGapVisualization(data);
-      createClockGapVisualization(data);
-    })
-    .catch(err => console.error(err));
 });

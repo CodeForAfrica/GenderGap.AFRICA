@@ -1,0 +1,16 @@
+/** @define stacked-bars; weak */
+
+.stacked-bars {
+  display: flex;
+}
+
+.stacked-bars__bar {
+  &:not(:last-child) {
+    width: calc(100% / 23 - 3px);
+    margin-right: 3px;
+  }
+
+  &:last-child {
+    width: calc(100% / 23);
+  }
+}

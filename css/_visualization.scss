@@ -1,0 +1,93 @@
+/** @define visualization; weak */
+
+.visualization {
+  display: flex;
+}
+
+.visualization--hidden {
+  display: none;
+}
+
+.visualization--calendar-gap {
+  flex-direction: column;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-thumb {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  }
+
+  &::-webkit-scrollbar-track {}
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #555;
+  }
+}
+
+  .visualization--calendar-gap__grid {
+    flex: 1 1 auto;
+  }
+
+  /*
+   * 1. Without `overflow-y: hidden`, a scrollbar on the parent element appears.
+   */
+  .visualization--calendar-gap__legend {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    height: 60px;
+    overflow-y: hidden;
+  }
+
+  .visualization--calendar-gap__legend-item {
+    display: flex;
+  }
+
+  .visualization--calendar-gap__legend-square {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+  }
+
+  .visualization--calendar-gap__legend-square--green {
+    background-color: $color-green;
+  }
+
+  .visualization--calendar-gap__legend-square--gray {
+    background-color: #969696;
+  }
+
+  .visualization--calendar-gap__legend-text {
+    color: #686868;
+  }
+
+  .visualization--calendar-gap__stacked-bars {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    max-height: 70px;
+    min-height: 28px;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    & > *:first-child {
+      flex: 0 0 auto;
+      margin-bottom: 6px;
+    }
+
+    & > *:last-child {
+      flex: 1 1 auto;
+    }
+  }

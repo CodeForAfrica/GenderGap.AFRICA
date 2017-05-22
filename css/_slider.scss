@@ -9,7 +9,7 @@
     position: relative;
     flex: 1 1 auto;
     height: 100%;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
   }
 
   .slider__item {
@@ -52,19 +52,13 @@
       line-height: 1.5em;
     }
 
-    .slider__item--visualization__visualization,
-    .slider__item--visualization__visualization-grid {
-      flex: 1 1 auto;
-    }
-
     .slider__item--visualization__visualization {
-      display: flex;
+      flex: 1 1 auto;
     }
 
   .slider__navigation {
     flex: 0 0 auto;
     z-index: 1;
-    margin-bottom: 20px;
     line-height: 0;
     text-align: center;
   }
@@ -80,11 +74,11 @@
 
     &--active,
     &:hover {
-      background-color: $color-accent;
+      background-color: $color-red;
     }
 
     &:active {
-      background-color: $color-accent-dark;
+      background-color: $color-red-dark;
     }
 
     &--active {

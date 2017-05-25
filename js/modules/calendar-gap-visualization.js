@@ -99,7 +99,7 @@ export default {
     // If the chosen currency is different from the chosen country's currency...
     if (user.currency !== userCountryCurrency) {
       // ...convert the chosen salary to the chosen country's currency.
-      user.currency = convertToCurrency(user.salary, user.currency, userCountryCurrency);
+      user.salary = convertToCurrency(user.salary, user.currency, userCountryCurrency);
     }
 
     let averageSalary = {

@@ -228,7 +228,7 @@ export default {
       } else if (width >= 360) {
         svg.attr("preserveAspectRatio", "xMidYMid");
         g.attr("transform", "translate(0," + VIEWBOX.height / 2 + ")");
-        if (previousWidth < 360) {
+        if (previousWidth < 360 || previousWidth === null) {
           gWomenText.attr("transform", "");
           gMenText.attr("transform", "")
           gYouText.attr("transform", "");

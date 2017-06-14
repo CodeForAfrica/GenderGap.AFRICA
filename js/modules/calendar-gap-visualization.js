@@ -119,7 +119,7 @@ export default {
 
 
     if (user.gender === "female") {
-      d3.select("#calendar-gap-visualization-field-1").text("men");
+      d3.select("#calendar-gap-visualization-field-1").text("man");
 
       let salaryDifferenceInDays = Math.round(Math.abs(numberOfWorkDaysInCurrentMonth - (numberOfWorkDaysInCurrentMonth * user.salary) / averageSalary.monthly.men));
 
@@ -147,7 +147,7 @@ export default {
         }
       }
     } else if (user.gender === "male") {
-      d3.select("#calendar-gap-visualization-field-1").text("women");
+      d3.select("#calendar-gap-visualization-field-1").text("woman");
 
       let salaryDifferenceInDays = Math.round(Math.abs(numberOfWorkDaysInCurrentMonth - (numberOfWorkDaysInCurrentMonth * user.salary) / averageSalary.monthly.women));
 

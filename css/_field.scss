@@ -140,6 +140,9 @@
     color: white;
     cursor: pointer;
     outline: none;
+    /* stylelint-disable property-no-vendor-prefix */
+    -moz-appearance: textfield;
+    /* stylelint-enable property-no-vendor-prefix */
 
     &::placeholder {
       color: rgba(255, 255, 255, 0.8);
@@ -149,6 +152,14 @@
     &:focus::placeholder {
       color: rgba(255, 255, 255, 0.2);
     }
+
+    /* stylelint-disable property-no-vendor-prefix */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    /* stylelint-enable property-no-vendor-prefix */
   }
 
   .field--text__go {

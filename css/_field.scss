@@ -1,7 +1,6 @@
 /** @define field; weak */
 
 .field {
-  position: relative;
   display: inline-block;
 }
 
@@ -30,11 +29,13 @@
   .field__modal {
     position: absolute;
     top: 50%;
+    right: 0;
+    left: 0;
     visibility: hidden;
+    z-index: 1;
     width: 90vw;
-    max-height: 432px;
-    margin-top: 0;
-    margin-bottom: 0;
+    max-height: 90vh;
+    margin: 0 auto;
     padding-left: 0;
     color: white;
     background-color: $color-accent;
@@ -49,15 +50,13 @@
                 transform $transition-duration-normal;
 
     @media (min-width: 550px) {
-      left: 0 !important;
-      width: auto;
+      width: 400px;
+      max-height: 432px;
     }
   }
 
 
 .field--open {
-  z-index: 10000;
-
   .field__modal {
     visibility: visible;
     opacity: 1;

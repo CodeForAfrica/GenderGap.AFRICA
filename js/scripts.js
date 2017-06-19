@@ -342,16 +342,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let formParagraph = sections.form.querySelector(".form__paragraph");
     let allFields = formParagraph.querySelectorAll(".field");
 
-    let setFieldLeftPosition = () => {
-      [...allFields].forEach((field) => {
-        let fieldModal = field.querySelector(".field__modal");
-        fieldModal.style.left = -(field.offsetLeft - formParagraph.offsetLeft) + "px";
-      });
-    };
-
-    setFieldLeftPosition();
-    window.addEventListener("resize", setFieldLeftPosition);
-
     // Parse query strings such as "country=South+Africa".
     const URL_PARAMETERS = new URLSearchParams(document.location.search.substring(1));
     const DEFAULT_COUNTRY = URL_PARAMETERS.get("country");

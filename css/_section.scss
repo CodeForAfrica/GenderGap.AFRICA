@@ -40,17 +40,25 @@
   padding-top: 30px;
 
   @media (min-width: 550px) {
+    display: flex;
+    flex-direction: column;
     padding-top: 70px;
   }
 
   .section__header {
     margin-bottom: 30px;
     @media (min-width: 550px) {
-      margin-bottom: 132px;
+      flex: 0 1 auto;
+      height: 158px;
+      margin-bottom: 16px;
     }
   }
 
-  .section__body {}
+  .section__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
 }
 
   .section--form__wrapper {
@@ -58,6 +66,7 @@
       width: 90%;
       max-width: 960px;
       margin-right: auto;
+      margin-bottom: 16px;
       margin-left: auto;
     }
   }

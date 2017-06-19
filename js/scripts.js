@@ -1,6 +1,8 @@
 import * as d3 from "d3";
 import MobileDetect from "mobile-detect";
-import 'url-search-params-polyfill';
+import "url-search-params-polyfill";
+import "whatwg-fetch";
+import "babel-polyfill";
 
 import utils from "./utilities";
 import socialMedia from "./modules/social-media";
@@ -177,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     field.modal.className = "field__modal field--dropdown__list";
 
     let html = "";
-    selectElement.querySelectorAll("option").forEach((option, i) => {
+    [...selectElement.querySelectorAll("option")].forEach((option, i) => {
       html += selectElement.selectedIndex === i ? "<li class='field--dropdown__list-item field--dropdown__list-item--checked'>" +
                option.innerHTML + "</li>" : "<li class='field--dropdown__list-item'>" +
                option.innerHTML + "</li>";

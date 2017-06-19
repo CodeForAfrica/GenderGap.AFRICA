@@ -1,11 +1,13 @@
 import * as d3 from "d3";
 import MobileDetect from "mobile-detect";
+import 'url-search-params-polyfill';
 
 import utils from "./utilities";
 import socialMedia from "./modules/social-media";
 import calendarGapVisualization from "./modules/calendar-gap-visualization";
 import yourGapVisualization from "./modules/your-gap-visualization";
 import clockGapVisualization from "./modules/clock-gap-visualization";
+
 
 // From https://github.com/jonathantneal/closest/blob/master/element-closest.js
 (function (ElementProto) {
@@ -349,6 +351,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     setFieldLeftPosition();
     window.addEventListener("resize", setFieldLeftPosition);
+
+    // Parse query strings such as "country=South+Africa".
+    const URL_PARAMETERS = new URLSearchParams(document.location.search.substring(1));
+    const DEFAULT_COUNTRY = URL_PARAMETERS.get("country");
+    if (DEFAULT_COUNTRY) {
+      let listItem = [...fields.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item")]
+        .find(listItem => listItem.textContent.toLowerCase() === DEFAULT_COUNTRY.toLowerCase());
+
+      if (listItem !== undefined) {
+        listItem.click();
+      } else {
+        console.error("Country not found");
+      }
+    }
   };
 
   /************************************************************************************************

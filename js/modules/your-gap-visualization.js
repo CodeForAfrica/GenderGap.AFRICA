@@ -201,7 +201,7 @@ export default {
             gYouText.attr("transform", "rotate(-90) translate(-25,-10)");
           } else if (isInTheMiddle(xPosition.women)) {
             gWomenText.attr("transform", "rotate(-90) translate(-25,-10)");
-          } else if (isHighest(xPosition.men)) {
+          } else if (isInTheMiddle(xPosition.men)) {
             gMenText.attr("transform", "rotate(-90) translate(-25,-10)");
           }
 

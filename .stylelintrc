@@ -246,7 +246,9 @@
             "ignoreSelectors": [
                 "\\.touch",
                 "\\.no-touch",
-                "\\.is-mobile"
+                "\\.is-mobile",
+                "\\.cssgrid",
+                "\\.no-cssgrid"
             ],
             "utilitySelectors": "^\\.u-[a-z-]+$"
         }

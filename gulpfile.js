@@ -9,7 +9,11 @@ const gulp          = require('gulp'),
   babel           = require('rollup-plugin-babel'),
   nodeResolve     = require('rollup-plugin-node-resolve'),
   commonjs        = require('rollup-plugin-commonjs'),
-  browserSync     = require('browser-sync').create();
+  browserSync     = require('browser-sync').create(),
+  mkdirp          = require('mkdirp'),
+  fs              = require('fs'),
+  modernizr       = require('modernizr'),
+  modernizrConfig = require('./modernizr-config');
 
 
 gulp.task('default', ['lint', 'build']);
@@ -34,7 +38,7 @@ gulp.task('lint:scripts', () => {
     .pipe(plugins.jshint.reporter('fail'));
 });
 
-gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'copy:images', 'copy:data']);
+gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'build:modernizr', 'copy:images', 'copy:data']);
 
 gulp.task('build:markup', () => {
   return gulp.src('*.html')
@@ -84,6 +88,14 @@ gulp.task('build:scripts', () => {
   .pipe(plugins.uglify())
   .pipe(gulp.dest('dist/'))
   .pipe(browserSync.stream());
+});
+
+gulp.task('build:modernizr', function (done) {
+    modernizr.build(modernizrConfig, function(code) {
+      mkdirp('dist/', (err) => {
+        fs.writeFile('dist/modernizr-build.min.js', code, done);
+      });
+    });
 });
 
 gulp.task('copy:images', () => {

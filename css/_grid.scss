@@ -1,34 +1,59 @@
 /** @define grid; weak */
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 25px auto;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+.cssgrid {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 25px auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+
+    .grid__item {}
+
+    .grid__item--header {
+      justify-self: center;
+      align-self: center;
+      height: auto;
+    }
 }
 
-  .grid__item {}
-
-  .grid__item--header {
-    justify-self: center;
-    align-self: center;
-    height: auto;
-    font-weight: 300;
+.no-cssgrid {
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: stretch;
   }
 
-  .grid__item--red-square {
-    background-color: $color-red;
-  }
+    .grid__item {
+      width: calc(20% - 10px);
+      margin-right: 10px;
+      margin-bottom: 10px;
+    }
 
-  .grid__item--green-square {
-    background-color: $color-green;
-  }
+    .grid__item--header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+}
 
-  .grid__item--gray-square {
-    background-color: #969696;
-  }
+    .grid__item--header {
+      font-weight: 300;
+    }
 
-  .grid__item--black-frame {
-    box-shadow: inset 0 0 0 3px black;
-  }
+    .grid__item--red-square {
+      background-color: $color-red;
+    }
+
+    .grid__item--green-square {
+      background-color: $color-green;
+    }
+
+    .grid__item--gray-square {
+      background-color: #969696;
+    }
+
+    .grid__item--black-frame {
+      box-shadow: inset 0 0 0 3px black;
+    }

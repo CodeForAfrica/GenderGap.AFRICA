@@ -34,18 +34,17 @@
 }
 
   .visualization--calendar-gap__grid {
-    flex: 1 1 auto;
+    flex: (100 / 15) 1 auto;
   }
 
   /*
    * 1. Without `overflow-y: hidden`, a scrollbar on the parent element appears.
    */
   .visualization--calendar-gap__legend {
-    flex: 0 0 auto;
+    flex: 1 0 auto;
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
-    height: 60px;
     overflow-y: hidden;
   }
 

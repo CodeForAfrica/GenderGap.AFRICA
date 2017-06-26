@@ -110,8 +110,18 @@
   }
 
   .sidebar__social-media {
+    margin-bottom: 40px;
     padding-right: $sidebar-padding-side;
     padding-left: $sidebar-padding-side;
+  }
+
+  .sidebar__source {
+    padding-right: $sidebar-padding-side;
+    padding-left: $sidebar-padding-side;
+  }
+
+  .sidebar__source-link {
+    color: white;
   }
 
 @media (min-width: 550px) {

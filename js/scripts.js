@@ -199,7 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
       openFieldModal(field.field);
     };
     field.toggle.addEventListener("click", toggleField);
-    field.toggle.addEventListener("touchstart", toggleField);
 
     let selectListItem = (e, selectedListItem) => {
         e.preventDefault();
@@ -229,8 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let listItems = field.modal.querySelectorAll(".field--dropdown__list-item");
     [...listItems].forEach((listItem) => {
-      listItem.addEventListener("click",      (e) => { selectListItem(e, listItem); });
-      listItem.addEventListener("touchstart", (e) => { selectListItem(e, listItem); });
+      listItem.addEventListener("click", (e) => { selectListItem(e, listItem); });
     });
   };
 
@@ -282,7 +280,6 @@ document.addEventListener("DOMContentLoaded", () => {
       field.input.focus();
     };
     field.toggle.addEventListener("click", toggleField);
-    field.toggle.addEventListener("touchstart", toggleField);
 
     let submit = (ev) => {
       ev.preventDefault();
@@ -299,7 +296,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
     field.go.addEventListener("click", submit);
-    field.go.addEventListener("touchstart", submit);
   };
 
   let createFormPage = (data) => {
@@ -338,7 +334,6 @@ document.addEventListener("DOMContentLoaded", () => {
       };
 
       listItem.addEventListener("click", selectCurrency);
-      listItem.addEventListener("touchstart", selectCurrency);
     });
 
     let formParagraph = sections.form.querySelector(".form__paragraph");

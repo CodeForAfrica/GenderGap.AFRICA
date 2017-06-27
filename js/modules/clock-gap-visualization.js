@@ -4,7 +4,7 @@ import utils from "../utilities";
 
 const VIEWBOX = {
   width: 100,
-  height: 100
+  height: 65
 };
 
 const ARC = {
@@ -103,7 +103,7 @@ export default {
     svg.attr("viewBox", "0 0 " + VIEWBOX.width + " " + VIEWBOX.height);
 
     let g = svg.append("g")
-      .attr("transform", "translate(0," + VIEWBOX.height / 2 + ")");
+      .attr("transform", "translate(0,55)");
 
     let pie = d3.pie()
       .sort(null)
@@ -239,12 +239,16 @@ export default {
       height = parseInt(window.getComputedStyle(svg.node()).height, 10);
 
       if (width < 360) {
+        svg.attr("viewBox", "0 0 " + VIEWBOX.width + " " + (VIEWBOX.height + 10));
+
         if (previousWidth >= 360 || previousWidth === null) {
           textWrapper.attr("transform", "translate(" + VIEWBOX.width / 2 + ",15)")
             .select("text")
             .attr("font-size", "8");
         }
       } else if (width >= 360) {
+        svg.attr("viewBox", "0 0 " + VIEWBOX.width + " " + VIEWBOX.height);
+
         if (previousWidth < 360 || previousWidth === null) {
           textWrapper.attr("transform", "translate(" + VIEWBOX.width / 2 + ",0)")
             .select("text")

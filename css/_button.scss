@@ -11,7 +11,9 @@
   outline: none;
 }
 
-  .button__text {}
+  .button__text {
+    text-transform: uppercase;
+  }
 
   .button__icon {
     width: 0.7em;

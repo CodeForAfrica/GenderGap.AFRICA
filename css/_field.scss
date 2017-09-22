@@ -209,3 +209,32 @@
   text-transform: none;
   -webkit-font-smoothing: antialiased;
 }
+
+.field--radio {
+  display: inline-block;
+  color: #a5a5a5;
+  line-height: inherit;
+  margin-right: 9rem;
+  transition: color $transition-duration-fast,
+              border-bottom-color $transition-duration-fast;
+  cursor: pointer;
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+input:checked + .field--radio {
+  color: $color-accent;
+  font-weight: 700;
+}
+
+.no-touch .field--radio {
+  &:hover {
+    color: $color-accent;
+  }
+
+  &:hover:active {
+    color: $color-accent-dark;
+  }
+}

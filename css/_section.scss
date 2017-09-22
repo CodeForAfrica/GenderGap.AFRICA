@@ -36,7 +36,7 @@
   }
 }
 
-.section--form {
+.section__form, .section__form--country, .section__form--gender, .section__form--salary {
   padding-top: 30px;
 
   @media (min-width: 550px) {
@@ -54,7 +54,7 @@
     }
 
     .logo {
-      width: 220px;
+      width: 180px;
     }
   }
 
@@ -82,12 +82,36 @@
     margin-left: auto;
   }
 
-.section--visualizations {}
+.section--visualizations {
+  padding-top: 30px;
+
+  @media (min-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    padding-top: 70px;
+  }
+  .section__header {
+    margin-bottom: 30px;
+    @media (min-width: 550px) {
+      flex: 0 1 auto;
+      height: 158px;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      width: 180px;
+    }
+  }
+
+  .section__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+}
 
 .section--visualizations__wrapper {
-  max-width: 600px;
-  height: 100%;
-  margin-right: auto;
-  margin-left: auto;
-  padding: 100px 20px 20px;
+  @media (min-width: 550px) {
+    max-width: none;
+  }
 }

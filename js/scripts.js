@@ -6,9 +6,7 @@ import "babel-polyfill";
 
 import utils from "./utilities";
 import socialMedia from "./modules/social-media";
-import calendarGapVisualization from "./modules/calendar-gap-visualization";
-import yourGapVisualization from "./modules/your-gap-visualization";
-import clockGapVisualization from "./modules/clock-gap-visualization";
+import genderGapVisualization from './modules/gender-gap-visualization';
 
 
 // From https://github.com/jonathantneal/closest/blob/master/element-closest.js
@@ -69,7 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let sections = {
     homepage:       document.querySelector(".section--homepage"),
-    form:           document.querySelector(".section--form"),
+    countryForm:    document.querySelector(".section__form--country"),
+    genderForm:     document.querySelector(".section__form--gender"),
+    salaryForm:      document.querySelector(".section__form--salary"),
     visualizations: document.querySelector(".section--visualizations")
   };
 
@@ -92,29 +92,44 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       createFormPage(data);
+      let user = {};
 
       document.querySelector("#homepage-button").addEventListener("click", () => {
-        goToNextSection(sections.form);
+        goToNextSection(sections.countryForm);
+        document.querySelector('.social-media').classList.add('dark');
       });
 
-      document.querySelector("#form-button").addEventListener("click", () => {
-        let user = {};
-
-        user.gender = fields.gender.options[fields.gender.selectedIndex].value;
-        if (user.gender === "my gender") {
-          alert("Please enter gender");
-          return;
-        }
-
+      document.querySelector("#country-form-button").addEventListener("click", () => {
         user.country = fields.country.value;
-        if (user.country === "my country") {
+        if (user.country === "Your country") {
           alert("Please enter country");
           return;
         }
 
+        goToNextSection(sections.genderForm);
+      });
+
+      document.querySelector("#gender-form-button").addEventListener("click", () => {
+        user.gender = null;
+        fields.gender.forEach((option, i) => {
+          if (option.checked) {
+            user.gender = option.value;
+          }
+        });
+        
+        if (user.gender === null) {
+          alert("Please enter gender");
+          return;
+        } 
+
+        goToNextSection(sections.salaryForm);
+      });
+
+      document.querySelector("#salary-form-button").addEventListener("click", () => {
+        
         user.salary = +fields.salary.value;
-        if (user.salary === "") {
-          alert("Please enter salary");
+        if (user.salary === 0) {
+          alert("Please enter your salary");
           return;
         }
 
@@ -125,10 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         goToNextSection(sections.visualizations);
-
-        calendarGapVisualization.initialize(data, user);
-        clockGapVisualization.initialize(data, user);
-        yourGapVisualization.initialize(data, user);
+        
+        genderGapVisualization.initialize(data, user);
+        // calendarGapVisualization.initialize(data, user);
+        // clockGapVisualization.initialize(data, user);
+        // yourGapVisualization.initialize(data, user);
       });
     })
     .catch(err => console.error(err));
@@ -142,15 +158,23 @@ document.addEventListener("DOMContentLoaded", () => {
    ************************************************************************************************/
 
   let fields = {
-    gender:     document.querySelector("#field-gender"),
+    gender:     document.getElementsByName("gender-radio"),
     country:    document.querySelector("#field-country"),
     salary:     document.querySelector("#field-salary"),
     currency:   document.querySelector("#field-currency")
   };
 
-  let overlay = document.querySelector(".overlay"),
-      showOverlay = () => { overlay.classList.add("overlay--open"); },
-      hideOverlay = () => { overlay.classList.remove("overlay--open"); };
+  let overlays = document.querySelectorAll(".overlay"),
+      showOverlay = () => { 
+        for(var i = 0; i < overlays.length; i++) {
+          overlays[i].classList.add("overlay--open"); 
+        }
+      },
+      hideOverlay = () => { 
+        for(var i = 0; i < overlays.length; i++) {
+          overlays[i].classList.remove("overlay--open"); 
+        }
+      };
 
   let openFieldModal = (field) => {
     field.classList.add("field--open");
@@ -163,7 +187,9 @@ document.addEventListener("DOMContentLoaded", () => {
     hideOverlay();
   };
 
-  overlay.addEventListener("click", closeFieldModal);
+  for(var i = 0; i < overlays.length; i++) {
+    overlays[i].addEventListener("click", closeFieldModal);
+  }
 
   let createCustomDropdown = (selectElement) => {
     let field = {};
@@ -336,7 +362,7 @@ document.addEventListener("DOMContentLoaded", () => {
       listItem.addEventListener("click", selectCurrency);
     });
 
-    let formParagraph = sections.form.querySelector(".form__paragraph");
+    let formParagraph = sections.countryForm.querySelector(".form__paragraph");
     let allFields = formParagraph.querySelectorAll(".field");
 
     // Parse query strings such as "country=South+Africa".
@@ -360,67 +386,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   socialMedia();
 
-  let buttons = {
-    calendarView: document.querySelector("#calendar-view-button"),
-    clockView: document.querySelector("#clock-view-button"),
-    yourGap: document.querySelector("#your-gap-button")
-  };
+  // let menuButton = document.querySelector("#menu-button");
 
-  let goToVisualization = (i) => {
-    let active = document.querySelector(".slider__item--active");
-    active.classList.remove("slider__item--active");
+  // let layout = {
+  //   sidebar: document.querySelector(".layout__sidebar")
+  // };
 
-    let allSliderItems = document.querySelectorAll(".slider__item");
-    allSliderItems[i].classList.add("slider__item--active");
-  };
+  // let sidebar = {
+  //   closeButton: document.querySelector(".sidebar__close-button")
+  // };
 
-  let allSidebarNavigationButtons = document.querySelectorAll(".sidebar__navigation-button");
-  let allSliderNavigationDots = document.querySelectorAll(".slider__navigation-dot");
+  // menuButton.addEventListener("click", () => {
+  //   layout.sidebar.classList.add("layout__sidebar--active");
+  // });
 
-  let selectSidebarNavigationButton = (i) => {
-      let active = document.querySelector(".sidebar__navigation-button--active");
-      active.classList.remove("sidebar__navigation-button--active");
-      allSidebarNavigationButtons[i].classList.add("sidebar__navigation-button--active");
-      if (layout.sidebar.classList.contains("layout__sidebar--active")) {
-        layout.sidebar.classList.remove("layout__sidebar--active");
-      }
-  };
-
-  let selectSliderNaviagationDot = (i) => {
-      let active = document.querySelector(".slider__navigation-dot--active");
-      active.classList.remove("slider__navigation-dot--active");
-      allSliderNavigationDots[i].classList.add("slider__navigation-dot--active");
-  };
-
-  let selectVisualization = (i) => {
-    selectSidebarNavigationButton(i);
-    selectSliderNaviagationDot(i);
-    goToVisualization(i);
-  };
-
-  [...allSidebarNavigationButtons].forEach((sidebarNavigationButton, i) => {
-    sidebarNavigationButton.addEventListener("click", () => { selectVisualization(i); });
-  });
-
-  [...allSliderNavigationDots].forEach((sliderNavigationDot, i) => {
-    sliderNavigationDot.addEventListener("click", () => { selectVisualization(i); });
-  });
-
-  let menuButton = document.querySelector("#menu-button");
-
-  let layout = {
-    sidebar: document.querySelector(".layout__sidebar")
-  };
-
-  let sidebar = {
-    closeButton: document.querySelector(".sidebar__close-button")
-  };
-
-  menuButton.addEventListener("click", () => {
-    layout.sidebar.classList.add("layout__sidebar--active");
-  });
-
-  sidebar.closeButton.addEventListener("click", () => {
-    layout.sidebar.classList.remove("layout__sidebar--active");
-  });
+  // sidebar.closeButton.addEventListener("click", () => {
+  //   layout.sidebar.classList.remove("layout__sidebar--active");
+  // });
 });

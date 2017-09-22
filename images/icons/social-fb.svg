@@ -1,1 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.05 21.53"><defs><style>.cls-1{fill:#fcfafa;}</style></defs><title>social_fb</title><g id="Layer_2" data-name="Layer 2"><g id="Content"><g id="facebook"><path class="cls-1" d="M6.68,7.05V5.2c0-1,.09-1.49,1.48-1.49H10V0h-3C3.48,0,2.23,1.8,2.23,4.83V7.05H0v3.71H2.23V21.53H6.68V10.76h3L10,7.05Z"/></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10.05 21.53">
+    <title>social_fb</title>
+    <path d="M6.68,7.05V5.2c0-1,.09-1.49,1.48-1.49H10V0h-3C3.48,0,2.23,1.8,2.23,4.83V7.05H0v3.71H2.23V21.53H6.68V10.76h3L10,7.05Z"/>
+</svg>

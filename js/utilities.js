@@ -60,6 +60,12 @@ let pad = value => (value < 10) ? "0" + value : value;
 
 let degreesToRadians = degrees => degrees / 180 * Math.PI;
 
+let numberWithCommas = (x) => {
+    let parts = x.toString().split('.')
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    return parts.join('.')
+}
+
 export default {
   mod: mod,
 
@@ -85,5 +91,7 @@ export default {
 
   pad: pad,
 
-  degreesToRadians: degreesToRadians
+  degreesToRadians: degreesToRadians,
+
+  numberWithCommas: numberWithCommas
 };

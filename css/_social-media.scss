@@ -3,64 +3,188 @@
 $number-of-links: 3;
 $number-of-links-mobile: 4;
 
-.social-media {}
+.social-media {
+  @media (min-width: 550px) {
+    position: absolute;
+    right: 6rem;
+    top: 6rem;
+    z-index: 1;
+  }
+}
 
-  .social-media__title {
-    margin-bottom: 20px;
-    font-weight: 600;
-    font-size: 1.8rem;
+.social-media__title {
+  color: white;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 1.8rem;
+  pointer-events: all;
+  position: absolute;
+  right: 1.6rem;
+  text-transform: uppercase;
+  top: 3rem;
+  vertical-align: middle;
+  z-index: 1;
+
+  .dark & {
+    color: $color-font-dark;
   }
 
-  .social-media__buttons {
-    display: flex;
-    height: calc((100vw - #{$sidebar-padding-side} * 2) / #{$number-of-links});
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-left: 0;
+  @media (min-width: 550px) {
+    line-height: 2.4rem;
+    pointer-events: none;
+    position: static;
+  }
+}
+
+.social-media__buttons {
+  background: $color-background-dark;
+  bottom: 0;
+  left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-top: 30px;
+  position: absolute;
+  top: 0;
+  transform: translateX(100%);
+  transition: transform $transition-duration-fast;
+  width: 100%;
+  z-index: 2;
+
+  .section__header {
+    margin-bottom: 30px;
+    @media (min-width: 550px) {
+      flex: 0 1 auto;
+      height: 158px;
+      margin-bottom: 16px;
+    }
+
+    .logo {
+      width: 180px;
+    }
+  }
+
+  ul {
     list-style-type: none;
+    margin-top: 120px;
+  }
 
-    @media (min-width: 550px) {
-      height: calc((#{$sidebar-width} - #{$sidebar-padding-side} * 2) / #{$number-of-links});
+  &.active {
+    transform: translateX(0);
+  }
+
+  @media (min-width: 550px) {
+    background: none;
+    display: inline-block;
+    height: 2.4rem;
+    padding-top: 0;
+    position: static;
+    transform: none;
+    transition: none;
+    vertical-align: middle;
+    width: auto;
+
+    .section__header {
+      display: none;
+    }
+
+    ul {
+      margin-top: 0;
+      padding-left: 0;
     }
   }
+}
 
-  .is-mobile .social-media__buttons {
-    height: calc((100vw - #{$sidebar-padding-side} * 2) / #{$number-of-links-mobile});
+#share-close-button {
+  display: block;
+  height: 2.5rem;
+  position: absolute;
+  right: 2rem;
+  top: 3rem;
+  width: 2.5rem;
 
-    @media (min-width: 550px) {
-      height: calc((#{$sidebar-width} - #{$sidebar-padding-side} * 2) / #{$number-of-links-mobile});
-    }
+  @media (min-width: 550px) {
+    display: none;
+  }
+}
+
+.social-media__button {
+  display: block;
+
+  @media (min-width: 550px) {
+    display: inline-block;
+    margin-left: 4rem;
+  }
+}
+
+.social-media__link {
+  color: white;
+  display: block;
+  align-items: center;
+  height: 100%;
+  margin-bottom: 40px;
+  text-decoration: none;
+  transition: opacity $transition-duration-fast;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.6;
   }
 
-  .social-media__button {
-    flex: 1 1 auto;
-    height: 100%;
-    border-width: 1px;
-    border-color: white;
-    border-top-style: solid;
-    border-right-style: solid;
-    border-bottom-style: solid;
+  @media (min-width: 550px) {
+    margin-bottom: 0;
+  }
+}
 
-    &:first-of-type {
-      border-left-style: solid;
-    }
+.social-media__title-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.social-media__title-icon {
+  display: inline-block;
+  fill: white;
+  height: 20px;
+  vertical-align: middle;
+  width: 20px;
+
+  .dark & {
+    fill: $color-font-dark;
   }
 
-  .social-media__link {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    transition: background-color $transition-duration-fast;
+  @media (min-width: 550px) {
+    display: none;
+  }
+}
 
-    &:hover {
-      background-color: #303030;
-    }
+.social-media__icon {
+  display: inline-block;
+  fill: white;
+  width: 20px;
+  height: 20px;
+  margin-right: 4rem;
+  vertical-align: middle;
+
+  .dark & {
+    fill: $color-font-dark;
   }
 
-  .social-media__icon {
-    display: block;
-    width: 20px;
-    height: 20px;
-    margin-right: auto;
-    margin-left: auto;
+  .is-mobile .dark & {
+    fill: white;
   }
+
+  @media (min-width: 550px) {
+    margin-right: 0;
+  }
+}
+
+.social-media__text {
+  display: inline-block;
+  font-size: 1.9rem;
+  font-weight: 300;
+  vertical-align: middle;
+  
+  @media (min-width: 550px) {
+    display: none;
+  }
+}

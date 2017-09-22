@@ -5,6 +5,11 @@
   margin-bottom: 54px;
   padding: 0 20px;
   color: white;
+  margin-top: 40px;
+
+  @media (min-width: 550px) {
+    margin-top: 0;
+  }
 }
 
   .hero__logo {

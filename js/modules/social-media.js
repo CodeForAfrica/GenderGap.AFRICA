@@ -2,7 +2,9 @@ export default () => {
   let buttons = {
     twitter: document.querySelector("#twitter-button"),
     facebook: document.querySelector("#facebook-button"),
-    whatsapp: document.querySelector("#whatsapp-button")
+    whatsapp: document.querySelector("#whatsapp-button"),
+    share: document.querySelector('#share-button'),
+    close: document.querySelector('#share-close-button')
   };
 
   buttons.twitter.addEventListener("click", (event) => {
@@ -28,4 +30,19 @@ export default () => {
   if (!document.documentElement.classList.contains("is-mobile")) {
     buttons.whatsapp.parentNode.style.display = "none";
   }
+
+  buttons.share.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    if (window.matchMedia("(min-width: 550px)").matches) {
+      return;
+    } else {
+      document.querySelector('.social-media__buttons').classList.add('active');
+    }
+  });
+
+  buttons.close.addEventListener('click', (event) => {
+    event.preventDefault();
+    document.querySelector('.social-media__buttons').classList.remove('active');
+  });
 };

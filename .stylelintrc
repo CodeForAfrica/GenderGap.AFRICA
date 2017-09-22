@@ -248,7 +248,8 @@
                 "\\.no-touch",
                 "\\.is-mobile",
                 "\\.cssgrid",
-                "\\.no-cssgrid"
+                "\\.no-cssgrid",
+                "\\.dark"
             ],
             "utilitySelectors": "^\\.u-[a-z-]+$"
         }

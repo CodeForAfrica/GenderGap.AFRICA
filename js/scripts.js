@@ -385,22 +385,4 @@ document.addEventListener("DOMContentLoaded", () => {
    ************************************************************************************************/
 
   socialMedia();
-
-  // let menuButton = document.querySelector("#menu-button");
-
-  // let layout = {
-  //   sidebar: document.querySelector(".layout__sidebar")
-  // };
-
-  // let sidebar = {
-  //   closeButton: document.querySelector(".sidebar__close-button")
-  // };
-
-  // menuButton.addEventListener("click", () => {
-  //   layout.sidebar.classList.add("layout__sidebar--active");
-  // });
-
-  // sidebar.closeButton.addEventListener("click", () => {
-  //   layout.sidebar.classList.remove("layout__sidebar--active");
-  // });
 });

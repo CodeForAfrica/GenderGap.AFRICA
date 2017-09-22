@@ -212,9 +212,9 @@
 
 .field--radio {
   display: inline-block;
+  margin-right: 9rem;
   color: #a5a5a5;
   line-height: inherit;
-  margin-right: 9rem;
   transition: color $transition-duration-fast,
               border-bottom-color $transition-duration-fast;
   cursor: pointer;

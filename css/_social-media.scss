@@ -6,50 +6,50 @@ $number-of-links-mobile: 4;
 .social-media {
   @media (min-width: 550px) {
     position: absolute;
-    right: 6rem;
     top: 6rem;
+    right: 6rem;
     z-index: 1;
   }
 }
 
 .social-media__title {
-  color: white;
+  position: absolute;
+  top: 3rem;
+  right: 1.6rem;
   display: inline-block;
+  z-index: 1;
+  color: white;
   font-weight: 600;
   font-size: 1.8rem;
-  pointer-events: all;
-  position: absolute;
-  right: 1.6rem;
   text-transform: uppercase;
-  top: 3rem;
   vertical-align: middle;
-  z-index: 1;
+  pointer-events: all;
 
   .dark & {
     color: $color-font-dark;
   }
 
   @media (min-width: 550px) {
+    position: static;
     line-height: 2.4rem;
     pointer-events: none;
-    position: static;
   }
 }
 
 .social-media__buttons {
-  background: $color-background-dark;
-  bottom: 0;
-  left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding-left: 0;
-  padding-top: 30px;
   position: absolute;
   top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 30px;
+  padding-left: 0;
+  background: $color-background-dark;
   transform: translateX(100%);
   transition: transform $transition-duration-fast;
-  width: 100%;
-  z-index: 2;
 
   .section__header {
     margin-bottom: 30px;
@@ -74,15 +74,15 @@ $number-of-links-mobile: 4;
   }
 
   @media (min-width: 550px) {
-    background: none;
+    position: static;
     display: inline-block;
+    width: auto;
     height: 2.4rem;
     padding-top: 0;
-    position: static;
+    background: none;
+    vertical-align: middle;
     transform: none;
     transition: none;
-    vertical-align: middle;
-    width: auto;
 
     .section__header {
       display: none;
@@ -95,13 +95,13 @@ $number-of-links-mobile: 4;
   }
 }
 
-#share-close-button {
-  display: block;
-  height: 2.5rem;
+.social-media__close {
   position: absolute;
-  right: 2rem;
   top: 3rem;
+  right: 2rem;
+  display: block;
   width: 2.5rem;
+  height: 2.5rem;
 
   @media (min-width: 550px) {
     display: none;
@@ -118,12 +118,12 @@ $number-of-links-mobile: 4;
 }
 
 .social-media__link {
-  color: white;
   display: block;
-  align-items: center;
   height: 100%;
   margin-bottom: 40px;
+  color: white;
   text-decoration: none;
+  align-items: center;
   transition: opacity $transition-duration-fast;
 
   &:hover {
@@ -143,10 +143,10 @@ $number-of-links-mobile: 4;
 
 .social-media__title-icon {
   display: inline-block;
-  fill: white;
+  width: 20px;
   height: 20px;
   vertical-align: middle;
-  width: 20px;
+  fill: white;
 
   .dark & {
     fill: $color-font-dark;
@@ -159,11 +159,11 @@ $number-of-links-mobile: 4;
 
 .social-media__icon {
   display: inline-block;
-  fill: white;
   width: 20px;
   height: 20px;
   margin-right: 4rem;
   vertical-align: middle;
+  fill: white;
 
   .dark & {
     fill: $color-font-dark;
@@ -180,10 +180,10 @@ $number-of-links-mobile: 4;
 
 .social-media__text {
   display: inline-block;
-  font-size: 1.9rem;
   font-weight: 300;
+  font-size: 1.9rem;
   vertical-align: middle;
-  
+
   @media (min-width: 550px) {
     display: none;
   }

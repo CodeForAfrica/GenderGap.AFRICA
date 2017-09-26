@@ -6,7 +6,8 @@ import "babel-polyfill";
 
 import utils from "./utilities";
 import socialMedia from "./modules/social-media";
-import genderGapVisualization from './modules/gender-gap-visualization';
+import localGapVisualization from './modules/local-gap-visualization';
+import globalGapVisualization from './modules/global-gap-visualization';
 
 
 // From https://github.com/jonathantneal/closest/blob/master/element-closest.js
@@ -69,8 +70,9 @@ document.addEventListener("DOMContentLoaded", () => {
     homepage:       document.querySelector(".section--homepage"),
     countryForm:    document.querySelector(".section__form--country"),
     genderForm:     document.querySelector(".section__form--gender"),
-    salaryForm:      document.querySelector(".section__form--salary"),
-    visualizations: document.querySelector(".section--visualizations")
+    salaryForm:     document.querySelector(".section__form--salary"),
+    visualizations: document.querySelector(".section__visualizations--local"),
+    globalViz:      document.querySelector(".section__visualizations--global")
   };
 
   let goToNextSection = (nextSection) => {
@@ -141,10 +143,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         goToNextSection(sections.visualizations);
         
-        genderGapVisualization.initialize(data, user);
-        // calendarGapVisualization.initialize(data, user);
-        // clockGapVisualization.initialize(data, user);
-        // yourGapVisualization.initialize(data, user);
+        localGapVisualization.initialize(data, user);
+      });
+
+      document.querySelector("#local-visualization-link").addEventListener("click", () => {
+        goToNextSection(sections.globalViz);
+        globalGapVisualization.initialize(data, user);
       });
     })
     .catch(err => console.error(err));

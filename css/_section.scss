@@ -82,7 +82,7 @@
     margin-left: auto;
   }
 
-.section--visualizations {
+.section__visualizations--local, .section__visualizations--global {
   padding-top: 30px;
 
   @media (min-width: 550px) {

@@ -1,0 +1,85 @@
+.global__list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-size: 1.2rem;
+}
+
+.global__local {
+    float: right;
+    max-width: 50%;
+    font-weight: 700;
+    font-size: 2.4rem;
+}
+
+.global__header {
+    float: left;
+    margin-bottom: 1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+}
+
+.global__country, .global__country--active {
+    clear: left;
+    overflow: hidden;
+}
+
+.global__country-name, .global__header--country {
+    float: left;
+    width: 8rem;
+    margin-bottom: 1rem;
+    line-height: 1.4rem;
+}
+
+.global__female, .global__header--female {
+    float: left;
+    width: 4.5rem;
+}
+
+.global__male, .global__header--male {
+    float: left;
+}
+
+.global__male {
+    margin-left: 2.8rem;
+}
+
+.global__header--male {
+    margin-left: 3.8rem;
+}
+
+.global__user-difference, .global__user-currency {
+    color: $color-red;
+}
+
+.global__gap {
+    position: relative;
+    float: left;
+    display: block;
+    height: 1rem;
+    margin-top: 0.2rem;
+    background: $color-grey-light;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -5px;
+        width: 1rem;
+        height: 1rem;
+        background: $color-red;
+        border-radius: 50%;
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: -5px;
+        width: 1rem;
+        height: 1rem;
+        background: $color-background-dark;
+        border-radius: 50%;
+    }
+}

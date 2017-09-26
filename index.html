@@ -131,7 +131,7 @@
       </div>
       <div class="overlay"></div>
     </section>
-    <section class="section section--visualizations layout">
+    <section class="section section__visualizations--local layout">
       <header class="section__header section--form__wrapper section--form__wrapper--small-viewport">
         <a href="/" class="logo">
           <img alt="Gender Gap Clock" src="images/logo.svg">
@@ -155,7 +155,26 @@
             </div>
           </div>
           <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <span class="gap__difference"></span> <span class="gap__currency"></span> <span class="gap__more-less"></span> per month than a woman.</p>
-          <a class="gap__compare">See how <span class="gap__country"></span> compares to other countries</a>
+          <a class="gap__compare" id="local-visualization-link">See how <span class="gap__country"></span> compares to other countries</a>
+        </div>
+      </div>
+    </section>
+    <section class="section section__visualizations--global layout">
+      <header class="section__header section--form__wrapper section--form__wrapper--small-viewport">
+        <a href="/" class="logo">
+          <img alt="Gender Gap Clock" src="images/logo.svg">
+        </a>
+      </header>
+      <div class="section__body">
+        <div class="section--visualizations__wrapper section--form__wrapper section--form__wrapper--small-viewport">
+          <p class="global__local">In <span class="global__user-country"></span> men make <span class="global__user-difference"></span><span class="global__user-currency">$</span> more than women per month. This is the <span class="global__rank"></span> largest gap in Africa.</p>
+          <div class="global__countries">
+            <div class="global__countries-header">
+              <span class="global__header global__header--country">Country</span>
+              <span class="global__header global__header--female">Female <br />salary</span>
+              <span class="global__header global__header--male">Male <br />salary</span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -6,12 +6,13 @@ $color-accent: #e74c3c;
 $color-accent-light: lighten($color-accent, 4);
 $color-accent-dark: darken($color-accent, 25%);
 
-$color-background-primary: #e2e2e2;
+$color-background-primary: white;
 $color-background-dark: #282828;
 
 $color-green: #54b242;
 $color-red: #c0392b;
 $color-red-dark: darken(#c0392b, 25%);
+$color-grey-light: #e8e8e8;
 
 $transition-duration-fast: 0.1s;
 $transition-duration-normal: 0.3s;

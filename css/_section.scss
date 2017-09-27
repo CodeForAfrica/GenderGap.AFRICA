@@ -111,8 +111,12 @@
   }
 }
 
-.section--visualizations__wrapper {
+.section__visualizations--local .section--visualizations__wrapper {
   @media (min-width: 550px) {
     max-width: none;
   }
+}
+
+.section__visualizations--global .section--visualizations__wrapper {
+  margin-top: 4rem;
 }

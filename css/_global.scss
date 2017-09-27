@@ -1,15 +1,27 @@
 .global__list {
+    position: relative;
     list-style-type: none;
-    margin: 0;
+    margin: 0 0 4rem;
     padding: 0;
     font-size: 1.2rem;
+    line-height: 1.4rem;
 }
 
 .global__local {
-    float: right;
-    max-width: 50%;
+    margin-bottom: 4rem;
+    font-size: 1.8rem;
+    text-align: center;
+
+    @media (min-width: 550px) {
+        float: right;
+        max-width: 50%;
+        font-size: 2.4rem;
+        text-align: left;
+    }
+}
+
+.global__user-country {
     font-weight: 700;
-    font-size: 2.4rem;
 }
 
 .global__header {
@@ -27,22 +39,42 @@
 
 .global__country-name, .global__header--country {
     float: left;
-    width: 8rem;
+    width: 7.4rem;
     margin-bottom: 1rem;
-    line-height: 1.4rem;
+
+    @media (min-width: 550px) {
+        width: 8rem;
+    }
 }
 
 .global__female, .global__header--female {
     float: left;
-    width: 4.5rem;
+    width: 3.5rem;
+
+    @media (min-width: 550px) {
+        width: 4rem;
+    }
 }
 
 .global__male, .global__header--male {
     float: left;
+
+    .global__country--long & {
+        float: right;
+        margin-top: 0.5rem;
+    }
+
+    .global__country--truncated & {
+        margin-top: 1.5rem;
+    }
 }
 
 .global__male {
-    margin-left: 2.8rem;
+    margin-left: 1.5rem;
+
+    @media (min-width: 550px) {
+        margin-left: 2.8rem;
+    }
 }
 
 .global__header--male {
@@ -51,6 +83,7 @@
 
 .global__user-difference, .global__user-currency {
     color: $color-red;
+    font-weight: 700;
 }
 
 .global__gap {
@@ -82,4 +115,19 @@
         background: $color-background-dark;
         border-radius: 50%;
     }
+}
+
+.global__country--truncated .global__gap {
+    position: absolute;
+    left: 10.9rem;
+
+    @media (min-width: 550px) {
+        left: 12rem;
+    }
+}
+
+.global__country--truncated .global__gap--complete::after {
+    width: 6rem;
+    background: repeating-linear-gradient(90deg, $color-grey-light, $color-grey-light 4px, white 4px, white 8px);
+    border-radius: 0;
 }

@@ -17,6 +17,8 @@ html {
   -moz-osx-font-smoothing: grayscale;     /* 1. */
   -webkit-font-smoothing: antialiased;    /* 1. */
   font-size: 62.5%;  /* 2. */
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 body {

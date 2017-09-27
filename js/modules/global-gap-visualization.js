@@ -38,6 +38,7 @@ export default {
             }
             const listItem = document.createElement('li');
             listItem.className = user.country === orderedData[j].country ? 'global__country--active' : 'global__country';
+            listItem.setAttribute('id', 'global-country-' + j);
             const country = document.createElement('span');
             country.className = 'global__country-name';
             const countryText = document.createTextNode(orderedData[j].country);
@@ -64,11 +65,68 @@ export default {
 
         document.querySelector('.global__countries').append(list);
 
+        let gapRatio = 1 / 4;
+        let windowWidth = window.innerWidth;
+        let maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 109;
+        let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
+
+        if (window.matchMedia("(min-width: 680px)").matches) {
+            gapRatio = 2 / 3;
+            maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 120;
+            maxWidthInner = Math.min(windowWidth * 0.9, 960) - 178;
+        }
+
         for (let k = 0; k < orderedData.length; k++ ){ 
             let timeRatio = orderedData[k].gap / orderedData[orderedData.length - 1].gap;
-            Velocity(document.getElementById("gap-" + k), { width: orderedData[k].gap * 2 / 3 + 'px'}, { duration: 8000 * timeRatio, delay: 500 });
-            let count = new CountUp("count-up-" + k, Math.round(orderedData[k].female), Math.round(orderedData[k].male), 0.5, 8 * timeRatio, {useEasing: false});
+            let count = new CountUp("count-up-" + k, Math.round(orderedData[k].female), Math.round(orderedData[k].male), 0.5, 5 * timeRatio, {useEasing: false});
+            let width = orderedData[k].gap * gapRatio;
+            if (width > maxWidthInner) {
+                if (width > maxWidthOuter) {
+                    let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
+                    timeRatio = newWidth / width;
+                    width = newWidth;
+                    document.querySelector('#global-country-' + k).classList.add('global__country--truncated');
+                }
+                document.querySelector('#global-country-' + k).classList.add('global__country--long');
+            } 
+            Velocity(document.getElementById("gap-" + k), { width: width + 'px'}, { duration: 5000 * timeRatio, delay: 500, complete: (element) => element[0].classList.add('global__gap--complete') });
             count.start();
         }
+
+        let resize = () => {
+            let gapRatio = 1 / 4;
+            let windowWidth = window.innerWidth;
+            let maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 109;
+            let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
+
+            if (window.matchMedia("(min-width: 680px)").matches) {
+                gapRatio = 2 / 3;
+                maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 120;
+                maxWidthInner = Math.min(windowWidth * 0.9, 960) - 178;
+            }
+
+            for (let k = 0; k < orderedData.length; k++ ){ 
+                let country = document.querySelector('#global-country-' + k);
+                country.classList.remove('global__country--long')
+                country.classList.remove('global__country--truncated');
+                let width = orderedData[k].gap * gapRatio;
+                if (width > maxWidthInner) {
+                    if (width > maxWidthOuter) {
+                        let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
+                        width = newWidth;
+                        country.classList.add('global__country--truncated');
+                    }
+                    country.classList.add('global__country--long');
+                } 
+                let gap = document.getElementById("gap-" + k);
+                gap.setAttribute('style', 'width: ' + width + 'px');
+                gap.classList.add('global__gap--complete');
+            }
+        }
+
+        utils.throttle('resize', 'resize.global');
+        window.addEventListener('resize.global', () => {
+            resize();
+        });
     }
 };

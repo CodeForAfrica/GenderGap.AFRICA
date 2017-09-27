@@ -81,6 +81,25 @@ let getRank = (i) => {
   return i + "th";
 }
 
+let throttle = (type, name, obj = window) => {
+  let running = false
+
+  let func = () => {
+    if (running) {
+      return
+    }
+
+    running = true
+
+    requestAnimationFrame(() => {
+      obj.dispatchEvent(new CustomEvent(name))
+      running = false
+    })
+  }
+
+  obj.addEventListener(type, func)
+}
+
 export default {
   mod: mod,
 
@@ -110,5 +129,7 @@ export default {
 
   numberWithCommas: numberWithCommas,
 
-  getRank: getRank
+  getRank: getRank,
+
+  throttle: throttle
 };

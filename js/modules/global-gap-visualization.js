@@ -33,8 +33,8 @@ export default {
         let list = document.createElement('ol');
         list.className = 'global__list';
         for (let j = 0; j < orderedData.length; j++) {
-            if (orderedData[j].country === user.country) {
-                document.querySelector('.global__rank').innerHTML = utils.getRank(j + 1);
+            if (orderedData[j].country === user.country && orderedData.length !== j + 1) {
+                document.querySelector('.global__rank').innerHTML = utils.getRank(orderedData.length - j);
             }
             const listItem = document.createElement('li');
             listItem.className = user.country === orderedData[j].country ? 'global__country--active' : 'global__country';

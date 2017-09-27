@@ -131,3 +131,13 @@
     background: repeating-linear-gradient(90deg, $color-grey-light, $color-grey-light 4px, white 4px, white 8px);
     border-radius: 0;
 }
+
+.global__citation {
+    margin-bottom: 4rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+
+    span {
+        font-style: italic;
+    }
+}

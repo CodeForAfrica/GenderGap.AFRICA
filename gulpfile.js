@@ -44,8 +44,7 @@ gulp.task('build:markup', () => {
   return gulp.src('*.html')
     .pipe(plugins.htmlmin({
       collapseWhitespace: true
-    }))
-    .pipe(gulp.dest('dist/'));
+    }));
 });
 
 gulp.task('build:styles', () => {
@@ -112,7 +111,9 @@ gulp.task('clean', () => del('dist/'));
 
 gulp.task('serve', () =>  {
   browserSync.init({
-    server: 'dist/',
+    server: {
+      baseDir: "./"
+    },
     ghostMode: false,
     logFileChanges: true
   });

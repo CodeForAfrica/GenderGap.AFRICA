@@ -71,9 +71,9 @@ export default {
         let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
 
         if (window.matchMedia("(min-width: 680px)").matches) {
-            gapRatio = 2 / 3;
-            maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 120;
-            maxWidthInner = Math.min(windowWidth * 0.9, 960) - 178;
+            gapRatio = 3 / 5;
+            maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 160;
+            maxWidthInner = Math.min(windowWidth * 0.9, 960) - 217;
         }
 
         for (let k = 0; k < orderedData.length; k++ ){ 
@@ -100,9 +100,9 @@ export default {
             let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
 
             if (window.matchMedia("(min-width: 680px)").matches) {
-                gapRatio = 2 / 3;
-                maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 120;
-                maxWidthInner = Math.min(windowWidth * 0.9, 960) - 178;
+                gapRatio = 3 / 5;
+                maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 160;
+                maxWidthInner = Math.min(windowWidth * 0.9, 960) - 217;
             }
 
             for (let k = 0; k < orderedData.length; k++ ){ 

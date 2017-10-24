@@ -80,78 +80,87 @@ document.addEventListener("DOMContentLoaded", () => {
     nextSection.classList.add("section--active");
   };
 
-  fetch("data/data.csv")
+  fetch("data/currencies.csv")
     .then(response => response.text())
     .then((text) => {
+      let dataCurrencies = d3.csvParse(text);
 
-      // Convert CSV data to JSON.
-      let data = d3.csvParse(text);
+      fetch("data/data.csv")
+        .then(response => response.text())
+        .then((text) => {
 
-      data.forEach((d) => {
-        d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["AVERAGE ANNUAL SALARY (MEN)"];
-        d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["AVERAGE ANNUAL SALARY (WOMEN)"];
-        d["EXCHANGE RATE (USD)"]           = +d["EXCHANGE RATE (USD)"];
-      });
+          // Convert CSV data to JSON.
+          let data = d3.csvParse(text);
 
-      createFormPage(data);
-      let user = {};
+          dataCurrencies.forEach((d) => {
+            d["EXCHANGE RATE (USD)"]           = +d["EXCHANGE RATE (USD)"];
+          });
 
-      document.querySelector("#homepage-button").addEventListener("click", () => {
-        goToNextSection(sections.countryForm);
-        document.querySelector('.social-media').classList.add('dark');
-      });
+          data.forEach((d) => {
+            d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["AVERAGE ANNUAL SALARY (MEN)"];
+            d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["AVERAGE ANNUAL SALARY (WOMEN)"];
+          });
 
-      document.querySelector("#country-form-button").addEventListener("click", () => {
-        user.country = fields.country.value;
-        if (user.country === "Your country") {
-          alert("Please enter country");
-          return;
-        }
+          createFormPage(data, dataCurrencies);
+          let user = {};
 
-        goToNextSection(sections.genderForm);
-      });
+          document.querySelector("#homepage-button").addEventListener("click", () => {
+            goToNextSection(sections.countryForm);
+            document.querySelector('.social-media').classList.add('dark');
+          });
 
-      document.querySelector("#gender-form-button").addEventListener("click", () => {
-        user.gender = null;
-        fields.gender.forEach((option, i) => {
-          if (option.checked) {
-            user.gender = option.value;
-          }
-        });
-        
-        if (user.gender === null) {
-          alert("Please enter gender");
-          return;
-        } 
+          document.querySelector("#country-form-button").addEventListener("click", () => {
+            user.country = fields.country.value;
+            if (user.country === "Your country") {
+              alert("Please enter country");
+              return;
+            }
 
-        goToNextSection(sections.salaryForm);
-      });
+            goToNextSection(sections.genderForm);
+          });
 
-      document.querySelector("#salary-form-button").addEventListener("click", () => {
-        
-        user.salary = +fields.salary.value;
-        if (user.salary === 0) {
-          alert("Please enter your salary");
-          return;
-        }
+          document.querySelector("#gender-form-button").addEventListener("click", () => {
+            user.gender = null;
+            fields.gender.forEach((option, i) => {
+              if (option.checked) {
+                user.gender = option.value;
+              }
+            });
+            
+            if (user.gender === null) {
+              alert("Please enter gender");
+              return;
+            } 
 
-        user.currency = fields.currency.value;
-        if (user.currency === "currency") {
-          alert("Please enter currency");
-          return;
-        }
+            goToNextSection(sections.salaryForm);
+          });
 
-        goToNextSection(sections.visualizations);
-        
-        localGapVisualization.initialize(data, user);
-      });
+          document.querySelector("#salary-form-button").addEventListener("click", () => {
+            
+            user.salary = +fields.salary.value;
+            if (user.salary === 0) {
+              alert("Please enter your salary");
+              return;
+            }
 
-      document.querySelector("#local-visualization-link").addEventListener("click", () => {
-        goToNextSection(sections.globalViz);
-        globalGapVisualization.initialize(data, user);
-      });
-    })
-    .catch(err => console.error(err));
+            user.currency = fields.currency.value;
+            if (user.currency === "currency") {
+              alert("Please enter currency");
+              return;
+            }
+
+            goToNextSection(sections.visualizations);
+            
+            localGapVisualization.initialize(data, dataCurrencies, user);
+          });
+
+          document.querySelector("#local-visualization-link").addEventListener("click", () => {
+            goToNextSection(sections.globalViz);
+            globalGapVisualization.initialize(data, user);
+          });
+        })
+        .catch(err => console.error(err));
+    }).catch(err => console.error(err));
 
   /************************************************************************************************
    * Homepage
@@ -328,7 +337,7 @@ document.addEventListener("DOMContentLoaded", () => {
     field.go.addEventListener("click", submit);
   };
 
-  let createFormPage = (data) => {
+  let createFormPage = (data, dataCurrencies) => {
     // Populate dropdown with countries listed in the data file.
     let countries = data.map(d => d.COUNTRY);
     for (let i = 0; i < countries.length; i++) {
@@ -336,10 +345,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Populate dropdown with currencies listed in the data file.
-    let currencies = data.map(d => d["CURRENCY CODE"]);
-    currencies = currencies.concat(['EUR', 'GBP', 'USD']);
-    currencies.sort();
-    currencies = [...new Set(currencies)];
+    let currencies = dataCurrencies.map(d => d["CURRENCY CODE"]);
     for (let i = 0; i < currencies.length; i++) {
       fields.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
     }

@@ -14,8 +14,8 @@ export default {
         let difference = document.querySelector('.global__user-difference');
 
         for (let i = 0; i < data.length; i++) {
-            let female = data[i]['AVERAGE ANNUAL SALARY (WOMEN)'] / (data[i]['EXCHANGE RATE (USD)'] * 12);
-            let male = data[i]['AVERAGE ANNUAL SALARY (MEN)'] / (data[i]['EXCHANGE RATE (USD)'] * 12);
+            let female = data[i]['AVERAGE ANNUAL SALARY (WOMEN)'] / 12;
+            let male = data[i]['AVERAGE ANNUAL SALARY (MEN)'] / 12;
             let gap = Math.round(male - female);
             orderedData[i] = {
                 country: data[i]['COUNTRY'],

@@ -2,7 +2,7 @@ import utils from "../utilities";
 import CountUp from 'countup.js';
 
 export default {
-    initialize: (data, user) => {
+    initialize: (data, dataCurrencies, user) => {
         let countryTexts = document.querySelectorAll('.gap__country');
         for (let i = 0; i < countryTexts.length; i++) {
             countryTexts[i].innerHTML = user.country;
@@ -13,17 +13,21 @@ export default {
             currencyTexts[i].innerHTML = user.currency;
         }
 
+        let country = data.find(d => d.COUNTRY === user.country)
+        let currency = dataCurrencies.find(d => d["CURRENCY CODE"] === user.currency)
+        let exchangeRate = currency["EXCHANGE RATE (USD)"]
+
         let averageSalary = {
           annual: {
-            men: data.find(d => d.COUNTRY === user.country)["AVERAGE ANNUAL SALARY (MEN)"],
-            women: data.find(d => d.COUNTRY === user.country)["AVERAGE ANNUAL SALARY (WOMEN)"]
+            men: country["AVERAGE ANNUAL SALARY (MEN)"] * exchangeRate,
+            women: country["AVERAGE ANNUAL SALARY (WOMEN)"] * exchangeRate
           },
           monthly: {}
         };
 
         averageSalary.monthly.men = averageSalary.annual.men / 12;
         averageSalary.monthly.women = averageSalary.annual.women / 12;
-
+        
         let moreLess = document.querySelector('.gap__more-less');
         if (averageSalary.annual.men > averageSalary.annual.women) {
             moreLess.innerHTML = 'more';

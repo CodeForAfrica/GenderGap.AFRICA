@@ -337,6 +337,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Populate dropdown with currencies listed in the data file.
     let currencies = data.map(d => d["CURRENCY CODE"]);
+    currencies = currencies.concat(['EUR', 'GBP', 'USD']);
+    currencies.sort();
+    currencies = [...new Set(currencies)];
     for (let i = 0; i < currencies.length; i++) {
       fields.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
     }

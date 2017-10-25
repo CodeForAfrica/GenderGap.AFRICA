@@ -30,6 +30,22 @@ gulp
 gulp serve
 ```
 
+## Localisation
+
+To localise the tool to a specific country, add the query string parameter `country`:
+
+```
+?country=tanzania
+```
+
+Spaces should be added as `%20` so for example south africa would be:
+
+```
+?country=south%20africa
+```
+
+Localisation will mean that the country name will be pre-populated, but users can still change this if they choose to do so.
+
 
 ## Browser support
 

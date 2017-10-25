@@ -25,12 +25,12 @@
 
 .gap__copy {
     display: inline-block;
-    width: calc(100% - 8rem);
+    max-width: calc(100% - 8rem);
     text-align: left;
     vertical-align: middle;
 
     @media (min-width: 550px) {
-        width: calc(100% - 12rem);
+        max-width: calc(100% - 12rem);
     }
 }
 

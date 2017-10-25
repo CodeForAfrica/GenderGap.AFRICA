@@ -25,7 +25,7 @@ export default {
             }
 
             if (data[i]['COUNTRY'] === user.country) {
-                difference.innerHTML = gap;
+                difference.innerHTML = utils.numberWithCommas(gap);
             }
         }
 

@@ -38,7 +38,12 @@
 
 .global__country, .global__country--active {
     clear: left;
+    margin-bottom: 0.5rem;
     overflow: hidden;
+
+    &.global__country--long, &.global__country--truncated {
+        margin-bottom: 0;
+    }
 }
 
 .global__country--active {

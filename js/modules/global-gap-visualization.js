@@ -34,7 +34,12 @@ export default {
         list.className = 'global__list';
         for (let j = 0; j < orderedData.length; j++) {
             if (orderedData[j].country === user.country && orderedData.length !== j + 1) {
-                document.querySelector('.global__rank').innerHTML = utils.getRank(orderedData.length - j);
+                if (j === 0) {
+                    document.querySelector('.global__superlative').innerHTML = 'smallest'
+                } else {
+                    document.querySelector('.global__rank').innerHTML = utils.getRank(orderedData.length - j);    
+                }
+                
             }
             const listItem = document.createElement('li');
             listItem.className = user.country === orderedData[j].country ? 'global__country--active' : 'global__country';

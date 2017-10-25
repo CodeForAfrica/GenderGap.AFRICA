@@ -75,6 +75,8 @@ document.addEventListener("DOMContentLoaded", () => {
     globalViz:      document.querySelector(".section__visualizations--global")
   };
 
+  let countryParameter = utils.getParameterByName('country');
+
   let goToNextSection = (nextSection) => {
     document.querySelector(".section--active").classList.remove("section--active");
     nextSection.classList.add("section--active");
@@ -341,7 +343,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // Populate dropdown with countries listed in the data file.
     let countries = data.map(d => d.COUNTRY);
     for (let i = 0; i < countries.length; i++) {
-      fields.country.insertAdjacentHTML("beforeend", "<option>" + countries[i] + "</option>");
+      let selected = countryParameter !== null && countryParameter.toLowerCase() === countries[i].toLowerCase() ? 'selected="selected"' : ''
+      fields.country.insertAdjacentHTML("beforeend", "<option " + selected + ">" + countries[i] + "</option>");
     }
 
     // Populate dropdown with currencies listed in the data file.

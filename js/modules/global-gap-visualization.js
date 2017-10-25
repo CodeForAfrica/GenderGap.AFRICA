@@ -2,17 +2,11 @@ import utils from "../utilities";
 import CountUp from 'countup.js';
 import Velocity from 'velocity-animate';
 
+
 export default {
     initialize: (data, user) => {
-        let orderedData = [];
-
-        let countryTexts = document.querySelectorAll('.global__user-country');
-        for (let i = 0; i < countryTexts.length; i++) {
-            countryTexts[i].innerHTML = user.country;
-        }
-
         let difference = document.querySelector('.global__user-difference');
-
+        let orderedData = [];
         for (let i = 0; i < data.length; i++) {
             let female = data[i]['AVERAGE ANNUAL SALARY (WOMEN)'] / 12;
             let male = data[i]['AVERAGE ANNUAL SALARY (MEN)'] / 12;
@@ -29,7 +23,13 @@ export default {
             }
         }
 
-        orderedData.sort((a, b) => a.gap >= b.gap ? 1 : -1)
+        orderedData.sort((a, b) => a.gap >= b.gap ? 1 : -1)        
+
+        let countryTexts = document.querySelectorAll('.global__user-country');
+        for (let i = 0; i < countryTexts.length; i++) {
+            countryTexts[i].innerHTML = user.country;
+        }
+
         let list = document.createElement('ol');
         list.className = 'global__list';
         for (let j = 0; j < orderedData.length; j++) {
@@ -88,7 +88,7 @@ export default {
             if (width > maxWidthInner) {
                 if (width > maxWidthOuter) {
                     let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
-                    timeRatio = newWidth / width;
+                    // timeRatio = newWidth / width;
                     width = newWidth;
                     document.querySelector('#global-country-' + k).classList.add('global__country--truncated');
                 }
@@ -133,5 +133,10 @@ export default {
         window.addEventListener('resize.global', () => {
             resize();
         });
+    },
+
+    destroy: () => {
+        let list = document.querySelector('.global__list');
+        list.parentElement.removeChild(list);
     }
 };

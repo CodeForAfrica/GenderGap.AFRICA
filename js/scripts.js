@@ -77,9 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let countryParameter = utils.getParameterByName('country');
 
-  let goToNextSection = (nextSection) => {
+  let goToSection = (section) => {
     document.querySelector(".section--active").classList.remove("section--active");
-    nextSection.classList.add("section--active");
+    section.classList.add("section--active");
   };
 
   fetch("data/currencies.csv")
@@ -107,8 +107,12 @@ document.addEventListener("DOMContentLoaded", () => {
           let user = {};
 
           document.querySelector("#homepage-button").addEventListener("click", () => {
-            goToNextSection(sections.countryForm);
+            goToSection(sections.countryForm);
             document.querySelector('.social-media').classList.add('dark');
+          });
+
+          document.querySelector("#country-form-back").addEventListener("click", () => {
+            goToSection(sections.homepage);
           });
 
           document.querySelector("#country-form-button").addEventListener("click", () => {
@@ -118,7 +122,11 @@ document.addEventListener("DOMContentLoaded", () => {
               return;
             }
 
-            goToNextSection(sections.genderForm);
+            goToSection(sections.genderForm);
+          });
+
+          document.querySelector("#gender-form-back").addEventListener("click", () => {
+            goToSection(sections.countryForm);
           });
 
           document.querySelector("#gender-form-button").addEventListener("click", () => {
@@ -134,7 +142,11 @@ document.addEventListener("DOMContentLoaded", () => {
               return;
             } 
 
-            goToNextSection(sections.salaryForm);
+            goToSection(sections.salaryForm);
+          });
+
+          document.querySelector("#salary-form-back").addEventListener("click", () => {
+            goToSection(sections.genderForm);
           });
 
           document.querySelector("#salary-form-button").addEventListener("click", () => {
@@ -151,14 +163,25 @@ document.addEventListener("DOMContentLoaded", () => {
               return;
             }
 
-            goToNextSection(sections.visualizations);
+            goToSection(sections.visualizations);
             
             localGapVisualization.initialize(data, dataCurrencies, user);
           });
 
+          document.querySelector("#local-visualization-back").addEventListener("click", () => {
+            goToSection(sections.salaryForm);
+          });
+
           document.querySelector("#local-visualization-link").addEventListener("click", () => {
-            goToNextSection(sections.globalViz);
+            sections.globalViz.removeAttribute('style');
+            goToSection(sections.globalViz);
             globalGapVisualization.initialize(data, user);
+          });
+
+          document.querySelector("#global-visualization-back").addEventListener("click", () => {
+            goToSection(sections.visualizations);
+            globalGapVisualization.destroy();
+            sections.globalViz.style.display = 'none'
           });
         })
         .catch(err => console.error(err));

@@ -1,0 +1,20 @@
+.back {
+  text-align: left;
+  width: 90%;
+  max-width: 960px;
+  margin: 2rem auto;
+}
+
+.back__link {
+  display: inline-block;
+  color: $color-accent;
+
+  &:hover {
+    color: $color-accent-light;
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: $color-accent-dark;
+  }
+}

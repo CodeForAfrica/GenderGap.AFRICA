@@ -49,7 +49,7 @@
     margin-bottom: 30px;
     @media (min-width: 550px) {
       flex: 0 1 auto;
-      height: 158px;
+      height: auto;
       margin-bottom: 16px;
     }
 
@@ -112,9 +112,16 @@
 }
 
 .section__visualizations--local .section--visualizations__wrapper {
+  display: none;
+
   @media (min-width: 550px) {
+    display: block;
     max-width: none;
   }
+}
+
+.section__visualizations--local.section--active .section--visualizations__wrapper {
+  display: block;
 }
 
 .section__visualizations--global .section--visualizations__wrapper {

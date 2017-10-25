@@ -1,20 +1,30 @@
 .back {
-  text-align: left;
   width: 90%;
   max-width: 960px;
-  margin: 2rem auto;
+  margin: 3rem auto;
+  text-align: left;
 }
 
 .back__link {
   display: inline-block;
   color: $color-accent;
+  border-bottom: 1px solid $color-accent;
+  transition: all 350ms;
 
   &:hover {
-    color: $color-accent-light;
-    text-decoration: underline;
+    color: $color-accent-dark;
+    border-bottom-color: $color-accent-dark;
+    cursor: pointer;
   }
 
   &:active {
     color: $color-accent-dark;
   }
 }
+
+.back__arrow {
+  display: inline-block;
+  width: 14px;
+  margin-right: 5px;
+}
+

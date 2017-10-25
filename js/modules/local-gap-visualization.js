@@ -52,11 +52,9 @@ export default {
 
         let percentage = utils.numberWithCommas(Math.round((averageSalary.monthly.men - averageSalary.monthly.women) / averageSalary.monthly.women * 100));
         let countUpThree = new CountUp("count-up-three", 0, percentage, 0, 2, {useEasing: false});
+        document.querySelector('.gap__percent').innerHTML = percentage;
 
         countUp.start();
         countUpThree.start();
-
-        let difference = document.querySelector('.gap__difference');
-        difference.innerHTML = utils.numberWithCommas(Math.round(averageSalary.monthly.men - averageSalary.monthly.women));        
     }
 };

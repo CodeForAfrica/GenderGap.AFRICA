@@ -50,8 +50,8 @@
           <img alt="Gender Gap" src="images/logo.svg">
         </a>
       </header>
+      <div class="back"><a id="country-form-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body form">
-        <div class="back"><button id="country-form-back" class="back__link">Back</button></div>
         <div class="section--form__wrapper section--form__wrapper--small-viewport">
           <h2 class="form__subtitle">Tell us about yourself</h2>
           <p class="form__paragraph">
@@ -80,8 +80,8 @@
           <img alt="Gender Gap" src="images/logo.svg">
         </a>
       </header>
+      <div class="back"><a id="gender-form-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body form">
-        <div class="back"><button id="gender-form-back" class="back__link">Back</button></div>
         <div class="section--form__wrapper section--form__wrapper--small-viewport">
           <h2 class="form__subtitle">Tell us about yourself</h2>
           <p class="form__paragraph">
@@ -109,8 +109,8 @@
           <img alt="Gender Gap" src="images/logo.svg">
         </a>
       </header>
+      <div class="back"><a id="salary-form-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body form">
-        <div class="back"><button id="salary-form-back" class="back__link">Back</button></div>
         <div class="section--form__wrapper section--form__wrapper--small-viewport">
           <h2 class="form__subtitle">Tell us about yourself</h2>
           <p class="form__paragraph">
@@ -140,13 +140,16 @@
           <img alt="Gender Gap" src="images/logo.svg">
         </a>
       </header>
+      <div class="back"><a id="local-visualization-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body">
-        <div class="back"><button id="local-visualization-back" class="back__link">Back</button></div>
         <div class="section--visualizations__wrapper section--form__wrapper section--form__wrapper--small-viewport">
           <div class="gap__woman">
             <img class="gap__icon--woman" src="images/icons/woman.svg" alt="Woman symbol" />
             <div class="gap__copy">
-              <h2 class="gap__category">Woman</h2>
+              <h2 class="gap__category">
+                <span class="gap__category--female">As a woman you make:</span>
+                <span class="gap__category--male">If you were a woman you'd make:</span>
+              </h2>
               <p class="gap__salary"><span id="count-up-one" class="gap__amount--woman"></span><span class="gap__currency"></span></p>
             </div>
           </div>
@@ -154,12 +157,16 @@
           <div class="gap__man">
             <img class="gap__icon--man" src="images/icons/man.svg" alt="Man symbol" />
             <div class="gap__copy">
-              <h2 class="gap__category">Man</h2>
+              <h2 class="gap__category">
+                <span class="gap__category--male">As a man you make:</span>
+                <span class="gap__category--female">If you were a man you'd make:</span>
+              </h2>
               <p class="gap__salary"><span id="count-up-two" class="gap__amount--man"></span><span class="gap__currency"></span></p>
             </div>
           </div>
-          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <span class="gap__difference"></span> <span class="gap__currency"></span> <span class="gap__more-less"></span> per month than a woman.</p>
+          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <span class="gap__difference"><span class="gap__percent"></span>% <span class="gap__more-less"></span></span> than a woman.</p>
           <a class="gap__compare" id="local-visualization-link">See how <span class="gap__country"></span> compares to other countries</a>
+          <div class="gap__info-wrapper"><button class="button button--red button--icon-dark gap__info">About the data <span class="button__icon-dark"><img src="images/icons/info.svg" alt="info" /></span></button></div>
         </div>
       </div>
     </section>
@@ -169,8 +176,8 @@
           <img alt="Gender Gap" src="images/logo.svg">
         </a>
       </header>
+      <div class="back"><a id="global-visualization-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body">
-        <div class="back"><button id="global-visualization-back" class="back__link">Back</button></div>
         <div class="section--visualizations__wrapper section--form__wrapper section--form__wrapper--small-viewport">
           <p class="global__local">In <span class="global__user-country"></span> men make <span class="global__user-currency">$</span><span class="global__user-difference"></span> more than women per month. This is the <span class="global__rank"></span> <span class="global__superlative">largest</span> gap in Africa.</p>
           <div class="global__countries">
@@ -250,6 +257,14 @@
         </ul>
       </div>
     </nav>
+    <div class="info">
+      <div class="info__background"></div>
+      <div class="info__content">
+        <h2 class="info__title">Data methodology</h2>
+        <div class="info__copy"></div>
+        <button class="button button--red button--icon-dark info__close">Close <span class="button__icon-dark"><img src="images/icons/close.svg" alt="close" /></span></button>
+      </div>
+    </div>
   </main>
 </body>
 </html>

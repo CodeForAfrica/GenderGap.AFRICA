@@ -33,3 +33,24 @@
     background-color: $color-accent-dark;
   }
 }
+
+.button--icon-dark {
+  position: relative;
+  padding-right: 48px;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.button__icon-dark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 12px;
+  background: $color-accent-dark;
+
+  img {
+    width: 14px;
+    height: 14px;
+  }
+}

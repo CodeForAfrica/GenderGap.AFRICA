@@ -134,6 +134,20 @@ document.addEventListener("DOMContentLoaded", () => {
             fields.gender.forEach((option, i) => {
               if (option.checked) {
                 user.gender = option.value;
+                let otherGender ;
+                if (user.gender === 'male') {
+                  otherGender = 'female';
+                } else {
+                  otherGender = 'male';
+                }
+                let nonActiveCategories = document.querySelectorAll('.gap__category--' + otherGender);
+                let activeCategories = document.querySelectorAll('.gap__category--' + user.gender)
+                for (let i = 0; i < nonActiveCategories.length; i++) {
+                  nonActiveCategories[i].style.display = 'none';
+                }
+                for (let i = 0; i < activeCategories.length; i++) {
+                  activeCategories[i].removeAttribute('style');
+                }
               }
             });
             
@@ -166,6 +180,14 @@ document.addEventListener("DOMContentLoaded", () => {
             goToSection(sections.visualizations);
             
             localGapVisualization.initialize(data, dataCurrencies, user);
+          });
+
+          document.querySelector(".gap__info").addEventListener("click", () => {
+            document.querySelector('.info').style.display = 'block';
+          });
+
+          document.querySelector(".info__close").addEventListener("click", () => {
+            document.querySelector('.info').removeAttribute('style');
           });
 
           document.querySelector("#local-visualization-back").addEventListener("click", () => {

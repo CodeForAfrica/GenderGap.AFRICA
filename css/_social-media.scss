@@ -36,6 +36,12 @@ $number-of-links-mobile: 4;
   }
 }
 
+.global__social, .gap__social {
+  margin-bottom: 4rem;
+  padding: 0;
+  text-align: center;
+}
+
 .social-media__buttons {
   position: fixed;
   top: 0;
@@ -115,6 +121,22 @@ $number-of-links-mobile: 4;
     display: inline-block;
     margin-left: 4rem;
   }
+
+  .global__social &, .gap__social & {
+    display: inline-block;
+
+    &:first-child {
+      @media (min-width: 550px) {
+        margin-left: 0;
+      }
+    }
+
+    &:last-child {
+      .social-media__icon {
+        margin-right: 0;
+      }
+    }
+  }
 }
 
 .social-media__link {
@@ -133,6 +155,10 @@ $number-of-links-mobile: 4;
 
   @media (min-width: 550px) {
     margin-bottom: 0;
+  }
+
+  .global__social &, .gap__social & {
+    display: inline-block;
   }
 }
 
@@ -180,6 +206,10 @@ $number-of-links-mobile: 4;
   @media (min-width: 550px) {
     margin-right: 0;
   }
+
+  .global__social &, .is-mobile .global__social &, .gap__social &, .is-mobile .gap__social & {
+    fill: $color-font-dark;
+  }
 }
 
 .social-media__text {
@@ -189,6 +219,10 @@ $number-of-links-mobile: 4;
   vertical-align: middle;
 
   @media (min-width: 550px) {
+    display: none;
+  }
+
+  .global__social &, .gap__social & {
     display: none;
   }
 }

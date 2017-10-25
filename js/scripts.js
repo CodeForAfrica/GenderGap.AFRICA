@@ -180,6 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
             goToSection(sections.visualizations);
             
             localGapVisualization.initialize(data, dataCurrencies, user);
+            document.querySelector("#whatsapp-button-inline-alt").href = 'whatsapp://send?text=' + document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ' + window.location.href;
+            document.querySelector('#email-button-inline-alt').href = 'mailto:?subject=Gender Gap&body=' + encodeURI(document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ' + window.location.href);
           });
 
           document.querySelector(".gap__info").addEventListener("click", () => {
@@ -198,6 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
             sections.globalViz.removeAttribute('style');
             goToSection(sections.globalViz);
             globalGapVisualization.initialize(data, user);
+            document.querySelector("#whatsapp-button-inline").href = 'whatsapp://send?text=' + document.querySelector('.global__local').innerText + ' How does your country compare? ' + window.location.href;
+            document.querySelector('#email-button-inline').href = 'mailto:?subject=Gender Gap&body=' + encodeURI(document.querySelector('.global__local').innerText) + encodeURI(' How does your country compare? ') + encodeURI(window.location.href);
           });
 
           document.querySelector("#global-visualization-back").addEventListener("click", () => {

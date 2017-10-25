@@ -11,7 +11,9 @@
     }
 }
 
-.global__local {
+.global__local-wrapper {
+    position: relative;
+    z-index: 1;
     margin-bottom: 4rem;
     font-size: 1.8rem;
     text-align: center;

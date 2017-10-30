@@ -20,7 +20,7 @@ export default () => {
   buttons.twitter.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://twitter.com/intent/tweet?text=Explore inequality of income across African countries&url=" + window.location.href + '&hashtags=GenderGapAfrica';
+    let url = "https://twitter.com/intent/tweet?text=Explore inequality of income across African countries&url=" + window.location.href + '&hashtags=GenderGap,Africa';
     let name = "twitter-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
@@ -30,7 +30,7 @@ export default () => {
   buttons.twitterInline.addEventListener("click", (event) => {
     event.preventDefault();
     let text = document.querySelector('.global__local').innerText + ' How does your country compare? ';
-    let url = "https://twitter.com/intent/tweet?text=" + encodeURI(text) + '&url=' + encodeURI(window.location.href) + '&hashtags=GenderGapAfrica';
+    let url = "https://twitter.com/intent/tweet?text=" + encodeURI(text) + '&url=' + encodeURI(window.location.href) + '&hashtags=GenderGap,Africa';
     let name = "twitter-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
@@ -40,7 +40,7 @@ export default () => {
   buttons.twitterInlineAlt.addEventListener("click", (event) => {
     event.preventDefault();
     let text = document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ';
-    let url = "https://twitter.com/intent/tweet?text=" + encodeURI(text) + '&url=' + encodeURI(window.location.href) + '&hashtags=GenderGapAfrica';
+    let url = "https://twitter.com/intent/tweet?text=" + encodeURI(text) + '&url=' + encodeURI(window.location.href) + '&hashtags=GenderGap,Africa';
     let name = "twitter-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
@@ -50,7 +50,7 @@ export default () => {
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://codeforafrica.github.io/GenderGapClock/dist/");
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("http://gendergap.africa/");
     let name = "facebook-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
@@ -60,7 +60,7 @@ export default () => {
   buttons.facebookInline.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://codeforafrica.github.io/GenderGapClock/dist/");
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
     let name = "facebook-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
@@ -70,7 +70,7 @@ export default () => {
   buttons.facebookInlineAlt.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://codeforafrica.github.io/GenderGapClock/dist/");
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
     let name = "facebook-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 

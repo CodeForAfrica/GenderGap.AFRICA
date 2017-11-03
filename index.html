@@ -153,7 +153,12 @@
               <p class="gap__salary"><span id="count-up-one" class="gap__amount--woman"></span><span class="gap__currency"></span></p>
             </div>
           </div>
-          <div class="gap__percentage"><span id="count-up-three"></span>%</div>
+          <div class="gap__difference">
+            <div class="gap__difference-box">
+              <span id="count-up-three"></span><span class="gap__currency"></span>
+            </div>
+            <span class="gap__difference-text">difference</span>
+          </div>
           <div class="gap__man">
             <img class="gap__icon--man" src="images/icons/man.svg" alt="Man symbol" />
             <div class="gap__copy">
@@ -164,7 +169,7 @@
               <p class="gap__salary"><span id="count-up-two" class="gap__amount--man"></span><span class="gap__currency"></span></p>
             </div>
           </div>
-          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <span class="gap__difference"><span class="gap__percent"></span>% <span class="gap__more-less"></span></span> than a woman.</p>
+          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <strong><span class="gap__percent"></span>% <span class="gap__more-less"></span></strong> than a woman.</p>
           <ul class="gap__social">
             <li class="social-media__button">
               <a id="twitter-button-inline-alt" class="social-media__link" href="#0">
@@ -275,7 +280,7 @@
               <span class="global__header global__header--male">Male <br />salary (avg)</span>
             </div>
           </div>
-          <p class="global__citation"><span>Source:</span> <a href="http://reports.weforum.org/global-gender-gap-report-2016/" target="_blank" title="World Economic Forum, 2016">World Economic Forum, 2016</a></p>
+          <p class="global__citation"><span>Source:</span> <a href="https://www.weforum.org/reports/the-global-gender-gap-report-2017" target="_blank" title="World Economic Forum, 2017">World Economic Forum, 2017</a></p>
         </div>
       </div>
     </section>
@@ -349,7 +354,9 @@
       <div class="info__background"></div>
       <div class="info__content">
         <h2 class="info__title">Data methodology</h2>
-        <div class="info__copy"></div>
+        <div class="info__copy">
+          <p>This tool uses <em>Estimated Earned Income</em> data from the World Economic Forum's <a href="https://www.weforum.org/reports/the-global-gender-gap-report-2017" title="Global Gender Gap Index 2017" target="_blank">Global Gender Gap Report 2017</a>. It offers an overall average gender gap and does not account for industry, age or location within a country.</p>
+        </div>
         <button class="button button--red button--icon-dark info__close">Close <span class="button__icon-dark"><img src="images/icons/close.svg" alt="close" /></span></button>
       </div>
     </div>

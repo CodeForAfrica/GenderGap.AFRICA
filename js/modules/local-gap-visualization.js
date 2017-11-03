@@ -50,8 +50,11 @@ export default {
             countUp = new CountUp("count-up-two", Math.round(baseSalary), Math.round(ratioSalary), 0, 2, {useEasing: false});
         }
 
+        let difference = Math.abs(Math.round(ratioSalary) - Math.round(baseSalary));
+        console.log(difference)
+        let countUpThree = new CountUp("count-up-three", 0, difference, 0, 2, {useEasing: false});
+
         let percentage = utils.numberWithCommas(Math.round((averageSalary.monthly.men - averageSalary.monthly.women) / averageSalary.monthly.women * 100));
-        let countUpThree = new CountUp("count-up-three", 0, percentage, 0, 2, {useEasing: false});
         document.querySelector('.gap__percent').innerHTML = percentage;
 
         countUp.start();

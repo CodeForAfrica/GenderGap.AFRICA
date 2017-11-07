@@ -100,6 +100,10 @@
 
 .global__header--male {
     margin-left: 1.8rem;
+
+    @media (min-width: 680px) {
+        margin-left: 0.9rem;
+    }
 }
 
 .global__user-difference, .global__user-currency {

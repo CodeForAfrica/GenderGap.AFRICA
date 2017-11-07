@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           document.querySelector("#gender-form-button").addEventListener("click", () => {
-            user.gender = null;
+            user.gender = 'null';
             fields.gender.forEach((option, i) => {
               if (option.checked) {
                 user.gender = option.value;
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
             
             localGapVisualization.initialize(data, dataCurrencies, user);
             document.querySelector("#whatsapp-button-inline-alt").href = 'whatsapp://send?text=' + document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ' + window.location.href;
-            document.querySelector('#email-button-inline-alt').href = 'mailto:?subject=Gender Gap&body=' + encodeURI(document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ' + window.location.href);
+            document.querySelector('#email-button-inline-alt').href = 'mailto:?subject=Calculate your gender gap in Africa!&body=' + encodeURI(document.querySelector('.gap__gender-split').innerText + ' Calculate your African data gap: ' + window.location.href);
           });
 
           document.querySelector(".gap__info").addEventListener("click", () => {
@@ -200,8 +200,8 @@ document.addEventListener("DOMContentLoaded", () => {
             sections.globalViz.removeAttribute('style');
             goToSection(sections.globalViz);
             globalGapVisualization.initialize(data, user);
-            document.querySelector("#whatsapp-button-inline").href = 'whatsapp://send?text=' + document.querySelector('.global__local').innerText + ' How does your country compare? ' + window.location.href;
-            document.querySelector('#email-button-inline').href = 'mailto:?subject=Gender Gap&body=' + encodeURI(document.querySelector('.global__local').innerText) + encodeURI(' How does your country compare? ') + encodeURI(window.location.href);
+            document.querySelector("#whatsapp-button-inline").href = 'whatsapp://send?text=' + document.querySelector('.global__shareable').innerText + ' How does your country compare? ' + window.location.href;
+            document.querySelector('#email-button-inline').href = 'mailto:?subject=Calculate your gender gap in Africa!&body=' + encodeURI(document.querySelector('.global__shareable').innerText) + encodeURI(' How does your country compare? ') + encodeURI(window.location.href);
           });
 
           document.querySelector("#global-visualization-back").addEventListener("click", () => {
@@ -269,8 +269,15 @@ document.addEventListener("DOMContentLoaded", () => {
     field.modal.className = "field__modal field--dropdown__list";
 
     let html = "";
+    let disabledClass = "";
     [...selectElement.querySelectorAll("option")].forEach((option, i) => {
-      html += selectElement.selectedIndex === i ? "<li class='field--dropdown__list-item field--dropdown__list-item--checked'>" +
+      let disabled = option.getAttribute('disabled')
+      if (disabled === 'disabled') {
+        disabledClass = " field--dropdown__list-item--disabled"
+      } else {
+        disabledClass = ""
+      }
+      html += selectElement.selectedIndex === i ? "<li class='field--dropdown__list-item field--dropdown__list-item--checked" + disabledClass + "''>" +
                option.innerHTML + "</li>" : "<li class='field--dropdown__list-item'>" +
                option.innerHTML + "</li>";
     });
@@ -316,7 +323,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    let listItems = field.modal.querySelectorAll(".field--dropdown__list-item");
+    let listItems = field.modal.querySelectorAll(".field--dropdown__list-item:not(.field--dropdown__list-item--disabled)");
     [...listItems].forEach((listItem) => {
       listItem.addEventListener("click", (e) => { selectListItem(e, listItem); });
     });
@@ -403,15 +410,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let allSelectElements  = document.querySelectorAll("select"),
-        allInputElements   = document.querySelectorAll("input");
+        allInputElements   = document.querySelectorAll("input:not([type='radio'])");
 
     // Replace default <select> and <input> elements with custom elements.
     [...allSelectElements].forEach(selectElement => createCustomDropdown(selectElement));
     [...allInputElements].forEach(inputElement => createCustomInput(inputElement));
 
     // Automatically set the currency based on the country the user picks.
-    let allCurrencyListItems = fields.currency.previousElementSibling.querySelectorAll(".field--dropdown__list-item");
-    [...fields.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item")].forEach((listItem) => {
+    let allCurrencyListItems = fields.currency.previousElementSibling.querySelectorAll(".field--dropdown__list-item:not(.field--dropdown__list-item--disabled)");
+    [...fields.country.previousElementSibling.querySelectorAll(".field--dropdown__list-item:not(.field--dropdown__list-item--disabled)")].forEach((listItem) => {
       let selectCurrency = () => {
         let currencyToSelect = null;
         if (listItem.textContent !== "my country") {

@@ -29,7 +29,7 @@ export default () => {
 
   buttons.twitterInline.addEventListener("click", (event) => {
     event.preventDefault();
-    let text = document.querySelector('.global__local').innerText + ' How does your country compare? ';
+    let text = document.querySelector('.global__shareable').innerText + ' How does your country compare? ';
     let url = "https://twitter.com/intent/tweet?text=" + encodeURI(text) + '&url=' + encodeURI(window.location.href) + '&hashtags=GenderGap,Africa';
     let name = "twitter-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";

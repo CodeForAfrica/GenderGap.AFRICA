@@ -39,7 +39,7 @@
       </div>
       <div class="section__body u-vertical-and-horizontal-centering u-background-white">
         <button id="homepage-button" class="button button--red">
-          <span class="button__text">Use it</span><!--
+          <span class="button__text">Calculate</span><!--
           --><img class="button__icon" alt="" src="images/icons/arrow-thin.svg">
         </button>
       </div>
@@ -59,7 +59,7 @@
             <span class="form__field">
               <span class="u-suffix-space">
                 <select id="field-country">
-                  <option selected>Your country</option>
+                  <option selected disabled="disabled">Your country</option>
                 </select>
               </span>
             </span>
@@ -89,7 +89,7 @@
             <span class="form__field">
               <input type="radio" name="gender-radio" id="gender-male" value="male" />
               <label class="field--radio" for="gender-male">Male</label>
-              <input type="radio" name="gender-radio" id="gender-female" value="female" />
+              <input type="radio" name="gender-radio" id="gender-female" value="female" checked />
               <label class="field--radio" for="gender-female">Female</label>
             </span>
           </p>
@@ -116,10 +116,10 @@
           <p class="form__paragraph">
             <span class="form__line">How much do you make per month?</span>
             <span class="form__field">
-              <input id="field-salary" type="number" value="" placeholder="e.g. 1000" data-subline="Enter your monthly salary">
+              <input id="field-salary" type="number" value="" placeholder="e.g. 1,000" data-subline="Enter your monthly salary">
               <span class="u-suffix-space">
                 <select id="field-currency">
-                  <option selected>currency</option>
+                  <option selected disabled="disabled">Currency</option>
                 </select>
               </span>
             </span>
@@ -228,7 +228,7 @@
       <div class="section__body">
         <div class="section--visualizations__wrapper section--form__wrapper section--form__wrapper--small-viewport">
           <div class="global__local-wrapper">
-            <p class="global__local">In <span class="global__user-country"></span> men make on average <span class="global__user-currency">$</span><span class="global__user-difference"></span> more than women per month. This is the <span class="global__rank"></span> <span class="global__superlative">largest</span> gap in Africa.</p>
+            <p class="global__local"><span class="global__shareable">In <span class="global__user-country"></span> men make on average <span class="global__user-currency">$</span><span class="global__user-difference"></span> more than women per month.</span> This is the <span class="global__rank"></span> <span class="global__superlative">largest</span> gap in Africa.</p>
             <ul class="global__social">
               <li class="social-media__button">
                 <a id="twitter-button-inline" class="social-media__link" href="#0">
@@ -327,7 +327,7 @@
             </a>
           </li>
           <li class="social-media__button">
-            <a id="email-button" class="social-media__link" href="mailto:?subject=Gender Gap&body=Explore inequality of income across African countries">
+            <a id="email-button" class="social-media__link" href="mailto:?subject=Calculate your gender gap in Africa!&body=Explore inequality of income across African countries">
               <!-- <img class="social-media__icon" alt="" src="images/icons/social-mail.svg"> -->
               <svg xmlns="http://www.w3.org/2000/svg" class="social-media__icon" viewBox="0 0 23.51 23.5">
                   <title>social_mail</title>

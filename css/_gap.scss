@@ -181,7 +181,7 @@
     display: block;
     margin-bottom: 2rem;
     color: $color-red;
-    font-weight: 300;
+    font-weight: 700;
     font-size: 1.7rem;
     line-height: 2rem;
     text-align: center;
@@ -192,7 +192,7 @@
         text-decoration: underline;
     }
 
-    &:hover, &:active, &:focus {
+    &:hover {
         color: $color-red-dark;
         text-decoration: underline;
         cursor: pointer;

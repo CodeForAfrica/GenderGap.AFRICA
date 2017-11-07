@@ -51,7 +51,6 @@ export default {
         }
 
         let difference = Math.abs(Math.round(ratioSalary) - Math.round(baseSalary));
-        console.log(difference)
         let countUpThree = new CountUp("count-up-three", 0, difference, 0, 2, {useEasing: false});
 
         let percentage = utils.numberWithCommas(Math.round((averageSalary.monthly.men - averageSalary.monthly.women) / averageSalary.monthly.women * 100));

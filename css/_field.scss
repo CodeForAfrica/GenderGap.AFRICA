@@ -121,6 +121,9 @@
     }
   }
 
+  .field--dropdown__list-item--disabled {
+    color: $color-accent-dark;
+  }
 
 .field--text {
   .field__modal {

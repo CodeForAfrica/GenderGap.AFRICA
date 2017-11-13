@@ -1,1 +1,4 @@
 node_modules/
+
+# gulp-gh-pages creates this...
+.publish

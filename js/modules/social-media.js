@@ -50,7 +50,7 @@ export default () => {
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("http://gendergap.africa/");
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://gendergap.africa/");
     let name = "facebook-share-dialog";
     let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 

@@ -135,6 +135,6 @@ gulp.task('serve', () =>  {
 });
 
 gulp.task('deploy', function() {
-  return gulp.src('./dist/')
+  return gulp.src('./dist/**/*')
     .pipe(ghPages());
 });

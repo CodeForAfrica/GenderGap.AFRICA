@@ -13,7 +13,8 @@ const gulp          = require('gulp'),
   mkdirp          = require('mkdirp'),
   fs              = require('fs'),
   modernizr       = require('modernizr'),
-  modernizrConfig = require('./modernizr-config');
+  modernizrConfig = require('./modernizr-config'),
+  ghPages         = require('gulp-gh-pages');
 
 
 gulp.task('default', ['lint', 'build']);
@@ -131,4 +132,9 @@ gulp.task('serve', () =>  {
 
   // Watch data.
   gulp.watch('data/**/*', ['copy:data']);
+});
+
+gulp.task('deploy', function() {
+  return gulp.src('./dist/')
+    .pipe(ghPages());
 });

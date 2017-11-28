@@ -51,18 +51,14 @@
     text-align: left;
 
     @media (min-width: 550px) {
-        padding: 5rem 4.4rem;
+        padding: 5rem 4.4rem 2rem 4.4rem;
     }
 }
 
 .info__close {
     margin-bottom:  4rem;
+}
 
-    @media (min-width: 550px) {
-        position: absolute;
-        bottom: 3.4rem;
-        left: 50%;
-        margin-bottom: 0;
-        transform: translateX(-50%);
-    }
+.info--small {
+    font-size: 1.2rem;
 }

@@ -53,6 +53,16 @@
     @media (min-width: 550px) {
         padding: 5rem 4.4rem 2rem 4.4rem;
     }
+
+    a {
+        color: $color-accent;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: $color-accent-dark;
+        }
+    }
 }
 
 .info__close {

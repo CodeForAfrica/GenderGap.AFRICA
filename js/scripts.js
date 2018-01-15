@@ -134,13 +134,12 @@ document.addEventListener("DOMContentLoaded", () => {
             fields.gender.forEach((option, i) => {
               if (option.checked) {
                 user.gender = option.value;
-                let otherGender ;
                 if (user.gender === 'male') {
-                  otherGender = 'female';
+                  user.otherGender = 'female';
                 } else {
-                  otherGender = 'male';
+                  user.otherGender = 'male';
                 }
-                let nonActiveCategories = document.querySelectorAll('.gap__category--' + otherGender);
+                let nonActiveCategories = document.querySelectorAll('.gap__category--' + user.otherGender);
                 let activeCategories = document.querySelectorAll('.gap__category--' + user.gender)
                 for (let i = 0; i < nonActiveCategories.length; i++) {
                   nonActiveCategories[i].style.display = 'none';

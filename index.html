@@ -143,35 +143,38 @@
       <div class="back"><a id="local-visualization-back" class="back__link"><img src="images/icons/back.svg" alt="Back" class="back__arrow" />Back</a></div>
       <div class="section__body">
         <div class="section--visualizations__wrapper section--form__wrapper section--form__wrapper--small-viewport">
-          <div class="gap__woman">
-            <img class="gap__icon--woman" src="images/icons/woman.svg" alt="Woman symbol" />
-            <div class="gap__copy">
-              <h2 class="gap__category">
-                <span class="gap__category--female">As a woman you make:</span>
-                <span class="gap__category--male">If you were a woman you'd make:</span>
-              </h2>
-              <p class="gap__salary"><span id="count-up-one" class="gap__amount--woman"></span><span class="gap__currency"></span></p>
-              <p class="gap__time">per month</p>
+          <h2 class="gap__narrative">
+            <span class="gap__you">As a <span class="gap__man-woman"></span> you make <span class="gap__amount"></span><span class="gap__currency"></span></span>
+            <span class="gap__them">If you were a <span class="gap__man-woman-other"></span> you'd make <span class="gap__amount-other"></span><span class="gap__currency-other"></span> <span class="gap__more-less-other"></span> per month</span>
+          </h2>
+          <div class="gap__bars-vertical">
+            <div class="gap__bars">
+              <div class="gap__bar gap__bar--you">
+                <span class="gap__bar-key">
+                  <img class="gap__icon--woman" src="images/icons/woman.svg" alt="Woman symbol" />
+                  <img class="gap__icon--man" src="images/icons/man.svg" alt="Man symbol" />
+                  <span class="gap__bar-text">Your salary</span>
+                </span>
+                <span class="gap__bar-salary">
+                  <span class="gap__amount"></span>
+                  <span class="gap__currency"></span>
+                </span>
+              </div>
+            </div>
+            <div class="gap__bars">
+              <div class="gap__bar gap__bar--them">
+                <span class="gap__bar-key">
+                  <img class="gap__icon--woman" src="images/icons/woman.svg" alt="Woman symbol" />
+                  <img class="gap__icon--man" src="images/icons/man.svg" alt="Man symbol" />
+                  <span class="gap__bar-text"><span class="gap__gender-other"></span> salary estimate</span>
+                </span>
+                <span class="gap__bar-salary">
+                  <span class="gap__bar-amount"></span>
+                  <span class="gap__currency"></span>
+                </span>
+              </div>
             </div>
           </div>
-          <div class="gap__difference">
-            <div class="gap__difference-box">
-              <span id="count-up-three"></span><span class="gap__currency"></span>
-            </div>
-            <span class="gap__difference-text">difference</span>
-          </div>
-          <div class="gap__man">
-            <img class="gap__icon--man" src="images/icons/man.svg" alt="Man symbol" />
-            <div class="gap__copy">
-              <h2 class="gap__category">
-                <span class="gap__category--male">As a man you make:</span>
-                <span class="gap__category--female">If you were a man you'd make:</span>
-              </h2>
-              <p class="gap__salary"><span id="count-up-two" class="gap__amount--man"></span><span class="gap__currency"></span></p>
-              <p class="gap__time">per month</p>
-            </div>
-          </div>
-          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <strong><span class="gap__percent"></span>% <span class="gap__more-less"></span></strong> than a woman.</p>
           <ul class="gap__social">
             <li class="social-media__button">
               <a id="twitter-button-inline-alt" class="social-media__link" href="#0">
@@ -215,6 +218,7 @@
               </a>
             </li>
           </ul>
+          <p class="gap__gender-split">In <span class="gap__country"></span> a man earns on average <strong><span class="gap__percent"></span>% <span class="gap__more-less"></span></strong> than a woman.</p>
           <a class="gap__compare" id="local-visualization-link">See how <span class="gap__country"></span> compares to other countries</a>
           <div class="gap__info-wrapper"><button class="button button--red button--icon-dark gap__info">About the data <span class="button__icon-dark"><img src="images/icons/info.svg" alt="info" /></span></button></div>
         </div>

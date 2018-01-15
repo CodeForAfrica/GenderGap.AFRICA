@@ -31,6 +31,7 @@ export default {
         }
 
         let list = document.createElement('ol');
+        let activeId = 0;
         list.className = 'global__list';
         for (let j = 0; j < orderedData.length; j++) {
             if (orderedData[j].country === user.country && orderedData.length !== j + 1) {
@@ -42,7 +43,12 @@ export default {
                 
             }
             const listItem = document.createElement('li');
-            listItem.className = user.country === orderedData[j].country ? 'global__country--active' : 'global__country';
+            if (user.country === orderedData[j].country) {
+                listItem.className = 'global__country--active';
+                activeId = j;
+            } else {
+                listItem.className = 'global__country';
+            }
             listItem.setAttribute('id', 'global-country-' + j);
             const country = document.createElement('span');
             country.className = 'global__country-name';
@@ -94,7 +100,12 @@ export default {
                 }
                 document.querySelector('#global-country-' + k).classList.add('global__country--long');
             } 
-            Velocity(document.getElementById("gap-" + k), { width: width + 'px'}, { duration: 5000 * timeRatio, delay: 500, complete: (element) => element[0].classList.add('global__gap--complete') });
+            Velocity(document.getElementById("gap-" + k), { width: width + 'px'}, { duration: 5000 * timeRatio, delay: 500, complete: (element) => {
+                element[0].classList.add('global__gap--complete');
+                if (k === orderedData.length - 1) {
+                    utils.smoothScroll('gap-' + activeId);
+                }
+            }});
             count.start();
         }
 

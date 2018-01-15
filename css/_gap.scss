@@ -37,7 +37,7 @@
 .gap__narrative {
     font-size: 1.6rem;
     font-weight: 300;
-    text-align: center;
+    // text-align: center;
     margin-bottom: 3rem;
 
     @media (min-width: 550px) {
@@ -48,15 +48,14 @@
 
 .gap__you {
     display: block;
-    left: 50%;
+    left: 0;
     position: absolute;
-    transform: translateX(-50%);
-    transition: opacity 350ms;
+    transition: opacity 500ms;
 }
 
 .gap__them {
     opacity: 0;
-    transition: opacity 350ms;
+    transition: opacity 500ms;
 }
 
 .gap__man-woman, .gap__amount, .gap__currency {
@@ -93,7 +92,7 @@
     position: absolute;
     bottom: 0;
     height: 0%;
-    transition: all 1.5s;
+    transition: all 2s;
     width: 55.5556%;
 
     @media (min-width: 550px) {
@@ -103,7 +102,7 @@
         height: 7.5rem;
         line-height: 7.5rem;
         width: 0;
-        transition: width 1.5s;
+        transition: width 2s;
     }
 }
 

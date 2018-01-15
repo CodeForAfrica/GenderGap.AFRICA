@@ -112,7 +112,7 @@ export default {
                     }, {once: true});
                     document.querySelector('.gap__you').style.opacity = 0
                     document.querySelector('.gap__bar--them').style.width = baseSalary > ratioSalary ? ratioSalary / baseSalary * 100 + '%' : '100%';
-                }, 1000);
+                }, 2000);
             }, {once: true});
             document.querySelector('.gap__bar--you').style.width = baseSalary > ratioSalary ? '100%' : baseSalary / ratioSalary * 100 + '%';
         }
@@ -130,7 +130,7 @@ export default {
                     }, {once: true});
                     document.querySelector('.gap__you').style.opacity = 0
                     document.querySelector('.gap__bar--them').style.height = baseSalary > ratioSalary ? ratioSalary / baseSalary * 100 + '%' : '100%';
-                }, 1000);
+                }, 2000);
             }, {once: true});
             setTimeout(function() {
                 document.querySelector('.gap__bar--you').style.height = baseSalary > ratioSalary ? '100%' : baseSalary / ratioSalary * 100 + '%';

@@ -37,7 +37,7 @@
 .gap__narrative {
     font-size: 1.6rem;
     font-weight: 300;
-    // text-align: center;
+    text-align: center;
     margin-bottom: 3rem;
     position: relative;
 
@@ -51,6 +51,7 @@
     display: block;
     left: 0;
     position: absolute;
+    right: 0;
     transition: opacity 500ms;
 }
 

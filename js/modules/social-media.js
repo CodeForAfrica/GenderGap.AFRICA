@@ -68,6 +68,37 @@ export default () => {
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
 
+    var FBLoginScope = 'publish_actions'; // or sth like 'user_photos,publish_actions' if you also use other scopes.
+
+    var caption = "Testing https://gendergap.africa/";
+    var successCallback = function() {
+      console.log('success');
+    };
+    var errorCallback = function(error) {
+      console.log(error);
+    };;
+
+    var data = localGapVisualization.getImage();
+    try {
+      var imageData = dataURItoBlob(data);
+    } catch (e) {
+      console.log(e);
+    }
+
+    FB.getLoginStatus(function (response) {
+      if (response.status === "connected") {
+        postImageToFacebook(response.authResponse.accessToken, imageData, caption, successCallback, errorCallback);
+      } else if (response.status === "not_authorized") {
+        FB.login(function (response) {
+            postImageToFacebook(response.authResponse.accessToken, imageData, caption, successCallback, errorCallback);
+        }, {scope: FBLoginScope});
+      } else {
+        FB.login(function (response) {
+            postImageToFacebook(response.authResponse.accessToken, imageData, caption, successCallback, errorCallback);
+        }, {scope: FBLoginScope});
+      }
+    });
+
     function dataURItoBlob(dataURI) {
       var byteString = atob(dataURI.split(',')[1]);
       var ab = new ArrayBuffer(byteString.length);
@@ -76,45 +107,45 @@ export default () => {
       return new Blob([ab], { type: 'image/jpeg' });
     }    
 
-    FB.login(function(response) {
-        if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         // FB.api('/me', function(response) {
-         //   console.log('Good to see you, ' + response.name + '.');
-         // });
-          // var wallPost = {
-          //     // message : "testing... https://gendergap.africa/",
-          //     // url: "https://gendergap.africa/images/test-social.jpg",
-          //     source: image,
-          //     caption: "testing... https://gendergap.africa/"
-          //     // link: "https://gendergap.africa"
-          // };
-          // FB.api('/me/photos', 'post', wallPost , function(response) {
-          //   if (!response || response.error) {
-          //     console.log(response);
-          //     // alert('Error occured');
-          //   } else {
-          //     alert('Post ID: ' + response);
-          //   }
-          // });
-          var dataURL = localGapVisualization.getImage();
-          var blob = dataURItoBlob(dataURL)
-          var formData = new FormData()
-          formData.append('token', 'ad483b24082541024851ba76aa6e7ba6')
-          formData.append('source', blob)
-          formData.append('caption', "testing... https://gendergap.africa/")
+    // FB.login(function(response) {
+    //     if (response.authResponse) {
+    //      console.log('Welcome!  Fetching your information.... ');
+    //      // FB.api('/me', function(response) {
+    //      //   console.log('Good to see you, ' + response.name + '.');
+    //      // });
+    //       // var wallPost = {
+    //       //     // message : "testing... https://gendergap.africa/",
+    //       //     // url: "https://gendergap.africa/images/test-social.jpg",
+    //       //     source: image,
+    //       //     caption: "testing... https://gendergap.africa/"
+    //       //     // link: "https://gendergap.africa"
+    //       // };
+    //       // FB.api('/me/photos', 'post', wallPost , function(response) {
+    //       //   if (!response || response.error) {
+    //       //     console.log(response);
+    //       //     // alert('Error occured');
+    //       //   } else {
+    //       //     alert('Post ID: ' + response);
+    //       //   }
+    //       // });
+    //       var dataURL = localGapVisualization.getImage();
+    //       var blob = dataURItoBlob(dataURL)
+    //       var formData = new FormData()
+    //       formData.append('token', 'ad483b24082541024851ba76aa6e7ba6')
+    //       formData.append('source', blob)
+    //       formData.append('caption', "testing... https://gendergap.africa/")
 
-          var xhr = new XMLHttpRequest();
-          xhr.open( 'POST', 'https://graph.facebook.com/me/photos', true )
-          xhr.onload = xhr.onerror = function() {
-            console.log( xhr.responseText )
-          };
-          xhr.send( formData );
+    //       var xhr = new XMLHttpRequest();
+    //       xhr.open( 'POST', 'https://graph.facebook.com/me/photos', true )
+    //       xhr.onload = xhr.onerror = function() {
+    //         console.log( xhr.responseText )
+    //       };
+    //       xhr.send( formData );
 
-        } else {
-         console.log('User cancelled login or did not fully authorize.');
-        }
-    }, {scope: 'user_posts,publish_actions'});
+    //     } else {
+    //      console.log('User cancelled login or did not fully authorize.');
+    //     }
+    // }, {scope: 'user_posts,publish_actions'});
 
 
     

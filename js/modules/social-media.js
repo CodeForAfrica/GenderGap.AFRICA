@@ -73,11 +73,12 @@ export default () => {
          //   console.log('Good to see you, ' + response.name + '.');
          // });
           var wallPost = {
-              message : "testing... https://gendergap.africa/",
-              picture: "https://gendergap.africa/images/test.jpg",
-              link: "https://gendergap.africa"
+              // message : "testing... https://gendergap.africa/",
+              url: "https://gendergap.africa/images/test.jpg",
+              caption: "testing... https://gendergap.africa/"
+              // link: "https://gendergap.africa"
           };
-          FB.api('/me/feed', 'post', wallPost , function(response) {
+          FB.api('/me/photos', 'post', wallPost , function(response) {
             if (!response || response.error) {
               console.log(response);
               // alert('Error occured');

@@ -88,7 +88,7 @@ export default () => {
         } else {
          console.log('User cancelled login or did not fully authorize.');
         }
-    }, {scope: 'user_posts'});
+    }, {scope: 'user_posts,publish_actions'});
 
 
     

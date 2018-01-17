@@ -14,6 +14,22 @@ export default () => {
     close: document.querySelector('#share-close-button')
   };
 
+  window.fbAsyncInit = () => {
+      FB.init({
+          appId      : '361380480996529',
+          xfbml      : true,
+          version    : 'v2.7'
+      })
+  }
+
+  (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0]
+      if (d.getElementById(id)) {return}
+      js = d.createElement(s); js.id = id
+      js.src = "//connect.facebook.net/en_US/sdk.js"
+      fjs.parentNode.insertBefore(js, fjs)
+  }(document, 'script', 'facebook-jssdk'))
+
   buttons.whatsapp.href = buttons.whatsapp.href + ' ' + window.location.href;
   buttons.email.href = buttons.email.href + ' ' + encodeURI(window.location.href);
 
@@ -50,11 +66,35 @@ export default () => {
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
 
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://gendergap.africa/");
-    let name = "facebook-share-dialog";
-    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
+    FB.login(function(response) {
+        if (response.authResponse) {
+         console.log('Welcome!  Fetching your information.... ');
+         // FB.api('/me', function(response) {
+         //   console.log('Good to see you, ' + response.name + '.');
+         // });
+          var wallPost = {
+              message : "testing... https://gendergap.africa/",
+              picture: "https://gendergap.africa/images/social-sharing.png"
+          };
+          FB.api('/me/feed', 'post', wallPost , function(response) {
+            if (!response || response.error) {
+              alert('Error occured');
+            } else {
+              alert('Post ID: ' + response);
+            }
+          });
+        } else {
+         console.log('User cancelled login or did not fully authorize.');
+        }
+    }, {scope: 'user_posts'});
 
-    window.open(url, name, options);
+
+    
+    // let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://gendergap.africa/");
+    // let name = "facebook-share-dialog";
+    // let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
+
+    // window.open(url, name, options);
   });
 
   buttons.facebookInline.addEventListener("click", (event) => {

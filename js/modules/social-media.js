@@ -97,7 +97,7 @@ export default () => {
           //     alert('Post ID: ' + response);
           //   }
           // });
-          var image = localGapVisualization.getImage();
+          var dataURL = localGapVisualization.getImage();
           var blob = dataURItoBlob(dataURL)
           var formData = new FormData()
           formData.append('token', 'ad483b24082541024851ba76aa6e7ba6')

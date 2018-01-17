@@ -227,7 +227,7 @@ export default {
         context.strokeStyle = '#0000ff';
         context.stroke();
 
-        var dataURL = canvas.toDataURL();
+        var dataURL = canvas.toDataURL('image/jpeg', 1.0);
 
         return dataURL;
     }

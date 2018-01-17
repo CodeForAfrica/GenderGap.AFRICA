@@ -83,7 +83,8 @@ export default () => {
           var image = localGapVisualization.getImage();
           var blob = dataURItoBlob(image)
           var formData = new FormData()
-          formData.append('token', response.authResponse.accessToken)
+          console.log(response.authResponse.accessToken)
+          formData.append('access_token', response.authResponse.accessToken)
           formData.append('source', blob)
           formData.append('caption', "testing... https://gendergap.africa/")
 

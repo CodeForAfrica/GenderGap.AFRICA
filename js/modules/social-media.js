@@ -67,6 +67,26 @@ export default () => {
 
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
+    
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://gendergap.africa/");
+    let name = "facebook-share-dialog";
+    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
+
+    window.open(url, name, options);
+  });
+
+  buttons.facebookInline.addEventListener("click", (event) => {
+    event.preventDefault();
+
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
+    let name = "facebook-share-dialog";
+    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
+
+    window.open(url, name, options);
+  });
+
+  buttons.facebookInlineAlt.addEventListener("click", (event) => {
+    event.preventDefault();
 
     function dataURItoBlob(dataURI) {
       var byteString = atob(dataURI.split(',')[1]);
@@ -112,35 +132,7 @@ export default () => {
         } else {
          console.log('User cancelled login or did not fully authorize.');
         }
-    }, {scope: 'user_posts,publish_actions'});
-
-
-    
-    // let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent("https://gendergap.africa/");
-    // let name = "facebook-share-dialog";
-    // let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
-
-    // window.open(url, name, options);
-  });
-
-  buttons.facebookInline.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
-    let name = "facebook-share-dialog";
-    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
-
-    window.open(url, name, options);
-  });
-
-  buttons.facebookInlineAlt.addEventListener("click", (event) => {
-    event.preventDefault();
-
-    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
-    let name = "facebook-share-dialog";
-    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
-
-    window.open(url, name, options);
+    }, {scope: 'publish_actions'});
   });
 
   if (!document.documentElement.classList.contains("is-mobile")) {

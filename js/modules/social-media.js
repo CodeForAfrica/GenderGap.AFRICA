@@ -20,15 +20,15 @@ export default () => {
           xfbml      : true,
           version    : 'v2.7'
       })
-  }
+  };
 
   (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0]
+      var js, fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {return}
-      js = d.createElement(s); js.id = id
-      js.src = "//connect.facebook.net/en_US/sdk.js"
-      fjs.parentNode.insertBefore(js, fjs)
-  }(document, 'script', 'facebook-jssdk'))
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
   buttons.whatsapp.href = buttons.whatsapp.href + ' ' + window.location.href;
   buttons.email.href = buttons.email.href + ' ' + encodeURI(window.location.href);
@@ -78,8 +78,8 @@ export default () => {
           };
           FB.api('/me/feed', 'post', wallPost , function(response) {
             if (!response || response.error) {
-              console.log(response)
-              alert('Error occured');
+              console.log(response);
+              // alert('Error occured');
             } else {
               alert('Post ID: ' + response);
             }

@@ -78,6 +78,7 @@ export default () => {
           };
           FB.api('/me/feed', 'post', wallPost , function(response) {
             if (!response || response.error) {
+              console.log(response)
               alert('Error occured');
             } else {
               alert('Post ID: ' + response);

@@ -74,7 +74,8 @@ export default () => {
          // });
           var wallPost = {
               message : "testing... https://gendergap.africa/",
-              picture: "https://gendergap.africa/images/social-sharing.png"
+              picture: "https://gendergap.africa/images/social-sharing.png",
+              link: "https://gendergap.africa"
           };
           FB.api('/me/feed', 'post', wallPost , function(response) {
             if (!response || response.error) {

@@ -74,7 +74,7 @@ export default () => {
          // });
           var wallPost = {
               // message : "testing... https://gendergap.africa/",
-              url: "https://gendergap.africa/images/test.jpg",
+              url: "https://gendergap.africa/images/test-social.jpg",
               caption: "testing... https://gendergap.africa/"
               // link: "https://gendergap.africa"
           };

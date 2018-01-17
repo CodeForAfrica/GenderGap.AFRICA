@@ -81,7 +81,7 @@ export default () => {
     FB.login(function(response) {
         if (response.authResponse) {
           var image = localGapVisualization.getImage();
-          var blob = dataURItoBlob(dataURL)
+          var blob = dataURItoBlob(image)
           var formData = new FormData()
           formData.append('token', response.authResponse.accessToken)
           formData.append('source', blob)

@@ -80,15 +80,10 @@ export default () => {
 
     FB.login(function(response) {
         if (response.authResponse) {
-         console.log('Welcome!  Fetching your information.... ');
-         // FB.api('/me', function(response) {
-         //   console.log('Good to see you, ' + response.name + '.');
-         // });
-         console.log(response)
           var image = localGapVisualization.getImage();
           var blob = dataURItoBlob(dataURL)
           var formData = new FormData()
-          formData.append('token', 'ad483b24082541024851ba76aa6e7ba6')
+          formData.append('token', response.authResponse.accessToken)
           formData.append('source', blob)
           formData.append('caption', "testing... https://gendergap.africa/")
 

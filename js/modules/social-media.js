@@ -1,3 +1,5 @@
+import localGapVisualization from './local-gap-visualization';
+
 export default () => {
   let buttons = {
     twitter: document.querySelector("#twitter-button"),
@@ -66,6 +68,8 @@ export default () => {
   buttons.facebook.addEventListener("click", (event) => {
     event.preventDefault();
 
+    var image = localGapVisualization.getImage();
+
     FB.login(function(response) {
         if (response.authResponse) {
          console.log('Welcome!  Fetching your information.... ');
@@ -74,7 +78,8 @@ export default () => {
          // });
           var wallPost = {
               // message : "testing... https://gendergap.africa/",
-              url: "https://gendergap.africa/images/test-social.jpg",
+              // url: "https://gendergap.africa/images/test-social.jpg",
+              source: image,
               caption: "testing... https://gendergap.africa/"
               // link: "https://gendergap.africa"
           };

@@ -16,22 +16,6 @@ export default () => {
     close: document.querySelector('#share-close-button')
   };
 
-  window.fbAsyncInit = () => {
-      FB.init({
-          appId      : '361380480996529',
-          xfbml      : true,
-          version    : 'v2.7'
-      })
-  };
-
-  (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {return}
-      js = d.createElement(s); js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));
-
   buttons.whatsapp.href = buttons.whatsapp.href + ' ' + window.location.href;
   buttons.email.href = buttons.email.href + ' ' + encodeURI(window.location.href);
 
@@ -88,51 +72,11 @@ export default () => {
   buttons.facebookInlineAlt.addEventListener("click", (event) => {
     event.preventDefault();
 
-    function dataURItoBlob(dataURI) {
-      var byteString = atob(dataURI.split(',')[1]);
-      var ab = new ArrayBuffer(byteString.length);
-      var ia = new Uint8Array(ab);
-      for (var i = 0; i < byteString.length; i++) { ia[i] = byteString.charCodeAt(i); }
-      return new Blob([ab], { type: 'image/jpeg' });
-    }
+    let url = "https://facebook.com/sharer.php?u=" + encodeURIComponent(window.location.href);
+    let name = "facebook-share-dialog";
+    let options = "menubar=no, toolbar=no, resizable=no, scrollbar=no, height=400, width=500";
 
-    
-
-    FB.login(function(response) {
-        if (response.authResponse) {
-          var image = localGapVisualization.getImage();
-          var blob = dataURItoBlob(image)
-          var formData = new FormData()
-          console.log(response.authResponse.accessToken)
-          formData.append('access_token', response.authResponse.accessToken)
-          formData.append('source', blob)
-          formData.append('caption', "testing... https://gendergap.africa/")
-
-          var xhr = new XMLHttpRequest();
-          xhr.open( 'POST', 'https://graph.facebook.com/me/photos', true )
-          xhr.onload = xhr.onerror = function() {
-            console.log( xhr.responseText )
-          };
-          xhr.send( formData );
-          // var wallPost = {
-          //     // message : "testing... https://gendergap.africa/",
-          //     // url: "https://gendergap.africa/images/test-social.jpg",
-          //     source: image,
-          //     caption: "testing... https://gendergap.africa/"
-          //     // link: "https://gendergap.africa"
-          // };
-          // FB.api('/me/photos', 'post', wallPost , function(response) {
-          //   if (!response || response.error) {
-          //     console.log(response);
-          //     // alert('Error occured');
-          //   } else {
-          //     alert('Post ID: ' + response);
-          //   }
-          // });
-        } else {
-         console.log('User cancelled login or did not fully authorize.');
-        }
-    }, {scope: 'publish_actions'});
+    window.open(url, name, options);
   });
 
   if (!document.documentElement.classList.contains("is-mobile")) {

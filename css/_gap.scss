@@ -254,6 +254,13 @@
 .gap__social {
     clear: both;
     margin-top: 4rem;
+
+    @media (min-width: 600px) {
+        left: 50%;
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+    }
 }
 
 .gap__compare {
@@ -281,6 +288,12 @@
 .gap__info-wrapper {
     margin: 2rem auto;
     text-align: center;
+
+    @media (min-width: 600px) {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 }
 
 .gap__info {
@@ -292,4 +305,11 @@
 .gap__currency, .gap__currency-other {
     display: inline-block;
     margin-left: 0.4rem;
+}
+
+.gap__bottom-text {
+    @media (min-width: 600px) {
+        padding-top: 8rem;
+        position: relative;
+    }
 }

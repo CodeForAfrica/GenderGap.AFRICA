@@ -160,6 +160,10 @@ $number-of-links-mobile: 4;
   .global__social &, .gap__social & {
     display: inline-block;
   }
+
+  .gap__social & {
+    margin-bottom: 0;
+  }
 }
 
 .social-media__title-text {

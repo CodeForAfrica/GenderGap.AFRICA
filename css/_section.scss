@@ -31,12 +31,14 @@
     height: 70%;
     min-height: 400px;
   }
-
   .section__body {
     height: 30%;
   }
+  .section__footer {
+    height: auto;
+    min-height: 300px;
+  }
 }
-
 .section__form, .section__form--country, .section__form--gender, .section__form--salary {
   padding-top: 30px;
 

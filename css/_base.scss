@@ -26,7 +26,10 @@ body {
   color: $color-font-primary;
   background-color: $color-background-primary;
   font-size: 1.6rem;
-  font-family: "proxima-nova", "Arial", sans-serif;
+  font-family: "proxima-nova", "Arial", sans-serif; 
+  display: inline-block;
+  min-width: 100%;
+  box-sizing: border-box;
 }
 
 button,

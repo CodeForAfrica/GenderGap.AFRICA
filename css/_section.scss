@@ -1,26 +1,41 @@
 /** @define section; weak */
 
 .section {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  height: 100vh;
-  min-height: 100%;
+  
+  // .section remains hidden until is .section--active is added
+  height: 0 !important;
+  overflow: hidden;
   opacity: 0;
   transition: opacity $transition-duration-normal;
+
+  // .section has no padding-top until .section--active is added
+  padding-top: 0px;
 }
 
   .section__header {}
 
   .section__body {}
 
+// Active section for display
 .section--active {
   opacity: 1;
   z-index: 1;
+  
+  height: auto !important;
+  min-height: 100vh !important;
+
+  padding-top: 30px;
+  @media (min-width: 550px) {
+    padding-top: 70px;
+  }
 }
 
 .section--homepage {
+
+  // Should be no padding on homepage section
+  padding-top: 0px !important;
+
   .button {
     margin-bottom: 16px;
     padding: 15px 80px;
@@ -29,11 +44,11 @@
   }
 
   .section__header {
-    height: 70%;
+    height: 70vh;
     min-height: 400px;
   }
   .section__body {
-    height: 30%;
+    height: 30vh;
   }
   .section__footer {
     height: auto;
@@ -41,12 +56,10 @@
   }
 }
 .section__form, .section__form--country, .section__form--gender, .section__form--salary {
-  padding-top: 30px;
 
   @media (min-width: 550px) {
     display: flex;
     flex-direction: column;
-    padding-top: 70px;
   }
 
   .section__header {
@@ -87,13 +100,11 @@
   }
 
 .section__visualizations--local, .section__visualizations--global {
-  padding-top: 30px;
   height:100%;
 
   @media (min-width: 550px) {
     display: flex;
     flex-direction: column;
-    padding-top: 70px;
   }
 
   .section__header {

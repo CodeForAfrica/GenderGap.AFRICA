@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           document.querySelector("#country-form-back").addEventListener("click", () => {
             goToSection(sections.homepage);
+            document.querySelector('.social-media').classList.remove('dark');
           });
 
           document.querySelector("#country-form-button").addEventListener("click", () => {

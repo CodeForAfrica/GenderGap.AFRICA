@@ -288,9 +288,10 @@
 .gap__info-wrapper {
     margin: 2rem auto;
     text-align: center;
+    padding-left:0;
 
     @media (min-width: 600px) {
-        position: absolute;
+        //position: absolute;
         right: 0;
         top: 0;
     }
@@ -298,7 +299,7 @@
 
 .gap__info {
     @media (min-width: 550px) {
-        float: right;
+        //float: right;
     }
 }
 

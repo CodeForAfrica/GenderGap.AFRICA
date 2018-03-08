@@ -117,14 +117,22 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           document.querySelector("#country-form-button").addEventListener("click", () => {
+            let mq = window.matchMedia( "(min-width: <=559px)" );
             user.country = fields.country.value;
-            if (user.country === "Your country") {
+            if (user.country === "Your country") || (mq.matches){
               alert("Please enter country");
               return;
-            }
-
+            } 
             goToSection(sections.genderForm);
           });
+
+          //JS to include alerts on small viewpoints:
+          //let mq = window.matchMedia( "(min-width: <=559px)" );
+          //user.country = fields.country.value;
+          //if (mq.matches) {
+            //alert("Please enter country");
+            //return;
+          //}
 
           document.querySelector("#gender-form-back").addEventListener("click", () => {
             goToSection(sections.countryForm);
@@ -164,9 +172,8 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           document.querySelector("#salary-form-button").addEventListener("click", () => {
-            
             user.salary = +fields.salary.value;
-            if (user.salary === 0) {
+            if (user.salary === 0){
               alert("Please enter your salary");
               return;
             }

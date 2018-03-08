@@ -115,7 +115,8 @@ gulp.task('serve', () =>  {
   browserSync.init({
     server: 'dist/',
     ghostMode: false,
-    logFileChanges: true
+    logFileChanges: true,
+    https: true
   });
 
   // Watch HTML files.

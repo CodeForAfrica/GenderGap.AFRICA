@@ -157,6 +157,18 @@ let smoothScroll = (eID) => {
     }
 }
 
+
+// Check if in iFrame
+// https://stackoverflow.com/questions/326069/how-to-identify-if-a-webpage-is-being-loaded-inside-an-iframe-or-directly-into-t
+let inIframe = () => {
+  try {
+    return window.self !== window.top;
+  } catch (e) {
+    return true;
+  }
+}
+
+
 export default {
   mod: mod,
 
@@ -192,5 +204,7 @@ export default {
 
   getParameterByName: getParameterByName,
 
-  smoothScroll: smoothScroll
+  smoothScroll: smoothScroll,
+
+  inIframe: inIframe
 };

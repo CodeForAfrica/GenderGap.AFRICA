@@ -121,8 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (user.country === "Your country") {
               alert("Please enter country");
               return;
-            }
-
+            } 
             goToSection(sections.genderForm);
           });
 
@@ -141,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   user.otherGender = 'male';
                 }
                 let nonActiveCategories = document.querySelectorAll('.gap__category--' + user.otherGender);
-                let activeCategories = document.querySelectorAll('.gap__category--' + user.gender)
+                let activeCategories = document.querySelectorAll('.gap__category--' + user.gender);
                 for (let i = 0; i < nonActiveCategories.length; i++) {
                   nonActiveCategories[i].style.display = 'none';
                 }
@@ -164,7 +163,6 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           document.querySelector("#salary-form-button").addEventListener("click", () => {
-            
             user.salary = +fields.salary.value;
             if (user.salary === 0) {
               alert("Please enter your salary");
@@ -207,7 +205,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.querySelector("#global-visualization-back").addEventListener("click", () => {
             goToSection(sections.visualizations);
             globalGapVisualization.destroy();
-            sections.globalViz.style.display = 'none'
+            sections.globalViz.style.display = 'none';
           });
         })
         .catch(err => console.error(err));
@@ -271,11 +269,11 @@ document.addEventListener("DOMContentLoaded", () => {
     let html = "";
     let disabledClass = "";
     [...selectElement.querySelectorAll("option")].forEach((option, i) => {
-      let disabled = option.getAttribute('disabled')
+      let disabled = option.getAttribute('disabled');
       if (disabled === 'disabled') {
-        disabledClass = " field--dropdown__list-item--disabled"
+        disabledClass = " field--dropdown__list-item--disabled";
       } else {
-        disabledClass = ""
+        disabledClass = "";
       }
       html += selectElement.selectedIndex === i ? "<li class='field--dropdown__list-item field--dropdown__list-item--checked" + disabledClass + "''>" +
                option.innerHTML + "</li>" : "<li class='field--dropdown__list-item'>" +
@@ -399,7 +397,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Populate dropdown with countries listed in the data file.
     let countries = data.map(d => d.COUNTRY);
     for (let i = 0; i < countries.length; i++) {
-      let selected = countryParameter !== null && countryParameter.toLowerCase() === countries[i].toLowerCase() ? 'selected="selected"' : ''
+      let selected = countryParameter !== null && countryParameter.toLowerCase() === countries[i].toLowerCase() ? 'selected="selected"' : '';
       fields.country.insertAdjacentHTML("beforeend", "<option " + selected + ">" + countries[i] + "</option>");
     }
 
@@ -457,4 +455,11 @@ document.addEventListener("DOMContentLoaded", () => {
    ************************************************************************************************/
 
   socialMedia();
+
+
+  // When in iframe, don't display footer
+  if (utils.inIframe()) {
+    document.querySelector('footer').style.display = "none";
+  }
+
 });

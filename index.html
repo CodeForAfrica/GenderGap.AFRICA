@@ -35,7 +35,7 @@
       </div>
       <div class="section__body u-vertical-and-horizontal-centering u-background-white">
         <button id="homepage-button" class="button button--red">
-          <span class="button__text">Calculate</span><!--
+          <span class="button__text" onclick="ga('send', 'event', 'button', 'click', 'Track Calculate');">Calculate</span><!--
         --><img class="button__icon" alt="" src="images/icons/arrow-thin.svg">
       </button>
     </div>
@@ -56,7 +56,7 @@
             <span class="form__line">Where are you from?</span>
             <span class="form__field">
               <span class="u-suffix-space">
-                <select id="field-country">
+                <select id="field-country" onChange="ga('send', 'event', 'Form Event','Select County', this.options[this.selectedIndex].text]);">
                   <option selected disabled="disabled">Your country</option>
                 </select>
               </span>
@@ -121,7 +121,7 @@
             <span class="form__field">
               <input id="field-salary" type="number" value="" placeholder="e.g. 1,000" data-subline="Enter your monthly salary">
               <span class="u-suffix-space">
-                <select id="field-currency">
+                <select id="field-currency" ">
                   <option selected disabled="disabled">Currency</option>
                 </select>
               </span>

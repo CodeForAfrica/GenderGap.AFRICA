@@ -1,7 +1,6 @@
 ---
 name: Other Issues.
-about: This template is for other issues. If this doesn’t look right, choose a different
-  type.
+about: This template is for other issues.
 
 ---
 

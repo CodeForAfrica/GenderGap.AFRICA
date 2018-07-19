@@ -15,7 +15,7 @@ cd GenderGapClock
 2) Download dependencies:
 
 ```
-npm install
+yarnn
 ```
 
 3) Build:
@@ -28,6 +28,14 @@ gulp
 
 ```
 gulp serve
+```
+
+## Deployment
+
+Deploy to Github Page:
+
+```
+gulp deploy
 ```
 
 ## Localisation

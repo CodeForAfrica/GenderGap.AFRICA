@@ -1,7 +1,16 @@
-# Gender Gap Clock
+# GenderGap.AFRICA
 
 🙎🏾⏰
 
+
+## Requirements
+
+1. Node v10:
+
+```
+brew install nvm
+nvm install 10
+```
 
 ## Setup instructions
 
@@ -15,7 +24,7 @@ cd GenderGapClock
 2) Download dependencies:
 
 ```
-npm install
+yarn
 ```
 
 3) Build:
@@ -28,6 +37,14 @@ gulp
 
 ```
 gulp serve
+```
+
+## Deployment
+
+Deploy to Github Page:
+
+```
+gulp deploy
 ```
 
 ## Localisation

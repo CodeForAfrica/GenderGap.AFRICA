@@ -5,11 +5,12 @@
 
 ## Requirements
 
-1. Node v10:
+Requirements for MacOS:
 
 ```
 brew install nvm
 nvm install 10
+brew install yarn
 ```
 
 ## Setup instructions

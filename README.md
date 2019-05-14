@@ -64,6 +64,18 @@ Spaces should be added as `%20` so for example south africa would be:
 
 Localisation will mean that the country name will be pre-populated, but users can still change this if they choose to do so.
 
+## Embed
+
+Embed GenderGap.AFRICA:
+
+```
+<div id="gender-gap-embed"></div>
+<script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script>
+    var pymParent = new pym.Parent('gender-gap-embed', 'https://gendergap.africa/', {});
+</script>
+```
+
 
 ## Browser support
 

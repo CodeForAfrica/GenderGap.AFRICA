@@ -1,57 +1,51 @@
 .gap__icon--woman {
+    box-sizing: content-box;
     width: auto;
     height: 1.5rem;
     padding-right: 0.6rem;
     vertical-align: middle;
-    box-sizing: content-box;
 
     @media (min-width: 550px) {
-        display: block;
         float: left;
+        display: block;
         height: 3rem;
-        padding-top: 2.25rem;
-        padding-bottom: 2.25rem;
-        padding-left: 2.2rem;
-        padding-right: 1.8rem;
+        padding: 2.25rem 2.2rem 1.8rem;
     }
 }
 
 .gap__icon--man {
+    box-sizing: content-box;
     width: auto;
     height: 1.2rem;
     padding-right: 0.6rem;
     vertical-align: middle;
-    box-sizing: content-box;
 
     @media (min-width: 550px) {
-        display: block;
         float: left;
+        display: block;
         height: 2.4rem;
-        padding-top: 2.55rem;
-        padding-bottom: 2.55rem;
-        padding-left: 2.2rem;
-        padding-right: 1.8rem;
+        padding: 2.55rem 2.2rem 1.8rem;
     }
 }
 
 .gap__narrative {
-    font-size: 1.6rem;
-    font-weight: 300;
-    text-align: center;
-    margin-bottom: 3rem;
     position: relative;
+    margin-bottom: 3rem;
+    font-weight: 300;
+    font-size: 1.6rem;
+    text-align: center;
 
     @media (min-width: 550px) {
-        font-size: 2.4rem;
         margin-bottom: 6rem;
+        font-size: 2.4rem;
     }
 }
 
 .gap__you {
-    display: block;
-    left: 0;
     position: absolute;
     right: 0;
+    left: 0;
+    display: block;
     transition: opacity 500ms;
 }
 
@@ -61,8 +55,8 @@
 }
 
 .gap__man-woman, .gap__amount, .gap__currency {
-    font-weight: 700;
     color: $color-red;
+    font-weight: 700;
 }
 
 .gap__man-woman-other, .gap__amount-other, .gap__currency-other, .gap__more-less-other {
@@ -70,51 +64,51 @@
 }
 
 .gap__bars-vertical {
-    height: 26rem;
     position: relative;
+    height: 26rem;
 
     @media (min-width: 550px) {
-        height: auto;
         position: static;
+        height: auto;
     }
 }
 
 .gap__bars {
     @media (min-width: 550px) {
-        height: auto;
         float: none;
-        overflow: hidden;
-        height: 9.5rem;
         width: 100%;
+        height: auto;
+        height: 9.5rem;
+        overflow: hidden;
     }
 }
 
 .gap__bar {
-    color: white;
     position: absolute;
     bottom: 0;
-    height: 0%;
-    transition: all 2s;
     width: 55.5556%;
+    height: 0%;
+    color: white;
+    transition: all 2s;
 
     @media (min-width: 550px) {
         position: relative;
         clear: both;
-        margin-bottom: 2rem;
-        height: 7.5rem;
-        line-height: 7.5rem;
         width: 0;
+        height: 7.5rem;
+        margin-bottom: 2rem;
+        line-height: 7.5rem;
         transition: width 2s;
     }
 }
 
 .gap__bar-key {
     position: absolute;
+    right: 0;
     bottom: 1rem;
     left: 0;
-    right: 0;
-    white-space: nowrap;
     text-align: center;
+    white-space: nowrap;
 
     @media (min-width: 550px) {
         position: static;
@@ -123,13 +117,13 @@
 }
 
 .gap__bar--you {
-    background: $color-red;
-    left: -5.556%;
     right: 50%;
-    
+    left: -5.556%;
+    background: $color-red;
+
     @media (min-width: 550px) {
-        left: auto;
         right: auto;
+        left: auto;
     }
 
     .gap__icon--man, .gap__icon--woman {
@@ -142,13 +136,13 @@
 }
 
 .gap__bar--them {
-    background: $color-background-dark;
-    left: 50%;
     right: -5.556%;
+    left: 50%;
+    background: $color-background-dark;
 
     @media (min-width: 550px) {
-        left: auto;
         right: auto;
+        left: auto;
     }
 
     .gap__icon--man, .gap__icon--woman {
@@ -175,8 +169,8 @@
     transition: opacity 350ms;
     position: absolute;
     top: 2.5rem;
-    left: 0;
     right: 0;
+    left: 0;
     text-align: center;
 
     &.show {
@@ -185,8 +179,8 @@
 
     &.move {
         position: absolute;
-        bottom: 100%;
         top: auto;
+        bottom: 100%;
         float: none;
         margin-bottom: 20px;
         white-space: nowrap;
@@ -197,21 +191,21 @@
     }
 
     @media (min-width: 550px) {
+        position: static;
+        top: auto;
+        right: auto;
+        left: auto;
         float: right;
         padding-left: 1rem;
         padding-right: 4rem;
-        position: static;
-        top: auto;
-        left: auto;
-        right: auto;
         text-align: left;
 
         &.move {
             position: absolute;
             bottom: auto;
-            margin-bottom: 0;
             left: 100%;
             float: none;
+            margin-bottom: 0;
             margin-left: 20px;
             white-space: nowrap;
 
@@ -227,8 +221,8 @@
         font-size: 1.8rem;
 
         @media (min-width: 550px) {
-            font-size: 3.3rem; 
-        } 
+            font-size: 3.3rem;
+        }
     }
 }
 
@@ -256,9 +250,9 @@
     margin-top: 4rem;
 
     @media (min-width: 600px) {
-        left: 50%;
         position: absolute;
         top: 0;
+        left: 50%;
         transform: translateX(-50%);
     }
 }
@@ -287,13 +281,13 @@
 
 .gap__info-wrapper {
     margin: 2rem auto;
+    padding-left: 0;
     text-align: center;
-    padding-left:0;
 
     @media (min-width: 600px) {
         //position: absolute;
-        right: 0;
         top: 0;
+        right: 0;
     }
 }
 
@@ -310,7 +304,7 @@
 
 .gap__bottom-text {
     @media (min-width: 600px) {
-        padding-top: 8rem;
         position: relative;
+        padding-top: 8rem;
     }
 }

@@ -27,8 +27,8 @@
     width: 90%;
     max-width: 660px;
     background: white;
-    overflow: scroll;
     text-align: center;
+    overflow: scroll;
 }
 
 .info__title {
@@ -51,7 +51,7 @@
     text-align: left;
 
     @media (min-width: 550px) {
-        padding: 5rem 4.4rem 2rem 4.4rem;
+        padding: 5rem 4.4rem 2rem;
     }
 
     a {
@@ -66,7 +66,7 @@
 }
 
 .info__close {
-    margin-bottom:  4rem;
+    margin-bottom: 4rem;
 }
 
 .info--small {

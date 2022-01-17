@@ -5,7 +5,7 @@
 html,
 body,
 main {
-  width:100%
+  width: 100%;
 }
 
 /*
@@ -22,15 +22,15 @@ html {
 }
 
 body {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 100%;
   margin: 0;
-  padding:0;
+  padding: 0;
   color: $color-font-primary;
   background-color: $color-background-primary;
   font-size: 1.6rem;
-  font-family: "proxima-nova", "Arial", sans-serif; 
-  display: inline-block;
-  min-width: 100%;
-  box-sizing: border-box;
+  font-family: "proxima-nova", "Arial", sans-serif;
 }
 
 button,

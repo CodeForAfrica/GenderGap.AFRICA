@@ -34,14 +34,13 @@ yarn
 gulp
 ```
 
-4) Set up a server and watch for changes:
+4) Set up a server and watch for changes on your localhost:
 
 ```
 gulp serve
 ```
 
 ## Deployment
-
 Deploy to Github Page:
 
 ```

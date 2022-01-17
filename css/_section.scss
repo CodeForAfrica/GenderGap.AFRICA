@@ -2,15 +2,13 @@
 
 .section {
   width: 100%;
-  
   // .section remains hidden until is .section--active is added
+   // .section has no padding-top until .section--active is added
   height: 0 !important;
+  padding-top: 0px;
   overflow: hidden;
   opacity: 0;
   transition: opacity $transition-duration-normal;
-
-  // .section has no padding-top until .section--active is added
-  padding-top: 0px;
 }
 
   .section__header {}
@@ -21,10 +19,8 @@
 .section--active {
   opacity: 1;
   z-index: 1;
-  
   height: auto !important;
   min-height: 100vh !important;
-
   padding-top: 30px;
   @media (min-width: 550px) {
     padding-top: 70px;
@@ -100,7 +96,7 @@
   }
 
 .section__visualizations--local, .section__visualizations--global {
-  height:100%;
+  height: 100%;
 
   @media (min-width: 550px) {
     display: flex;
@@ -143,8 +139,6 @@
 .section__visualizations--global .section--visualizations__wrapper {
   margin-top: 4rem;
 }
-
-
 
 footer {
   .logos img {

@@ -3,12 +3,12 @@
 .section {
   width: 100%;
   // .section remains hidden until is .section--active is added
+   // .section has no padding-top until .section--active is added
   height: 0 !important;
   padding-top: 0px;
   overflow: hidden;
   opacity: 0;
   transition: opacity $transition-duration-normal;
-  // .section has no padding-top until .section--active is added
 }
 
   .section__header {}

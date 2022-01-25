@@ -1,41 +1,41 @@
 COUNTRY,CURRENCY CODE,EXCHANGE RATE
 Algeria,DZD,139.305
 Angola,AOA,530
-Benin,BEN,86.0103
-Botswana,BWA,73.8522
-Burkina Faso,BFA,86.0103
-Burundi,BDI,2
-Cameroon,CMR,822.78
+Benin,CFA,86.0103
+Botswana,BWP,73.8522
+Burkina Faso,CFA,86.0103
+Burundi,BIF,2
+Cameroon,XAF,822.78
 Cape Verde,CPV,3970.86
 Chad,TCD,15.3608
 Congo Dem Rep,COD,6.3578
 Côte d'Ivoire,CIV,2005
-Egypt,EGY,15.709
-Ethiopia,ETH,49.41
-Gambia,GMB,0.727858
-Ghana,GHA,0.727858
-Guinea,GIN,6.175
-Kenya,KEN,114.227
-Lesotho,LSO,15.3613
-Liberia,LBR,845.51
-Madagascar,MDG,9.20672
-Malawi,MWI,15.45
-Mali,MLI,54.2197
-Mauritania,MRT,8.02791
-Mauritius,MUS,43.8
-Morocco,MAR,9.20672
-Mozambique,MOZ,8.02791
-Namibia,NAM,15.54
-Nigeria,NGA,15.54
-Papua New Guinea,PNG,3.9514
-Rwanda,RWA,75.6008
-Senegal,SEN,8.90388
-Sierra Leone,SLE,0.727858
-South Africa,ZAF,150.375
-Swaziland,SWZ,8.75367
-Tanzania,TZA,27.5938
-Togo,TGO,15.3608
-Tunisia,TUN,6.80858
-Uganda,UGA,27.7574
-Zambia,ZMB,150.375
-Zimbabwe,ZWE,16.8603
+Egypt,EGP,15.709
+Ethiopia,ETB,49.41
+Gambia,GMD,0.727858
+Ghana,GHS,0.727858
+Guinea,GNF,6.175
+Kenya,KES,114.227
+Lesotho,LSL,15.3613
+Liberia,LRD,845.51
+Madagascar,MGA,9.20672
+Malawi,MWK,15.45
+Mali,XOF,54.2197
+Mauritania,MRO,8.02791
+Mauritius,MUR,43.8
+Morocco,MAD,9.20672
+Mozambique,MZN,8.02791
+Namibia,NAD,15.54
+Nigeria,NGN,15.54
+Papua New Guinea,PGK,3.9514
+Rwanda,RWF,75.6008
+Senegal,XOF,8.90388
+Sierra Leone,SLL,0.727858
+South Africa,ZAR,150.375
+Swaziland,SZL,8.75367
+Tanzania,TZS,27.5938
+Togo,XOF,15.3608
+Tunisia,TND,6.80858
+Uganda,UGX,27.7574
+Zambia,ZMW,150.375
+Zimbabwe,ZWL,16.8603

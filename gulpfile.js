@@ -135,7 +135,9 @@ gulp.task('serve', () =>  {
   gulp.watch('data/**/*', ['copy:data']);
 });
 
-gulp.task('deploy', function() {
+gulp.task('deploy', ['clean', 'build', 'deploy:ghpages']);
+
+gulp.task('deploy:ghpages', function() {
   return gulp.src(['./dist/**/*', './CNAME'])
     .pipe(ghPages());
 });

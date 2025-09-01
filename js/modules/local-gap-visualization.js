@@ -1,90 +1,208 @@
-import * as d3 from "d3";
 import utils from "../utilities";
+import CountUp from 'countup.js';
 
-let localGapVisualization = () => {
-  let initialize = (data, dataCurrencies, user) => {
-    let countryData = data.find(d => d.COUNTRY.replace("*", "") === user.country);
+export default {
+    initialize: (data, dataCurrencies, user) => {
+        let isMobile = true;
 
-    let salaryMan   = +countryData["Estimated Earned Income Male"] * 1000,
-        salaryWoman = +countryData["Estimated Earned Income Female"] * 1000,
-        salary      = user.salary,
-        salaryOther = 0;
+        if(window.matchMedia("(min-width: 550px)").matches) {
+            isMobile = false;
+        }
 
-    if (user.gender === "male") {
-      salaryOther = (salaryWoman / salaryMan) * salary;
-    } else {
-      salaryOther = (salaryMan / salaryWoman) * salary;
+        let countryTexts = document.querySelectorAll('.gap__country');
+        for (let i = 0; i < countryTexts.length; i++) {
+            countryTexts[i].innerHTML = user.country;
+        }
+
+        let currencyTexts = document.querySelectorAll('.gap__currency, .gap__currency-other');
+        for (let i = 0; i < currencyTexts.length; i++) {
+            currencyTexts[i].innerHTML = user.currency;
+        }
+
+        let genderTexts = document.querySelectorAll('.gap__gender');
+        for (let i = 0; i < genderTexts.length; i++) {
+            genderTexts[i].innerHTML = user.gender;
+        }
+
+        let manWomanTexts = document.querySelectorAll('.gap__man-woman');
+        for (let i = 0; i < manWomanTexts.length; i++) {
+            manWomanTexts[i].innerHTML = user.gender === 'male' ? 'man' : 'woman';
+        }
+
+        let manWomanOtherTexts = document.querySelectorAll('.gap__man-woman-other');
+        for (let i = 0; i < manWomanOtherTexts.length; i++) {
+            manWomanOtherTexts[i].innerHTML = user.gender === 'male' ? 'woman' : 'man';
+        }
+
+        let otherGenderTexts = document.querySelectorAll('.gap__gender-other');
+        for (let i = 0; i < otherGenderTexts.length; i++) {
+            otherGenderTexts[i].innerHTML = user.otherGender;
+        }
+
+        let country = data.find(d => d.COUNTRY === user.country);
+
+        let averageSalary = {
+          annual: {
+            men: country["Estimated Earned Income Male"] * 1000,
+            women: country["Estimated Earned Income Female"] * 1000
+          },
+          monthly: {}
+        };
+
+        averageSalary.monthly.men = averageSalary.annual.men / 12;
+        averageSalary.monthly.women = averageSalary.annual.women / 12;
+        
+        let moreLess = document.querySelector('.gap__more-less');
+        let moreLessOther = document.querySelector('.gap__more-less-other');
+        if (user.gender === 'female') {
+            if (averageSalary.annual.men > averageSalary.annual.women) {
+                moreLess.innerHTML = 'more';
+                moreLessOther.innerHTML = 'more';
+            } else {
+                moreLess.innerHTML = 'less';
+                moreLessOther.innerHTML = 'less';
+            }
+        } else {
+            if (averageSalary.annual.men > averageSalary.annual.women) {
+                moreLess.innerHTML = 'more';
+                moreLessOther.innerHTML = 'less';
+            } else {
+                moreLess.innerHTML = 'less';
+                moreLessOther.innerHTML = 'more';
+            }
+        }
+        
+        let genderName = user.gender === 'male' ? 'man' : 'woman';
+        document.querySelector('.gap__bar--you .gap__icon--' + genderName).classList.add('show');
+        document.querySelector('.gap__bar--them .gap__icon--' + genderName).classList.add('hide');
+
+        let baseSalary = user.salary;
+        let ratioSalary;
+        let countUp;
+        let ratio = averageSalary.annual.women / averageSalary.annual.men;
+        let amountTexts = document.querySelectorAll('.gap__amount');
+        for (let i = 0; i < amountTexts.length; i++) {
+            amountTexts[i].innerHTML = utils.numberWithCommas(baseSalary);
+        }
+
+        if (user.gender === 'male') {
+            ratioSalary = baseSalary * ratio;
+        } else {
+            ratioSalary = baseSalary / ratio;
+        }
+
+        let amountOtherTexts = document.querySelectorAll('.gap__amount-other');
+        let differenceAmount = utils.numberWithCommas(Math.round(Math.abs(ratioSalary - baseSalary)));
+        for (let i = 0; i < amountOtherTexts.length; i++) {
+            amountOtherTexts[i].innerHTML = differenceAmount;
+        }
+
+        let percentage = utils.numberWithCommas(Math.round((averageSalary.monthly.men - averageSalary.monthly.women) / averageSalary.monthly.women * 100));
+        document.querySelector('.gap__percent').innerHTML = percentage;
+        document.querySelector('.gap__bar--them .gap__bar-amount').innerHTML = utils.numberWithCommas(Math.round(ratioSalary));
+        
+        let setWidths = () => {
+            document.querySelector('.gap__bar--you').addEventListener("transitionend", function(event) {
+                checkWidths('you');
+                document.querySelector('.gap__bar--them').addEventListener("transitionend", function(event) {
+                    checkWidths('them');
+                }, {once: true});
+                setTimeout(function() {
+                    document.querySelector('.gap__you').addEventListener('transitionend', function(event) {
+                        document.querySelector('.gap__them').style.opacity = 1;    
+                    }, {once: true});
+                    document.querySelector('.gap__you').style.opacity = 0
+                    document.querySelector('.gap__bar--them').style.width = baseSalary > ratioSalary ? ratioSalary / baseSalary * 100 + '%' : '100%';
+                }, 2000);
+            }, {once: true});
+            document.querySelector('.gap__bar--you').style.width = baseSalary > ratioSalary ? '100%' : baseSalary / ratioSalary * 100 + '%';
+        }
+
+        let setHeights = () => {
+            document.querySelector('.gap__bar--you').style.height = '0%';
+            document.querySelector('.gap__bar--you').addEventListener("transitionend", function(event) {
+                checkHeights('you');
+                document.querySelector('.gap__bar--them').addEventListener("transitionend", function(event) {
+                    checkHeights('them');
+                }, {once: true});
+                setTimeout(function() {
+                    document.querySelector('.gap__you').addEventListener('transitionend', function(event) {
+                        document.querySelector('.gap__them').style.opacity = 1;    
+                    }, {once: true});
+                    document.querySelector('.gap__you').style.opacity = 0
+                    document.querySelector('.gap__bar--them').style.height = baseSalary > ratioSalary ? ratioSalary / baseSalary * 100 + '%' : '100%';
+                }, 2000);
+            }, {once: true});
+            setTimeout(function() {
+                document.querySelector('.gap__bar--you').style.height = baseSalary > ratioSalary ? '100%' : baseSalary / ratioSalary * 100 + '%';
+            }, 50);
+        }
+
+        if (window.matchMedia("(min-width: 550px)").matches) {
+            setWidths();
+        } else {
+            setHeights();
+        }
+        // if (user.gender === 'male') {
+        //     document.querySelector("#count-up-two").innerHTML = utils.numberWithCommas(Math.round(baseSalary));
+        //     ratioSalary = baseSalary * ratio;
+        //     countUp = new CountUp("count-up-one", Math.round(baseSalary), Math.round(ratioSalary), 0, 2, {useEasing: false});
+            
+        // } else {
+        //     document.querySelector("#count-up-one").innerHTML = utils.numberWithCommas(Math.round(baseSalary));
+        //     ratioSalary = baseSalary / ratio;
+        //     countUp = new CountUp("count-up-two", Math.round(baseSalary), Math.round(ratioSalary), 0, 2, {useEasing: false});
+        // }
+
+        let checkHeights = (identity) => {
+            let salaryClasses = document.querySelector('.gap__bar--' + identity + ' .gap__bar-salary').classList;
+            if (document.querySelector('.gap__bar--' + identity).clientHeight < 75) {
+                salaryClasses.add('move');
+            } else {
+                salaryClasses.remove('move');
+            }
+            salaryClasses.add('show');
+        }
+
+        let checkWidths = (identity) => {
+            let salaryClasses = document.querySelector('.gap__bar--' + identity + ' .gap__bar-salary').classList;
+            if (document.querySelector('.gap__bar--' + identity).clientWidth < 
+                document.querySelector('.gap__bar--' + identity + ' .gap__icon--man').clientWidth + document.querySelector('.gap__bar--' + identity + ' .gap__icon--woman').clientWidth + document.querySelector('.gap__bar--' + identity + ' .gap__bar-text').clientWidth + document.querySelector('.gap__bar--' + identity + ' .gap__bar-salary').clientWidth) {
+                salaryClasses.add('move');
+            } else {
+                salaryClasses.remove('move');
+            }
+            salaryClasses.add('show');
+        }
+
+        let resize = () => {
+            if(window.matchMedia("(min-width: 550px)").matches) {
+                if (isMobile) {
+                    document.querySelector('.gap__bar--them').removeAttribute('style');
+                    document.querySelector('.gap__bar--you').removeAttribute('style');
+                    isMobile = false;
+                }
+            } else {
+                if (!isMobile) {
+                    document.querySelector('.gap__bar--them').removeAttribute('style');
+                    document.querySelector('.gap__bar--you').removeAttribute('style');
+                    isMobile = true;
+                }
+            }
+            
+            if (isMobile) {    
+                setHeights();
+            } else {
+                setWidths();
+            }
+        };
+
+        utils.throttle('resize', 'resize.global');
+        window.addEventListener('resize.global', () => {
+            resize();
+        });
+
+        // countUp.start();
+        // countUpThree.start();
     }
-
-    let percent = Math.round(((salaryMan - salaryWoman) / salaryWoman) * 100);
-
-    let format = d3.format(",.0f");
-
-    document.querySelector(".gap__you .gap__man-woman").innerHTML = user.gender;
-    [...document.querySelectorAll(".gap__you .gap__amount")].forEach((span) => {
-      span.innerHTML = format(salary);
-    });
-    [...document.querySelectorAll(".gap__you .gap__currency")].forEach((span) => {
-      span.innerHTML = user.currency;
-    });
-
-    document.querySelector(".gap__them .gap__man-woman-other").innerHTML = user.otherGender;
-    [...document.querySelectorAll(".gap__them .gap__amount-other")].forEach((span) => {
-      span.innerHTML = format(salaryOther);
-    });
-    [...document.querySelectorAll(".gap__them .gap__currency-other")].forEach((span) => {
-      span.innerHTML = user.currency;
-    });
-
-    if (salaryOther > salary) {
-      [...document.querySelectorAll(".gap__them .gap__more-less-other")].forEach((span) => {
-        span.innerHTML = "more";
-      });
-    } else {
-      [...document.querySelectorAll(".gap__them .gap__more-less-other")].forEach((span) => {
-        span.innerHTML = "less";
-      });
-    }
-
-    if (user.gender === "female") {
-      document.querySelector(".gap__bar--you").classList.add("gap__bar--woman");
-      document.querySelector(".gap__bar--them").classList.add("gap__bar--man");
-    } else {
-      document.querySelector(".gap__bar--you").classList.add("gap__bar--man");
-      document.querySelector(".gap__bar--them").classList.add("gap__bar--woman");
-    }
-
-    [...document.querySelectorAll(".gap__bar--you .gap__amount")].forEach((span) => {
-      span.innerHTML = format(salary);
-    });
-    [...document.querySelectorAll(".gap__bar--you .gap__currency")].forEach((span) => {
-      span.innerHTML = user.currency;
-    });
-
-    document.querySelector(".gap__bar--them .gap__gender-other").innerHTML = user.otherGender;
-    document.querySelector(".gap__bar--them .gap__bar-amount").innerHTML = format(salaryOther);
-
-    [...document.querySelectorAll(".gap__country")].forEach((span) => {
-      span.innerHTML = countryData.COUNTRY;
-    });
-
-    document.querySelector(".gap__percent").innerHTML = percent;
-
-    if (percent > 0) {
-      document.querySelector(".gap__more-less").innerHTML = "more";
-    } else {
-      document.querySelector(".gap__more-less").innerHTML = "less";
-    }
-
-    let salaryDifference      = Math.round(salaryMan - salaryWoman),
-        salaryDifferenceOther = Math.round(salaryOther - salary);
-
-    document.querySelector(".gap__difference-other .gap__amount").innerHTML = format(Math.abs(salaryDifferenceOther));
-  };
-
-  return {
-    initialize: initialize
-  };
 };
-
-export default localGapVisualization();

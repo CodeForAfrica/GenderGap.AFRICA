@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // Map currency codes using the ISO3 code for accuracy.
           data.forEach(countryData => {
             const iso3 = countryData["Country iso3"];
-            const currencyInfo = dataCurrencies.find(c => c.ISO && c.ISO.trim() === iso3.trim());
+            const currencyInfo = dataCurrencies.find(c => c.ISO && iso3 && c.ISO.trim() === iso3.trim());
             if (currencyInfo) {
                 countryData["CURRENCY CODE"] = currencyInfo["CURRENCY CODE"];
             } else {
@@ -405,7 +405,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Populate dropdown with currencies listed in the data file.
-    let currencies = dataCurrencies.map(d => d["CURRENCY CODE"]);
+    let currencies = dataCurrencies.filter(d => d["CURRENCY CODE"]).map(d => d["CURRENCY CODE"]);
     for (let i = 0; i < currencies.length; i++) {
       fields.currency.insertAdjacentHTML("beforeend", "<option>" + currencies[i] + "</option>");
     }

@@ -91,16 +91,19 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.text())
         .then((text) => {
 
-          // Convert CSV data to JSON.
-          let data = d3.csvParse(text);
+          // Convert CSV data to JSON and filter out empty rows.
+          let data = d3.csvParse(text).filter(d => d.COUNTRY && d.COUNTRY.trim() !== "");
 
-          dataCurrencies.forEach((d) => {
-            d["EXCHANGE RATE (USD)"]           = +d["EXCHANGE RATE (USD)"];
-          });
-
-          data.forEach((d) => {
-            d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["Estimated Earned Income Male"]*1000;
-            d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["Estimated Earned Income Female"]*1000;
+          // Map currency codes using the ISO3 code for accuracy.
+          data.forEach(countryData => {
+            const iso3 = countryData["Country iso3"];
+            const currencyInfo = dataCurrencies.find(c => c.ISO && c.ISO.trim() === iso3.trim());
+            if (currencyInfo) {
+                countryData["CURRENCY CODE"] = currencyInfo["CURRENCY CODE"];
+            } else {
+                console.warn(`Currency not found for ${countryData.COUNTRY} (ISO: ${iso3})`);
+                countryData["CURRENCY CODE"] = "USD"; // Default to USD as a fallback
+            }
           });
 
           createFormPage(data, dataCurrencies);
@@ -426,7 +429,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         let listItemCurrency = [...allCurrencyListItems].find(d => d.textContent === currencyToSelect);
-        listItemCurrency.click();
+        if (listItemCurrency) {
+          listItemCurrency.click();
+        }
       };
 
       listItem.addEventListener("click", selectCurrency);

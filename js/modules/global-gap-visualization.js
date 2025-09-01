@@ -1,153 +1,81 @@
-import utils from "../utilities";
-import { CountUp } from 'countup.js';
-import Velocity from 'velocity-animate';
+import * as d3 from "d3";
 
+let globalGapVisualization = () => {
+  let initialize = (data, user) => {
+    let countryData = data.find(d => d.COUNTRY.replace("*", "") === user.country);
 
-export default {
-    initialize: (data, user) => {
-        let difference = document.querySelector('.global__user-difference');
-        let orderedData = [];
-        for (let i = 0; i < data.length; i++) {
-            let female = data[i]['AVERAGE ANNUAL SALARY (WOMEN)'] / 12;
-            let male = data[i]['AVERAGE ANNUAL SALARY (MEN)'] / 12;
-            let gap = Math.round(male - female);
-            orderedData[i] = {
-                country: data[i]['COUNTRY'],
-                female: Math.round(female),
-                male: Math.round(male),
-                gap: gap
-            }
+    let salaryMan   = +countryData["Estimated Earned Income Male"] * 1000,
+        salaryWoman = +countryData["Estimated Earned Income Female"] * 1000,
+        difference  = Math.round((salaryMan - salaryWoman) / 12);
 
-            if (data[i]['COUNTRY'] === user.country) {
-                difference.innerHTML = utils.numberWithCommas(gap);
-            }
-        }
+    let format = d3.format(",.0f");
 
-        orderedData.sort((a, b) => a.gap >= b.gap ? 1 : -1)        
+    document.querySelector(".global__user-country").innerHTML = countryData.COUNTRY;
+    document.querySelector(".global__user-difference").innerHTML = format(difference);
 
-        let countryTexts = document.querySelectorAll('.global__user-country');
-        for (let i = 0; i < countryTexts.length; i++) {
-            countryTexts[i].innerHTML = user.country;
-        }
+    // Sort data from largest gap to smallest
+    data.sort((a, b) => {
+      let gapA = (+a["Estimated Earned Income Male"] - +a["Estimated Earned Income Female"]);
+      let gapB = (+b["Estimated Earned Income Male"] - +b["Estimated Earned Income Female"]);
+      return gapB - gapA;
+    });
 
-        let list = document.createElement('ol');
-        let activeId = 0;
-        list.className = 'global__list';
-        for (let j = 0; j < orderedData.length; j++) {
-            if (orderedData[j].country === user.country && orderedData.length !== j + 1) {
-                if (j === 0) {
-                    document.querySelector('.global__superlative').innerHTML = 'smallest'
-                } else {
-                    document.querySelector('.global__rank').innerHTML = utils.getRank(orderedData.length - j);    
-                }
-                
-            }
-            const listItem = document.createElement('li');
-            if (user.country === orderedData[j].country) {
-                listItem.className = 'global__country--active';
-                activeId = j;
-            } else {
-                listItem.className = 'global__country';
-            }
-            listItem.setAttribute('id', 'global-country-' + j);
-            const country = document.createElement('span');
-            country.className = 'global__country-name';
-            const countryText = document.createTextNode(orderedData[j].country);
-            const female = document.createElement('span');
-            female.className = 'global__female';
-            const femaleText = document.createTextNode(utils.numberWithCommas(orderedData[j].female));
-            const gap = document.createElement('span');
-            gap.className = 'global__gap';
-            gap.setAttribute('id', 'gap-' + j);
-            // gap.setAttribute('style', 'width:' + orderedData[j].gap * 2 / 3 + 'px');
-            const male = document.createElement('span');
-            male.className = 'global__male';
-            male.setAttribute('id', 'count-up-' + j);
-            const maleText = document.createTextNode(utils.numberWithCommas(orderedData[j].female));
-            country.append(countryText);
-            female.append(femaleText);
-            male.append(maleText);
-            listItem.append(country);
-            listItem.append(female);
-            listItem.append(gap);
-            listItem.append(male);
-            list.append(listItem);
-        }
-
-        document.querySelector('.global__countries').append(list);
-
-        let gapRatio = 1 / 4;
-        let windowWidth = window.innerWidth;
-        let maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 109;
-        let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
-
-        if (window.matchMedia("(min-width: 680px)").matches) {
-            gapRatio = 3 / 5;
-            maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 160;
-            maxWidthInner = Math.min(windowWidth * 0.9, 960) - 217;
-        }
-
-        for (let k = 0; k < orderedData.length; k++ ){ 
-            let timeRatio = orderedData[k].gap / orderedData[orderedData.length - 1].gap;
-            let count = new CountUp("count-up-" + k, Math.round(orderedData[k].female), Math.round(orderedData[k].male), 0.5, 5 * timeRatio, {useEasing: false});
-            let width = orderedData[k].gap * gapRatio;
-            if (width > maxWidthInner) {
-                if (width > maxWidthOuter) {
-                    let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
-                    // timeRatio = newWidth / width;
-                    width = newWidth;
-                    document.querySelector('#global-country-' + k).classList.add('global__country--truncated');
-                }
-                document.querySelector('#global-country-' + k).classList.add('global__country--long');
-            } 
-            Velocity(document.getElementById("gap-" + k), { width: width + 'px'}, { duration: 5000 * timeRatio, delay: 500, complete: (element) => {
-                element[0].classList.add('global__gap--complete');
-                if (k === orderedData.length - 1) {
-                    utils.smoothScroll('gap-' + activeId);
-                }
-            }});
-            count.start();
-        }
-
-        let resize = () => {
-            let gapRatio = 1 / 4;
-            let windowWidth = window.innerWidth;
-            let maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 109;
-            let maxWidthInner = Math.min(windowWidth * 0.9, 960) - 154;
-
-            if (window.matchMedia("(min-width: 680px)").matches) {
-                gapRatio = 3 / 5;
-                maxWidthOuter = Math.min(windowWidth * 0.9, 960) - 160;
-                maxWidthInner = Math.min(windowWidth * 0.9, 960) - 217;
-            }
-
-            for (let k = 0; k < orderedData.length; k++ ){ 
-                let country = document.querySelector('#global-country-' + k);
-                country.classList.remove('global__country--long')
-                country.classList.remove('global__country--truncated');
-                let width = orderedData[k].gap * gapRatio;
-                if (width > maxWidthInner) {
-                    if (width > maxWidthOuter) {
-                        let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
-                        width = newWidth;
-                        country.classList.add('global__country--truncated');
-                    }
-                    country.classList.add('global__country--long');
-                } 
-                let gap = document.getElementById("gap-" + k);
-                gap.setAttribute('style', 'width: ' + width + 'px');
-                gap.classList.add('global__gap--complete');
-            }
-        }
-
-        utils.throttle('resize', 'resize.global');
-        window.addEventListener('resize.global', () => {
-            resize();
-        });
-    },
-
-    destroy: () => {
-        let list = document.querySelector('.global__list');
-        list.parentElement.removeChild(list);
+    // Get rank of user's country
+    let rank = data.findIndex(d => d.COUNTRY.replace("*", "") === user.country) + 1;
+    let superlative = "largest";
+    if (rank > data.length / 2) {
+      rank = data.length - rank + 1;
+      superlative = "smallest";
     }
+    let suffix = "";
+    if (rank === 1) {
+      suffix = "st";
+    } else if (rank === 2) {
+      suffix = "nd";
+    } else if (rank === 3) {
+      suffix = "rd";
+    } else {
+      suffix = "th";
+    }
+
+    document.querySelector(".global__rank").innerHTML = rank + suffix;
+    document.querySelector(".global__superlative").innerHTML = superlative;
+
+    let globalCountries = document.querySelector(".global__countries");
+    data.forEach((d, i) => {
+      let salaryMan   = +d["Estimated Earned Income Male"] * 1000,
+          salaryWoman = +d["Estimated Earned Income Female"] * 1000,
+          difference  = (salaryMan - salaryWoman) / salaryWoman;
+
+      let html = `
+        <div class="global__country-wrapper ${d.COUNTRY === countryData.COUNTRY ? "global__country-wrapper--highlight" : ""}">
+          <span class="global__country-rank">${i + 1}</span>
+          <span class="global__country-name">${d.COUNTRY}</span>
+          <span class="global__country-bar">
+            <span class="global__country-bar-female" style="width: ${100 / (1 + difference)}%"></span>
+          </span>
+          <span class="global__country-female-salary">$${format(salaryWoman)}</span>
+          <span class="global__country-male-salary">$${format(salaryMan)}</span>
+        </div>
+      `;
+
+      globalCountries.insertAdjacentHTML("beforeend", html);
+    });
+
+    document.querySelector(".global__country-wrapper--highlight").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  };
+
+  let destroy = () => {
+    [...document.querySelectorAll(".global__country-wrapper")].forEach(d => d.remove());
+  };
+
+  return {
+    initialize: initialize,
+    destroy: destroy
+  };
 };
+
+export default globalGapVisualization();

@@ -32,7 +32,7 @@
       </div>
       <div class="section__body u-vertical-and-horizontal-centering u-background-white">
         <button id="homepage-button" class="button button--red">
-          <span class="button__text" onclick="ga('send', 'event', 'button', 'click', 'Track Calculate');">Calculate</span><img class="button__icon" alt="" src="images/icons/arrow-thin.svg">
+          <span class="button__text" onclick="gtag('event', 'click', {'event_category': 'button', 'event_label': 'Track Calculate'});">Calculate</span><img class="button__icon" alt="" src="images/icons/arrow-thin.svg">
       </button>
     </div>
     </section>
@@ -52,7 +52,7 @@
             <span class="form__line">Where are you from?</span>
             <span class="form__field">
               <span class="u-suffix-space">
-                <select id="field-country" onChange="ga('send', 'event', 'Form Event','Select County', this.options[this.selectedIndex].text);">
+                <select id="field-country" onchange="gtag('event', 'Select County', {'event_category': 'Form Event', 'event_label': this.options[this.selectedIndex].text});">
                   <option selected disabled="disabled">Your country</option>
                 </select>
               </span>

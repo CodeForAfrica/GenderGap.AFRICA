@@ -1,117 +1,110 @@
 'use strict';
 
-const gulp          = require('gulp'),
-  plugins         = require('gulp-load-plugins')(),
-  del             = require('del'),
-  rollup          = require('rollup-stream'),
-  source          = require('vinyl-source-stream'),
-  buffer          = require('vinyl-buffer'),
-  babel           = require('rollup-plugin-babel'),
-  nodeResolve     = require('rollup-plugin-node-resolve'),
-  commonjs        = require('rollup-plugin-commonjs'),
-  browserSync     = require('browser-sync').create(),
-  mkdirp          = require('mkdirp'),
-  fs              = require('fs'),
-  modernizr       = require('modernizr'),
-  modernizrConfig = require('./modernizr-config'),
-  ghPages         = require('gulp-gh-pages');
+const gulp = require('gulp');
+const del = require('del');
+const { rollup } = require('rollup');
+const { babel } = require('@rollup/plugin-babel');
+const nodeResolve = require('@rollup/plugin-node-resolve').default;
+const commonjs = require('@rollup/plugin-commonjs');
+const terser = require('@rollup/plugin-terser');
+const browserSync = require('browser-sync').create();
+const fs = require('fs');
+const modernizr = require('modernizr');
+const modernizrConfig = require('./modernizr-config');
+const ghPages = require('gulp-gh-pages');
+const { exec } = require('child_process'); // ✅ for running CLI tools
 
+// ✅ Gulp plugins
+const autoprefixer = require('autoprefixer');
+const postcss = require('gulp-postcss');
+const addSrc = require('gulp-add-src');
+const cleanCss = require('gulp-clean-css');
+const concat = require('gulp-concat');
+const htmlmin = require('gulp-htmlmin');
+const jshint = require('gulp-jshint');
+const sassCompiler = require('gulp-sass');
 
-gulp.task('default', ['lint', 'build']);
+// ✅ Dart Sass
+const dartSass = require('sass');
+const gulpSass = sassCompiler(dartSass);
 
-gulp.task('lint', ['lint:styles', 'lint:scripts']);
-
-gulp.task('lint:styles', () => {
-  return gulp.src('css/**/*.scss')
-    .pipe(plugins.stylelint({
-      reporters: [
-        { formatter: 'string', console: true }
-      ]
-    }));
-});
-
-gulp.task('lint:scripts', () => {
+// -------------------- Lint tasks --------------------
+function lintScripts() {
   return gulp.src('js/scripts.js')
-    .pipe(plugins.jshint({
-      esversion: 6
-    }))
-    .pipe(plugins.jshint.reporter('default'))
-    .pipe(plugins.jshint.reporter('fail'));
-});
+    .pipe(jshint({ esversion: 6 }))
+    .pipe(jshint.reporter('default'))
+    .pipe(jshint.reporter('fail'));
+}
 
-gulp.task('build', ['build:markup', 'build:styles', 'build:scripts', 'build:modernizr', 'copy:images', 'copy:data']);
+const lint = gulp.parallel(lintScripts);
 
-gulp.task('build:markup', () => {
+// -------------------- Build tasks --------------------
+function buildMarkup() {
   return gulp.src('*.html')
-    .pipe(plugins.htmlmin({
-      collapseWhitespace: true
-    }))
+    .pipe(htmlmin({ collapseWhitespace: true }))
     .pipe(gulp.dest('dist/'));
-});
+}
 
-gulp.task('build:styles', () => {
+function buildStyles() {
   return gulp.src('css/styles.scss')
-    .pipe(plugins.sass())
-    .pipe(plugins.autoprefixer({
-      browsers: ['last 2 versions'],
-      cascade: false
-    }))
-    .pipe(plugins.addSrc.prepend('node_modules/normalize.css/normalize.css'))
-    .pipe(plugins.concat('styles.min.css'))
-    .pipe(plugins.cleanCss())
+    .pipe(gulpSass()) // ✅ Dart Sass
+    .pipe(postcss([autoprefixer({ overrideBrowserslist: ['last 2 versions'] })]))
+    .pipe(addSrc.prepend('node_modules/normalize.css/normalize.css'))
+    .pipe(concat('styles.min.css'))
+    .pipe(cleanCss())
     .pipe(gulp.dest('dist/'));
-});
+}
 
-gulp.task('build:scripts', () => {
-  return rollup({
-    entry: 'js/scripts.js',
-    format: 'iife',
-    moduleName: 'MyBundle',
+async function buildScripts() {
+  const bundle = await rollup({
+    input: 'js/scripts.js',
     plugins: [
       babel({
+        babelHelpers: 'bundled',
         exclude: 'node_modules/**',
-        presets: ['es2015-rollup']
+        presets: ['@babel/preset-env']
       }),
-      nodeResolve({
-        jsnext: true,
-        main: true
-      }),
-      commonjs({
-        include: 'node_modules/**',
-        namedExports: {
-          'node_modules/object-assign/index.js': ['objectAssign']
-        }
-      })
+      nodeResolve(),
+      commonjs(),
+      terser() // ✅ Minify with Rollup's terser plugin
     ]
-  })
-  .pipe(source('scripts.min.js'))
-  .pipe(buffer())
-  .pipe(plugins.uglify())
-  .pipe(gulp.dest('dist/'))
-  .pipe(browserSync.stream());
-});
+  });
 
-gulp.task('build:modernizr', function (done) {
-    modernizr.build(modernizrConfig, function(code) {
-      mkdirp('dist/', (err) => {
-        fs.writeFile('dist/modernizr-build.min.js', code, done);
-      });
-    });
-});
+  await bundle.write({
+    file: 'dist/scripts.min.js',
+    format: 'iife',
+    name: 'MyBundle',
+    sourcemap: true
+  });
+}
 
-gulp.task('copy:images', () => {
+function buildModernizr(done) {
+  modernizr.build(modernizrConfig, function(code) {
+    fs.mkdirSync('dist', { recursive: true });
+    fs.writeFileSync('dist/modernizr-build.min.js', code);
+    done();
+  });
+}
+
+function copyImages() {
   return gulp.src('images/**/*')
     .pipe(gulp.dest('dist/images/'));
-});
+}
 
-gulp.task('copy:data', () => {
+function copyData() {
   return gulp.src('data/**/*')
     .pipe(gulp.dest('dist/data/'));
-});
+}
 
-gulp.task('clean', () => del('dist/'));
+const build = gulp.parallel(buildMarkup, buildStyles, buildScripts, buildModernizr, copyImages, copyData);
 
-gulp.task('serve', () =>  {
+// -------------------- Clean --------------------
+function clean() {
+  return del('dist/');
+}
+
+// -------------------- Serve --------------------
+function serve() {
   browserSync.init({
     server: 'dist/',
     ghostMode: false,
@@ -119,23 +112,23 @@ gulp.task('serve', () =>  {
     https: true
   });
 
-  // Watch HTML files.
-  gulp.watch('*.html', ['build:markup']);
+  gulp.watch('*.html', buildMarkup).on('change', browserSync.reload);
+  gulp.watch('css/**/*.scss', gulp.series(buildStyles)).on('change', browserSync.reload);
+  gulp.watch('js/**/*.js', gulp.series(lintScripts, buildScripts)).on('change', browserSync.reload);
+  gulp.watch('images/**/*', copyImages).on('change', browserSync.reload);
+  gulp.watch('data/**/*', copyData).on('change', browserSync.reload);
+}
 
-  // Watch styles.
-  gulp.watch('css/**/*.scss', ['lint:styles', 'build:styles']);
-
-  // Watch scripts.
-  gulp.watch('js/**/*.js', ['lint:scripts', 'build:scripts']);
-
-  // Watch images.
-  gulp.watch('images/**/*', ['copy:images']);
-
-  // Watch data.
-  gulp.watch('data/**/*', ['copy:data']);
-});
-
-gulp.task('deploy', function() {
+// -------------------- Deploy --------------------
+function deploy() {
   return gulp.src(['./dist/**/*', './CNAME'])
     .pipe(ghPages());
-});
+}
+
+// -------------------- Default --------------------
+exports.clean = clean;
+exports.lint = lint;
+exports.build = build;
+exports.serve = gulp.series(build, serve);
+exports.deploy = deploy;
+exports.default = gulp.series(lint, build);

@@ -1,5 +1,5 @@
 import utils from "../utilities";
-import CountUp from 'countup.js';
+import { CountUp } from 'countup.js';
 import Velocity from 'velocity-animate';
 
 

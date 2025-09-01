@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((text) => {
       let dataCurrencies = d3.csvParse(text);
 
-      fetch("data/data.csv")
+      fetch("data/data-2025.csv")
         .then(response => response.text())
         .then((text) => {
 
@@ -99,8 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
           });
 
           data.forEach((d) => {
-            d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["AVERAGE ANNUAL SALARY (MEN)"];
-            d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["AVERAGE ANNUAL SALARY (WOMEN)"];
+            d["AVERAGE ANNUAL SALARY (MEN)"]   = +d["Estimated Earned Income Male"]*1000;
+            d["AVERAGE ANNUAL SALARY (WOMEN)"] = +d["Estimated Earned Income Female"]*1000;
           });
 
           createFormPage(data, dataCurrencies);

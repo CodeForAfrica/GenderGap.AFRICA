@@ -6,6 +6,8 @@ import Velocity from 'velocity-animate';
 export default {
     initialize: (data, user) => {
         let difference = document.querySelector('.global__user-difference');
+        let higherEarner = document.querySelector('.global__higher-earner');
+        let lowerEarner = document.querySelector('.global__lower-earner');
         let orderedData = [];
         for (let i = 0; i < data.length; i++) {
             let female = data[i]['AVERAGE ANNUAL SALARY (WOMEN)'] / 12;
@@ -19,7 +21,11 @@ export default {
             }
 
             if (data[i]['COUNTRY'] === user.country) {
-                difference.innerHTML = utils.numberWithCommas(gap);
+                difference.innerHTML = utils.numberWithCommas(Math.abs(gap));
+                if (higherEarner && lowerEarner) {
+                    higherEarner.innerHTML = gap < 0 ? 'women' : 'men';
+                    lowerEarner.innerHTML = gap < 0 ? 'men' : 'women';
+                }
             }
         }
 
@@ -87,10 +93,12 @@ export default {
             maxWidthInner = Math.min(windowWidth * 0.9, 960) - 217;
         }
 
-        for (let k = 0; k < orderedData.length; k++ ){ 
-            let timeRatio = orderedData[k].gap / orderedData[orderedData.length - 1].gap;
+        let maxGap = orderedData.reduce((max, d) => Math.max(max, Math.abs(d.gap)), 0) || 1;
+
+        for (let k = 0; k < orderedData.length; k++ ){
+            let timeRatio = Math.abs(orderedData[k].gap) / maxGap;
             let count = new CountUp("count-up-" + k, Math.round(orderedData[k].female), Math.round(orderedData[k].male), 0.5, 5 * timeRatio, {useEasing: false});
-            let width = orderedData[k].gap * gapRatio;
+            let width = Math.abs(orderedData[k].gap) * gapRatio;
             if (width > maxWidthInner) {
                 if (width > maxWidthOuter) {
                     let newWidth = maxWidthInner + 50 + windowWidth * 0.05;
@@ -125,7 +133,7 @@ export default {
                 let country = document.querySelector('#global-country-' + k);
                 country.classList.remove('global__country--long')
                 country.classList.remove('global__country--truncated');
-                let width = orderedData[k].gap * gapRatio;
+                let width = Math.abs(orderedData[k].gap) * gapRatio;
                 if (width > maxWidthInner) {
                     if (width > maxWidthOuter) {
                         let newWidth = maxWidthInner + 50 + windowWidth * 0.05;

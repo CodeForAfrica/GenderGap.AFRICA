@@ -14,7 +14,8 @@ const gulp          = require('gulp'),
   fs              = require('fs'),
   modernizr       = require('modernizr'),
   modernizrConfig = require('./modernizr-config'),
-  ghPages         = require('gulp-gh-pages');
+  ghPages         = require('gulp-gh-pages'),
+  sass            = require('gulp-sass')(require('sass'));
 
 
 gulp.task('default', ['lint', 'build']);
@@ -51,7 +52,7 @@ gulp.task('build:markup', () => {
 
 gulp.task('build:styles', () => {
   return gulp.src('css/styles.scss')
-    .pipe(plugins.sass())
+    .pipe(sass().on('error', sass.logError))
     .pipe(plugins.autoprefixer({
       browsers: ['last 2 versions'],
       cascade: false

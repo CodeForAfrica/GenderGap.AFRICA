@@ -1,0 +1,36 @@
+name: Deploy to GitHub Pages
+
+# Publishes the committed dist/ folder to the gh-pages branch using the
+# automatic GITHUB_TOKEN — no personal access token, SSH key, or password
+# required. This replaces the manual `gulp deploy` step (which only pushed
+# ./dist + CNAME to gh-pages and no longer authenticates over HTTPS).
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Allow the job's GITHUB_TOKEN to push to the gh-pages branch.
+permissions:
+  contents: write
+
+# Never run two deploys at once.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Publish dist/ to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          cname: gendergap.africa
+          commit_message: "Deploy ${{ github.sha }}"

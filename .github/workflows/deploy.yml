@@ -1,0 +1,55 @@
+name: Build and deploy to GitHub Pages
+
+# Builds the site from source with gulp and publishes the resulting dist/
+# folder to the gh-pages branch using the automatic GITHUB_TOKEN — no
+# personal access token, SSH key, or password required. Replaces the manual
+# `gulp build` + `gulp deploy` steps, so dist/ no longer needs to be
+# committed to the repository.
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+# Allow the job's GITHUB_TOKEN to push to the gh-pages branch.
+permissions:
+  contents: write
+
+# Never run two deploys at once.
+concurrency:
+  group: gh-pages-deploy
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build dist/
+        run: npx gulp build
+
+      - name: Publish dist/ to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cp CNAME dist/CNAME          # preserve the custom domain
+          cd dist
+          git init -q
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy ${GITHUB_SHA}"
+          git push --force -q \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            HEAD:gh-pages
